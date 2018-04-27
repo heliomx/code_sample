@@ -1,15 +1,9 @@
 <template>
-  <v-app id="inspire">
+<v-app id="inspire">
 
-    <v-navigation-drawer
-      fixed
-      :clipped="true"
-      app
-      mobile-break-point="1024"
-      v-model="drawer"
-    >
-      <v-list dense>
-        <template v-for="item in items">
+    <v-navigation-drawer fixed :clipped="true" app mobile-break-point="1024" v-model="drawer">
+        <v-list dense>
+            <template v-for="item in items">
           <v-layout
             row
             v-if="item.heading"
@@ -66,71 +60,83 @@
             </v-list-tile-content>
           </v-list-tile>
         </template>
-      </v-list>
+        </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      color="primary"
-      dark
-      app
-      :clipped-left="true"
-      fixed
-    >
-      <v-toolbar-title class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">Rádio Brasil</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn flat @click="$auth.logout()">Sair</v-btn>
+    <v-toolbar color="primary" dark app :clipped-left="true" fixed>
+        <v-toolbar-title class="ml-0 pl-3">
+            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <span class="hidden-sm-and-down">Rádio Brasil</span>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn flat @click="$auth.logout()">Sair</v-btn>
     </v-toolbar>
-    <v-content >
-        <v-container fluid>
-          <router-view></router-view>
+
+    <v-content>
+        <v-progress-linear v-if="$global.loading" :indeterminate="true"></v-progress-linear>
+        <v-container fluid fill-height>
+            <v-layout justify-center align-center>
+                <router-view></router-view>
+            </v-layout>
         </v-container>
     </v-content>
-    
-  </v-app>
+
+</v-app>
 </template>
 
 <script>
+
+
 export default {
-  data: () => ({
-    dialog: false,
-    drawer: null,
-    items: [
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Clientes",
-        children: [
-            { icon: "contacts", text: "Listar", link: "/clientes" },
-            { icon: "add", text: "Cadastrar", link: "/clientes/cadastrar" },
+    data: () => ({
+        dialog: false,
+        drawer: null,
+        items: [{
+                icon: "keyboard_arrow_up",
+                "icon-alt": "keyboard_arrow_down",
+                text: "Clientes",
+                children: [{
+                        icon: "contacts",
+                        text: "Listar",
+                        link: "/clientes"
+                    },
+                    {
+                        icon: "add",
+                        text: "Cadastrar",
+                        link: "/clientes/cadastrar"
+                    },
+
+                ]
+            },
+            // {
+            //     icon: "keyboard_arrow_up",
+            //     "icon-alt": "keyboard_arrow_down",
+            //     text: "Relatórios",
+            //     children: [{
+            //             text: "Clientes"
+            //         },
+            //         {
+            //             text: "Programas"
+            //         },
+
+            //     ]
+            // },
+            // {
+            //     icon: "radio",
+            //     text: "Programas",
+            // },
 
         ]
-      },
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Relatórios",
-        children: [
-            { text: "Clientes" },
-            { text: "Programas" },
+    }),
+    props: {
+        source: String
+    },
+    created() {
 
-        ]
-      },
-      {
-        icon: "radio",
-        text: "Programas",
-      },
-      
-    ]
-  }),
-  props: {
-    source: String
-  },
-  methods: {
-    open(item){
-      if (item.link) this.$router.push(item.link);
+    },
+    methods: {
+        open(item) {
+            if (item.link) this.$router.push(item.link);
+        }
     }
-  }
 };
 </script>

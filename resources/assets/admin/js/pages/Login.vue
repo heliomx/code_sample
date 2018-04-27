@@ -21,7 +21,7 @@
         <v-container fluid fill-height>
           
           <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
+            <v-flex xs12 sm10 md6>
               <v-form v-model="valid" ref="form">
               <v-card class="elevation-12">
                 <v-toolbar dark color="primary">
@@ -74,7 +74,7 @@
               success: function () {},
               error: function () {},
               rememberMe: true,
-              redirect: '/dashboard',
+              redirect: '/clientes',
               fetchUser: true,
           }); 
         }      

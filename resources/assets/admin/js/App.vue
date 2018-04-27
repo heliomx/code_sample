@@ -31,7 +31,7 @@ export default {
         this.$auth.ready( () => {
             if (this.$auth.check())
             {
-                this.$router.push('/dashboard');
+                //this.$router.push('/clientes/cadastrar');
             } else {
                 this.$router.push('/login');
             }
