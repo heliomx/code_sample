@@ -1,0 +1,145 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Client;
+use App\User;
+use App\Http\Resources\Client as ClientResource;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
+class ClientController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return ClientResource::collection(Client::with('user')->get());
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        
+        try {
+            DB::beginTransaction();
+            $user = User::create([
+                'name' => $request->input('user.name'),
+                'email' => $request->input('user.email'),
+                'role'  => 'C',
+                'password' => bcrypt($request->input('user.password')),
+            ]);
+            
+            
+            $client = Client::create([
+                'user_id'       => $user->id,
+                'radio_type'    => $request->input('radio_type'),
+                'radio_name'    => $request->input('radio_name'),
+                'business_category' => $request->input('business_category'),
+                'cpf'  => $request->input('cpf'),
+                'cnpj'  => $request->input('cnpj'),
+                'address'   => $request->input('address'),
+                'address_cep' => $request->input('address_cep'),
+                'address_complement'    => $request->input('address_complement'),
+                'address_city' => $request->input('address_city'),
+                'address_uf'    => $request->input('address_uf'),
+                'tel' => $request->input('tel'),
+                'tel_mobile'   => $request->input('tel_mobile'),
+                'tel_mobile_carrier' => $request->input('tel_mobile_carrier'),
+                'site' => $request->input('site'),
+                'status' => $request->input('status'),
+            ]);
+
+            $client->programs()->attach($request->input('programs'));
+            DB::commit();
+            $r = new ClientResource(Client::with('user', 'programs')->find($client->id));
+        } catch ( \Exception $e ) {
+            DB::rollback();
+            throw $e;
+        }
+        
+        return $r;
+    }
+
+   
+    public function show(Request $request, $id)
+    {
+        return new ClientResource(Client::with('user', 'programs')->find($id));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Client  $client
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $client = Client::find($id);
+            $client->fill([
+                'radio_type'    => $request->input('radio_type'),
+                'radio_name'    => $request->input('radio_name'),
+                'business_category' => $request->input('business_category'),
+                'cpf'  => $request->input('cpf'),
+                'cnpj'  => $request->input('cnpj'),
+                'address'   => $request->input('address'),
+                'address_cep' => $request->input('address_cep'),
+                'address_complement'    => $request->input('address_complement'),
+                'address_city' => $request->input('address_city'),
+                'address_uf'    => $request->input('address_uf'),
+                'tel' => $request->input('tel'),
+                'tel_mobile'   => $request->input('tel_mobile'),
+                'tel_mobile_carrier' => $request->input('tel_mobile_carrier'),
+                'site' => $request->input('site'),
+                'status' => $request->input('status'),
+            ]);
+           
+            $client->user->fill([
+                'name' => $request->input('user.name'),
+                'email' => $request->input('user.email'),
+                'role'  => 'C'
+            ]);
+            if (!empty($request->input('user.password')))
+            {
+                $client->user->password = bcrypt($request->input('user.password'));
+            }
+            $client->user->save();
+
+            $client->programs()->sync($request->input('programs'));
+            $client->save();
+            $r = new ClientResource(Client::with('user', 'programs')->find($client->id));
+            DB::commit();
+        } catch ( \Exception $e ) {
+            DB::rollback();
+            throw $e;
+        }
+        
+        return $r;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Client  $client
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+        Client::find($id)->delete();
+        return response()->json(['success' => true]);
+    }
+}

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <v-container v-if="!$global.loading" fluid grid-list-lg="true">
+    
     <h1 class="headline">Lista de clientes</h1>
     <v-data-table
       :headers="headers"
@@ -8,14 +9,19 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.city }}</td>
-        <td class="text-xs-right">{{ props.item.uf }}</td>
-        <td class="text-xs-right">{{ props.item.tel }}</td>
-        <td class="text-xs-right">{{ props.item.status }}</td>
+        <td>
+          <router-link 
+          :to="{ name: 'editClient', params: { id: props.item.id }}">
+            {{ props.item.radio_name }}
+          </router-link>
+        </td>
+        <td>{{ props.item.address_city }}</td>
+        <td>{{ props.item.address_uf }}</td>
+        <td>{{ props.item.tel }}</td>
+        <td>{{ props.item.status }}</td>
       </template>
     </v-data-table>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -26,15 +32,15 @@ export default {
                 {
                   text: 'Nome da rádio',
                   align: 'left',
-                  value: 'name'
+                  value: 'radio_name'
                 },
                 {
                   text: 'Cidade',
-                  value: 'city'
+                  value: 'address_city'
                 },
                 {
                   text: 'UF',
-                  value: 'uf'
+                  value: 'address_uf'
                 },
                 {
                   text: 'Telefone',
@@ -45,17 +51,23 @@ export default {
                   value: 'status'
                 }
             ],
-            items: [
-              {
-                name: 'A Voz da Cultura WEB',
-                email: 'jel.veloso@hotmail.com',
-                city: 'Jequie',
-                uf: 'BA',
-                tel: '(42) - 8447-2342',
-                status: 'Ativo'
-              }
-            ]
+            items: []
         }
+    },
+    created() {
+      this.fetchData();
+    },
+    methods: {
+      fetchData()
+      {
+        this.$global.loading = true;
+        this.$http.get('clients')
+        .then( r => {
+          this.$global.loading = false;
+          this.items = r.data.data;
+        });
+      }
+      
     }
 };
 </script>

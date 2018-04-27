@@ -6,9 +6,7 @@
     <title>Radio Brasil</title>
 </head>
 <body>
-    <div class="container">
-        <div id="app"></div>
-    </div>
+    <div id="app"></div>
     <script src="/admin-files/js/app.js"></script>
 </body>
 </html>

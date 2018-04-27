@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import App from './App.vue';
+import { SharedData } from './shared';
 
 //Vuetify
 import Vuetify from 'vuetify';
@@ -18,7 +19,7 @@ import Login from './pages/Login.vue';
 import Layout from './pages/Layout.vue';
 // Clients
     import ListClients from './pages/clients/ListClients';
-    import CreateClient from './pages/clients/CreateClient';
+    import CreateEditClient from './pages/clients/CreateEditClient';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -29,6 +30,8 @@ Vue.use(Vuetify, {
         accent: colors.indigo.accent1
     }
 });
+Vue.use(SharedData);
+
 axios.defaults.baseURL = '/api';
 
 const router = new VueRouter({
@@ -65,8 +68,15 @@ const router = new VueRouter({
                 },
                 {
                     path: 'clientes/cadastrar',
-                    name: 'create',
-                    component: CreateClient
+                    name: 'createClient',
+                    canReuse: false,
+                    component: CreateEditClient
+                },
+                {
+                    path: 'clientes/:id',
+                    name: 'editClient',
+                    canReuse: false,
+                    component: CreateEditClient
                 },
                 {
                     path: '/registro',
