@@ -11,14 +11,12 @@
       <template slot="items" slot-scope="props">
         <td>
           <router-link 
-          :to="{ name: 'editClient', params: { id: props.item.id }}">
-            {{ props.item.radio_name }}
+          :to="{ name: 'editProgram', params: { id: props.item.id }}">
+            {{ props.item.name }}
           </router-link>
         </td>
-        <td>{{ props.item.address_city }}</td>
-        <td>{{ props.item.address_uf }}</td>
-        <td>{{ props.item.tel }}</td>
-        <td>{{ props.item.status }}</td>
+        <td>{{ props.item.qt_signatures }}</td>
+        <td>{{ props.item.program_type }}</td>
       </template>
     </v-data-table>
   </v-container>
@@ -30,25 +28,17 @@ export default {
         return {
             headers: [
                 {
-                  text: 'Nome da rádio',
+                  text: 'Nome do programa',
                   align: 'left',
-                  value: 'radio_name'
+                  value: 'name'
                 },
                 {
-                  text: 'Cidade',
-                  value: 'address_city'
+                  text: 'Assinaturas',
+                  value: 'qt_signatures'
                 },
                 {
-                  text: 'UF',
-                  value: 'address_uf'
-                },
-                {
-                  text: 'Telefone',
-                  value: 'tel'
-                },
-                {
-                  text: 'Status',
-                  value: 'status'
+                  text: 'Tipo',
+                  value: 'program_type'
                 }
             ],
             items: []
@@ -61,13 +51,12 @@ export default {
       fetchData()
       {
         this.$global.loading = true;
-        this.$http.get('clients')
+        this.$http.get('programs')
         .then( r => {
           this.$global.loading = false;
           this.items = r.data.data;
         });
       }
-      
     }
 };
 </script>

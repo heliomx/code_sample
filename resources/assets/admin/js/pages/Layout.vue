@@ -107,6 +107,23 @@ export default {
 
                 ]
             },
+            {
+                icon: "keyboard_arrow_up",
+                "icon-alt": "keyboard_arrow_down",
+                text: "Programas",
+                children: [{
+                        icon: "radio",
+                        text: "Listar",
+                        link: "/programas"
+                    },
+                    {
+                        icon: "add",
+                        text: "Cadastrar",
+                        link: "/programas/cadastrar"
+                    },
+
+                ]
+            },
             // {
             //     icon: "keyboard_arrow_up",
             //     "icon-alt": "keyboard_arrow_down",

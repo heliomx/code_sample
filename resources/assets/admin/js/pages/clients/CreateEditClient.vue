@@ -12,9 +12,9 @@
             </v-btn>
         </v-flex>
     </v-layout>
-    <v-form v-model="valid">
-        <v-container fluid grid-list-lg="true">
-            <v-layout row wrap>
+    <v-form v-model="valid" >
+        <v-container fluid grid-list-lg="true" >
+            <v-layout row wrap >
                 <v-flex xs8>
                     <v-text-field v-model="form.user.email" label="E-mail">
                     </v-text-field>

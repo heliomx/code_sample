@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Program;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProgramController extends Controller
 {
@@ -13,7 +14,7 @@ class ProgramController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return response()->json([ 'data' => Program::all()]);
     }
@@ -45,9 +46,9 @@ class ProgramController extends Controller
      * @param  \App\Program  $program
      * @return \Illuminate\Http\Response
      */
-    public function show(Program $program)
+    public function show(Request $request, $id)
     {
-        //
+        return response()->json( [ 'data' => Program::find($id)]);
     }
 
     /**
@@ -56,9 +57,22 @@ class ProgramController extends Controller
      * @param  \App\Program  $program
      * @return \Illuminate\Http\Response
      */
-    public function edit(Program $program)
+    public function edit(Request $request, $id)
     {
-        //
+        $program = Program::find($id);
+        
+        $path = $request->file('img')->store('public/programs');
+        $program->fill([
+            'name'          => $request->input('name'),
+            'description'   => $request->input('description'),
+            'program_type'  => $request->input('program_type'),
+            'img'           => $path
+        ]);
+        
+
+        $program->save();
+
+        return response()->json( [ 'data' => $program ] );
     }
 
     /**
