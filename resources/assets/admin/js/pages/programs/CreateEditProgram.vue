@@ -4,7 +4,7 @@
     <h1 v-if="!editing" class="headline">Cadastrar Novo Programa</h1>
     <v-layout row wrap v-if="editing">
         <v-flex xs9>
-            <h2 class="headline">Editando {{ form.radio_name }}</h2>
+            <h2 class="headline">Editando {{ form.name }}</h2>
         </v-flex>
         <v-flex xs3>
             <v-btn @click="showConfirmDelete">
@@ -13,69 +13,83 @@
             </v-btn>
         </v-flex>
     </v-layout>
-    <v-form v-model="valid">
-        <v-container fluid grid-list-lg="true">
-            <v-layout row wrap>
-                <v-flex xs4>
-                    <v-subheader>Nome do Programa</v-subheader>
-                </v-flex>
-                <v-flex xs8>
-                    <v-text-field v-model="form.name">
-                    </v-text-field>
-                </v-flex>
-                
-                <v-flex xs4 v-if="editing">
-                    <v-subheader>Quantidade de assinaturas</v-subheader>
-                </v-flex>
-                <v-flex xs8 v-if="editing">
-                    <v-text-field style="width:fit-content" v-model="form.qt_signatures" disabled="true">
-                    </v-text-field>
-                </v-flex>
-                
-                <v-flex xs4>
-                    <v-subheader>Tipo</v-subheader>
-                </v-flex>
-                <v-flex xs8>                    
-                    <v-select :items="typeList" v-model="form.program_type" >
-                    </v-select>
-                </v-flex>
+    <div class="form-margin">
+        <v-form v-model="valid">
+            <v-container fluid grid-list-lg="true">
+                <v-layout row wrap>
+                    <v-flex xs4>
+                        <v-subheader>Nome do Programa</v-subheader>
+                    </v-flex>
+                    <v-flex xs8>
+                        <v-text-field v-model="form.name">
+                        </v-text-field>
+                    </v-flex>
+                    
+                    <v-flex xs4 v-if="editing">
+                        <v-subheader>Quantidade de assinaturas ativas</v-subheader>
+                    </v-flex>
+                    <v-flex xs5 v-if="editing">
+                        <v-text-field style="width:fit-content" v-model="form.qt_signatures" :disabled="true">
+                        </v-text-field>
+                    </v-flex>
+                    
+                    <v-flex xs4>
+                        <v-subheader>Tipo</v-subheader>
+                    </v-flex>
+                    <v-flex xs5>                    
+                        <v-select :items="typeList" v-model="form.program_type" >
+                        </v-select>
+                    </v-flex>
 
-                <v-flex xs4>
-                    <v-subheader>Descrição</v-subheader>
-                </v-flex>
-                <v-flex xs8>
-                    <v-text-field v-model="form.description" label="Descrição detalhada do programa de rádio" multi-line></v-text-field>
-                </v-flex>
+                    <v-flex xs4>
+                        <v-subheader>Descrição</v-subheader>
+                    </v-flex>
+                    <v-flex xs8>
+                        <v-text-field v-model="form.description" label="Descrição detalhada do programa de rádio" multi-line></v-text-field>
+                    </v-flex>
 
-                <v-flex xs4>
-                    <v-subheader>Imagem</v-subheader>
-                </v-flex>
-                <v-flex xs8>
-                    <picture-input
-                        ref="pictureInput"
-                        :width="500"
-                        :removable="true"
-                        :prefill="form.full_img_path"
-                        removeButtonClass="ui red button"
-                        :height="500"
-                        accept="image/jpeg, image/png, image/gif"
-                        buttonClass="ui button primary"
-                        :customStrings="{
-                        upload: '<h1>Enviar</h1>',
-                        drag: 'Arraste e solte a imagem aqui'}">
+                    <v-flex xs4>
+                        <v-subheader>Imagem</v-subheader>
+                    </v-flex>
+                    <v-flex xs8>
+                        <picture-input
+                            ref="pictureInput"
+                            :width="500"
+                            :removable="true"
+                            :prefill="img ? form.full_img_path : ''"
+                            removeButtonClass="btn picture-input-btn"
+                            :height="500"
+                            accept="image/jpeg, image/png, image/gif"
+                            buttonClass="btn primary picture-input-btn"
+                            :customStrings="{
+                                change: 'Alterar imagem', 
+                                remove: 'Remover imagem',
+                                upload: '<h1>Enviar</h1>',
+                                drag: 'Arraste e solte a imagem aqui'
+                            }">
 
-                        </picture-input>
-                </v-flex>
-                <v-flex xs2 offset-xs10>
-                    <v-btn @click="submit" :disabled="!valid">
-                        <span v-if="!editing">Cadastrar</span>
-                        <span v-if="editing">Atualizar</span>
-                    </v-btn>
-                </v-flex>
+                            </picture-input>
+                    </v-flex>
+                    <v-flex xs2 offset-xs10>
+                        <v-btn @click="submit" :disabled="!valid">
+                            <span v-if="!editing">Cadastrar</span>
+                            <span v-if="editing">Atualizar</span>
+                        </v-btn>
+                    </v-flex>
 
-            </v-layout>
-        </v-container>
-    </v-form>
+                </v-layout>
+            </v-container>
+        </v-form>
+    </div>
+    <confirm-dialog 
+        title="Remover?"
+        :body="`Deseja remover o programa ${form.name}?`"
+        :visible="confirmDeletion"
+        confirmLabel="Apagar"
+        cancelLabel="Cancelar"
+        @confirm="deleteProgram"
+    ></confirm-dialog>
+
     <message-dialog 
         :visible="message.visible" 
         :title="message.title"
@@ -87,12 +101,14 @@
 
 <script>
 import MessageDialog from '../../components/MessageDialog.vue';
+import ConfirmDialog from '../../components/ConfirmDialog.vue'
 import PictureInput from 'vue-picture-input';
-import FormData from '../../components/FormData';
+import FormData from '../../lib/FormData';
 
 export default {
     components: {
         MessageDialog,
+        ConfirmDialog,
         PictureInput
     },
 
@@ -157,14 +173,14 @@ export default {
             }
         },
         deleteProgram() {
-            this.confirmDeletion = false;
+
             this.$http.delete(`programs/${this.form.id}`)
                 .then(r => {
                     this.message.visible = true;
                     this.message.title = 'Apagado';
                     this.message.info = `O programa ${this.form.name} foi apagado com sucesso`;
                     this.message.callback = () => {
-                        this.$router.push('/clientes');
+                        this.$router.push('/programas');
                     }
                 });
         },
@@ -194,3 +210,10 @@ export default {
     }
 }
 </script>
+
+<style>
+    .picture-input-btn {
+        padding: 10px 20px;
+    }
+</style>
+

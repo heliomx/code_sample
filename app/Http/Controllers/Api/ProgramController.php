@@ -93,8 +93,9 @@ class ProgramController extends Controller
      * @param  \App\Program  $program
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Program $program)
+    public function destroy(Request $request, $id)
     {
-        //
+        Program::find($id)->delete();
+        return response()->json(['success' => true]);
     }
 }

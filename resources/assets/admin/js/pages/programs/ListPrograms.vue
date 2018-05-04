@@ -1,7 +1,7 @@
 <template>
   <v-container v-if="!$global.loading" fluid >
     
-    <h1 class="headline">Lista de clientes</h1>
+    <h1 class="headline">Lista de programas</h1>
     <v-data-table
       :headers="headers"
       :items="items"
@@ -16,14 +16,19 @@
           </router-link>
         </td>
         <td>{{ props.item.qt_signatures }}</td>
-        <td>{{ props.item.program_type }}</td>
+        <td>{{ props.item.program_type | dict('ProgramType') }}</td>
       </template>
     </v-data-table>
   </v-container>
 </template>
 
 <script>
+import dict from '../../filters/DictFilter';
+
 export default {
+    filters: {
+      dict
+    },
     data() {
         return {
             headers: [
@@ -33,7 +38,7 @@ export default {
                   value: 'name'
                 },
                 {
-                  text: 'Assinaturas',
+                  text: 'Assinaturas ativas',
                   value: 'qt_signatures'
                 },
                 {

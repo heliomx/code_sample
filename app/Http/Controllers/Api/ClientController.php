@@ -45,7 +45,6 @@ class ClientController extends Controller
                 'user_id'       => $user->id,
                 'radio_type'    => $request->input('radio_type'),
                 'radio_name'    => $request->input('radio_name'),
-                'business_category' => $request->input('business_category'),
                 'cpf'  => $request->input('cpf'),
                 'cnpj'  => $request->input('cnpj'),
                 'address'   => $request->input('address'),
@@ -55,11 +54,12 @@ class ClientController extends Controller
                 'address_uf'    => $request->input('address_uf'),
                 'tel' => $request->input('tel'),
                 'tel_mobile'   => $request->input('tel_mobile'),
-                'tel_mobile_carrier' => $request->input('tel_mobile_carrier'),
                 'site' => $request->input('site'),
                 'status' => $request->input('status'),
             ]);
 
+            $programs = $request->input('programs');
+           
             $client->programs()->attach($request->input('programs'));
             DB::commit();
             $r = new ClientResource(Client::with('user', 'programs')->find($client->id));
@@ -93,7 +93,6 @@ class ClientController extends Controller
             $client->fill([
                 'radio_type'    => $request->input('radio_type'),
                 'radio_name'    => $request->input('radio_name'),
-                'business_category' => $request->input('business_category'),
                 'cpf'  => $request->input('cpf'),
                 'cnpj'  => $request->input('cnpj'),
                 'address'   => $request->input('address'),
@@ -103,7 +102,6 @@ class ClientController extends Controller
                 'address_uf'    => $request->input('address_uf'),
                 'tel' => $request->input('tel'),
                 'tel_mobile'   => $request->input('tel_mobile'),
-                'tel_mobile_carrier' => $request->input('tel_mobile_carrier'),
                 'site' => $request->input('site'),
                 'status' => $request->input('status'),
             ]);
@@ -119,7 +117,14 @@ class ClientController extends Controller
             }
             $client->user->save();
 
-            $client->programs()->sync($request->input('programs'));
+            $programs = $request->input('programs');
+            $client->programs()->detach();
+            for ($k = 0; $k < count($programs); $k++ )
+            {
+                $client->programs()->attach( 
+                    [ $programs[$k]['program_id'] => [ "status" => $programs[$k]['status'] ]] 
+                );
+            }
             $client->save();
             $r = new ClientResource(Client::with('user', 'programs')->find($client->id));
             DB::commit();

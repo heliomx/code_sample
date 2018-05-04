@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     protected $fillable = [
-        'user_id', 'updated_at', 'created_at', 'radio_type', 'radio_name', 'business_category', 'cpf',
+        'user_id', 'updated_at', 'created_at', 'radio_type', 'radio_name', 'cpf',
         'cnpj', 'address','address_cep','address_complement','address_city',
-        'address_uf', 'tel', 'tel_mobile', 'tel_mobile_carrier','site', 'status'
+        'address_uf', 'tel', 'tel_mobile','site', 'status'
     ];
+
+    protected $appends = ['qt_signatures', 'qt_signatures_active', 'qt_signatures_not_active'];
 
     public function user()
     {
@@ -19,7 +21,19 @@ class Client extends Model
 
     public function programs()
     {
-        return $this->belongsToMany('App\Program', 'signatures');
+        return $this->belongsToMany('App\Program', 'signatures')->withPivot('status');
+    }
+
+    public function getQtSignaturesAttribute() {
+        return $this->programs()->count();
+    }
+
+    public function getQtSignaturesActiveAttribute() {
+        return $this->programs()->whereStatus('A')->count();
+    }
+    
+    public function getQtSignaturesNotActiveAttribute() {
+        return $this->programs()->whereStatus('D')->count();
     }
 
     public function delete() {
