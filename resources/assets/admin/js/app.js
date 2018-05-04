@@ -21,6 +21,11 @@ import Layout from './pages/Layout.vue';
     import ListClients from './pages/clients/ListClients';
     import CreateEditClient from './pages/clients/CreateEditClient';
 
+// Programs
+    import ListPrograms from './pages/programs/ListPrograms';
+    import CreateEditProgram from './pages/programs/CreateEditProgram';
+
+
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 Vue.use(Vuetify, {
@@ -61,6 +66,8 @@ const router = new VueRouter({
                     name: 'dashboard',
                     component: Dashboard,
                 },
+
+                // Clients
                 {
                     path: '/clientes',
                     name: 'clients',
@@ -69,15 +76,32 @@ const router = new VueRouter({
                 {
                     path: 'clientes/cadastrar',
                     name: 'createClient',
-                    canReuse: false,
                     component: CreateEditClient
                 },
                 {
                     path: 'clientes/:id',
                     name: 'editClient',
-                    canReuse: false,
                     component: CreateEditClient
                 },
+                
+
+                // Programs
+                {
+                    path: '/programas',
+                    name: 'programs',
+                    component: ListPrograms,
+                },
+                {
+                    path: 'programas/cadastrar',
+                    name: 'createProgram',
+                    component: CreateEditProgram
+                },
+                {
+                    path: 'programas/:id',
+                    name: 'editProgram',
+                    component: CreateEditProgram
+                },
+
                 {
                     path: '/registro',
                     name: 'register',

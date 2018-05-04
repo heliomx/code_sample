@@ -39,3 +39,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+    .form-margin {
+        margin-right: 10vw
+    }
+
+</style>

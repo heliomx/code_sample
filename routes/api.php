@@ -40,3 +40,6 @@ Route::post('clients', 'Api\ClientController@store');
 
 // Programs
 Route::get('programs', 'Api\ProgramController@index');
+Route::get('programs/{id}', 'Api\ProgramController@show');
+Route::delete('programs/{id}', 'Api\ProgramController@destroy');
+Route::post('programs/{id}', 'Api\ProgramController@edit');

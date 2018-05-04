@@ -14,12 +14,12 @@ class Client extends JsonResource
      */
     public function toArray($request)
     {
+        
         return [
             'id'                => $this->id,
             'user'              => $this->user,
             'radio_type'        => $this->radio_type,
             'radio_name'        => $this->radio_name,
-            'business_category' => $this->business_category,
             'cpf'               => $this->cpf,
             'cnpj'              => $this->cnpj,
             'address'           => $this->address,
@@ -28,10 +28,12 @@ class Client extends JsonResource
             'address_cep'        => $this->address_cep,
             'tel'               => $this->tel,
             'tel_mobile'        => $this->tel_mobile,
-            'tel_mobile_carrier' => $this->tel_mobile_carrier,
             'site'              => $this->site,
             'programs'          => $this->programs,
             'status'          => $this->status,
+            'qt_signatures'     => $this->qt_signatures,
+            'qt_signatures_active'     => $this->qt_signatures_active,
+            'qt_signatures_not_active'     => $this->qt_signatures_not_active,
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
         ];

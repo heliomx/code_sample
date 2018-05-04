@@ -1,112 +1,122 @@
 <template>
-<div v-if="!$global.loading">
+<div v-if="!$global.loading" style="margin: 0 60px">
     
     <h1 v-if="!editing" class="headline">Cadastrar Novo Cliente</h1>
     <v-layout row wrap v-if="editing">
         <v-flex xs9>
             <h2 class="headline">Editando {{ form.radio_name }}</h2>
         </v-flex>
-        <v-flex xs3>
+        <v-flex xs3 v-if="editing">
             <v-btn @click="showConfirmDelete">
                 Remover cliente <v-icon>delete</v-icon>
             </v-btn>
         </v-flex>
     </v-layout>
-    <v-form v-model="valid">
-        <v-container fluid grid-list-lg="true">
-            <v-layout row wrap>
-                <v-flex xs8>
-                    <v-text-field v-model="form.user.email" label="E-mail">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs4>
-                    <v-text-field v-model="form.user.password" label="Senha">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs6>
-                    <v-select :items="radioList" label="Tipo de cadastro" v-model="form.radio_type" single-line>
-                    </v-select>
-                </v-flex>
-                <v-flex xs6>
-                    <v-select :items="statusList" v-model="form.status" label="Status" single-line>
-                    </v-select>
-                </v-flex>
-                <v-flex xs12>
-                    <v-text-field v-model="form.radio_name" label="Nome da rádio">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs12>
-                    <v-text-field v-model="form.user.name" label="Nome completo do responsável">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs6>
-                    <v-text-field v-model="form.business_category" label="Razão social">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs4>
-                    <v-text-field label="CPF" v-model="form.cpf">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs4>
-                    <v-text-field v-model="form.cnpj" label="CNPJ">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs6>
-                    <v-text-field v-model="form.address_city" label="Cidade">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs2>
-                    <v-text-field v-model="form.address_uf" label="UF">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs4>
-                    <v-text-field v-model="form.address_cep" label="CEP">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs12>
-                    <v-text-field v-model="form.address" label="Endereço">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs12>
-                    <v-text-field v-model="form.address_complement" label="Complemento">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs4>
-                    <v-text-field v-model="form.tel" label="Telefone fixo">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs4>
-                    <v-text-field v-model="form.tel_mobile" label="Telefone Celular">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs4>
-                    <v-text-field v-model="form.tel_mobile_carrier" label="Operadora">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs6>
-                    <v-text-field v-model="form.site" label="Site">
-                    </v-text-field>
-                </v-flex>
-                <v-flex xs12>
-                    <h3>Programas</h3>
-                </v-flex>
-                <v-flex xs12>
-                    <v-layout row wrap>
-                        <v-flex xs4 v-for="program in programsList" :key="program.id">
-                            <v-checkbox v-model="program.checked" :label="program.name"></v-checkbox>
-
+    <div class="form-margin">
+        <v-form ref="form" v-model="valid" >
+            <v-container fluid grid-list-lg="true" >
+                <v-layout row wrap >
+                    <v-flex xs6>
+                        <v-text-field v-model="form.radio_name" :rules="validationRules.required" required label="Nome da rádio">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                        <v-text-field v-model="form.user.name" :rules="validationRules.required" required label="Nome completo do responsável">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs8>
+                        <v-text-field :rules="validationRules.email" required v-model="form.user.email" label="E-mail">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs4>
+                        <v-text-field v-model="form.user.password" :rules="validationRules.password" label="Senha">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs9>
+                        <v-select :items="radioList" :rules="validationRules.required" label="Tipo de rádio" required v-model="form.radio_type" single-line>
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs3>
+                        <v-select :items="statusList" :rules="validationRules.required" v-model="form.status" required label="Status" single-line>
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs4>
+                        <v-text-field label="CPF" mask="###.###.###-##" @change="refreshValidation" required :rules="validationRules.cpf" v-model="form.cpf">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs4>
+                        <v-text-field v-model="form.cnpj" mask="##.###.###/####-##" @change="refreshValidation" required :rules="validationRules.cnpj" label="CNPJ">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                        <v-text-field v-model="form.address_city" :rules="validationRules.required" required label="Cidade">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs2>
+                        <v-text-field v-model="form.address_uf" :rules="validationRules.required" required label="UF">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs4>
+                        <v-text-field v-model="form.address_cep" mask="##.###-###" label="CEP">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs8>
+                        <v-text-field v-model="form.address" label="Endereço">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs4>
+                        <v-text-field v-model="form.address_complement" label="Complemento">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs4>
+                        <v-text-field v-model="form.tel" mask="(##) ####-####" @change="refreshValidation" :rules="validationRules.tel" label="Telefone fixo">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs4>
+                        <v-text-field v-model="form.tel_mobile" mask="(##) #####-####" @change="refreshValidation" :rules="validationRules.tel"  label="Telefone Celular">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                        <v-text-field v-model="form.site" label="Site">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                        <h3>Programas*</h3>
+                    </v-flex>
+                    <div class="programs-area">
+                        <v-flex xs12>
+                            <v-layout row wrap>
+                                <v-flex xs4 v-for="program in programsList" :key="program.id">
+                                    <v-checkbox @change="updateProgram(program)" v-model="program.checked">
+                                        <div slot="label">
+                                            {{ program.name }}
+                                        </div>
+                                    </v-checkbox>
+                                    <div class="activation-board">
+                                        <div v-if="program.pivot">
+                                            <v-switch :label="`Ativo`" @change="updatePivot(program.pivot)" v-model="program.pivot.active"></v-switch>
+                                        </div>
+                                    </div>
+                                </v-flex>
+                                
+                            </v-layout>
                         </v-flex>
-                    </v-layout>
-                </v-flex>
-                <v-flex xs2 offset-xs10>
-                    <v-btn @click="submit" :disabled="!valid">
-                        <span v-if="!editing">Cadastrar</span>
-                        <span v-if="editing">Atualizar</span>
-                    </v-btn>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-form>
+                    </div>
+                    <v-flex xs10>
+                        <small v-if="!valid">* Verifique o preenchimento de todos os campos obrigatórios antes de enviar o formulário</small>
+                    </v-flex>
+                    <v-flex xs2>
+                        <v-btn color="primary" @click="submit" :disabled="!valid">
+                            <span v-if="!editing">Cadastrar</span>
+                            <span v-if="editing">Atualizar</span>
+                        </v-btn>
+                        <br>
+                        
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-form>
+    </div>
     <v-layout row justify-center>
         <v-dialog v-model="confirmDeletion" persistent max-width="290">
             <v-card>
@@ -136,6 +146,7 @@
 import Vue from "vue";
 import MessageDialog from '../../components/MessageDialog.vue';
 import { EventBus } from '../../event-bus';
+import { validaCPF, validaCNPJ } from '../../lib/ValidationFunctions';
 
 export default {
     components: {
@@ -157,8 +168,12 @@ export default {
                     value: "W"
                 },
                 {
-                    text: "Rádio Convencional com CNPJ",
-                    value: "C"
+                    text: "Rádio Convencional AM com CNPJ",
+                    value: "A"
+                },
+                {
+                    text: "Rádio Convencional FM com CNPJ",
+                    value: "F"
                 }
             ],
             statusList: [{
@@ -170,13 +185,38 @@ export default {
                     value: "I"
                 }
             ],
+            validationRules: 
+            {
+                tel: [
+                    v => (!!this.form.tel || !!this.form.tel_mobile) || 'Preencha pelo menos um telefone',
+                ],
+                cpf: [
+                    v => (!!this.form.cpf || !!this.form.cnpj) || 'Preencha um CPF ou CNPJ',
+                    v => validaCPF(v),
+                ],
+                cnpj: [
+                    v => (!!this.form.cpf || !!this.form.cnpj) || 'Preencha um CPF ou CNPJ',
+                    v => validaCNPJ(v),
+                ],
+                required: [
+                    v => !!v || 'Campo de preenchimento obrigatório.',
+                ],
+                email: [
+                    v => !!v || 'Campo de preenchimento obrigatório.',
+                    v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Formato de e-mail errado.'
+                ]
+            },
             form: this.blankForm(),
             programsList: []
         };
     },
     methods: {
+        
         showConfirmDelete(){
             this.confirmDeletion = true;
+        },
+        refreshValidation(){
+            this.$refs.form.validate();
         },
         deleteClient() {
             this.confirmDeletion = false;
@@ -220,7 +260,8 @@ export default {
                     return elm.checked;
                 })
                 .map((elm, i, arr) => {
-                    return elm.id;
+
+                    return {program_id: elm.id, status: elm.pivot.status};
                 });
 
             this.form.programs = programs;
@@ -237,13 +278,26 @@ export default {
                 this.$http.post("clients", this.form).then(r => {
                     this.message.visible = true;
                     this.message.title = 'Criado';
-                    this.message.info = `O cliente ${this.form.radio_name} foi apagado com sucesso`;
+                    this.message.info = `O cliente ${this.form.radio_name} foi criado com sucesso`;
                     this.message.callback = () => {
                         this.$router.push('/clientes');
                     }
                 });
             }
         }, 
+        updatePivot(pivot)
+        {
+            pivot.status = pivot.active ? 'A' : 'D';
+        },
+        updateProgram(program)
+        {
+            if (program.checked)
+            {
+                Vue.set(program, 'pivot', {active: false, status:'D'})
+            } else {
+                Vue.delete(program, 'pivot');
+            }
+        },
         fetchData() {
             this.$global.loading = true;
             this.$http.get("programs").then(response => {
@@ -258,6 +312,8 @@ export default {
                             for (let i = 0; i < this.programsList.length; i++) {
                                 if (this.programsList[i].id == this.form.programs[k].id) {
                                     Vue.set(this.programsList[i], "checked", true);
+                                    Vue.set(this.programsList[i], "pivot", this.form.programs[k].pivot);
+                                    Vue.set(this.programsList[i].pivot, "active", this.form.programs[k].pivot.status == 'A');
                                     break;
                                 }
                             }
@@ -265,6 +321,7 @@ export default {
                         this.$global.loading = false;
                     });
                 } else {
+                    this.editing = false;
                     this.$global.loading = false;
                     this.form = this.blankForm();
                 }
@@ -282,8 +339,36 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 .input-group label {
     overflow: visible !important;
 }
+.activation-board {
+    height: 50px;
+}
+
+
+.programs-area 
+{
+    .input-group label{
+        font-size:13px !important;
+    }
+    .input-group__details {
+        display: none !important;
+    }
+
+    .switch {
+        
+         
+        &.input-group--dirty label {
+            color: rgb(111, 132, 252) !important;
+        }
+
+        label {
+            color: rgba(116, 116, 116, 0.54) !important; 
+            font-size: 12px;
+        }
+    }
+}
+
 </style>
