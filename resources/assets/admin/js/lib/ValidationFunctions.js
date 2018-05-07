@@ -95,3 +95,15 @@ export function validaCNPJ(str)
     else
         return 'CNPJ inválido';
 }
+
+export function required(v, message)
+{
+    message = !message ? 'Campo de preenchimento obrigatório.' : message; 
+    return !!v || message;
+}
+
+export function email(v, message)
+{
+    message = !message ? 'Formato de e-mail errado.' : message;
+    return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || message;
+}

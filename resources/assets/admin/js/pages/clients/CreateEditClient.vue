@@ -146,7 +146,7 @@
 import Vue from "vue";
 import MessageDialog from '../../components/MessageDialog.vue';
 import { EventBus } from '../../event-bus';
-import { validaCPF, validaCNPJ } from '../../lib/ValidationFunctions';
+import { validaCPF, validaCNPJ, required, email } from '../../lib/ValidationFunctions';
 
 export default {
     components: {
@@ -199,11 +199,11 @@ export default {
                     v => validaCNPJ(v),
                 ],
                 required: [
-                    v => !!v || 'Campo de preenchimento obrigatório.',
+                    v => required(v),
                 ],
                 email: [
-                    v => !!v || 'Campo de preenchimento obrigatório.',
-                    v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Formato de e-mail errado.'
+                    v => required(v),
+                    v => email(v)
                 ]
             },
             form: this.blankForm(),

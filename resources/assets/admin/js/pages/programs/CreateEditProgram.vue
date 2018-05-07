@@ -18,10 +18,10 @@
             <v-container fluid grid-list-lg="true">
                 <v-layout row wrap>
                     <v-flex xs4>
-                        <v-subheader>Nome do Programa</v-subheader>
+                        <v-subheader>* Nome do Programa</v-subheader>
                     </v-flex>
                     <v-flex xs8>
-                        <v-text-field v-model="form.name">
+                        <v-text-field required :rules="validationRules.required" v-model="form.name">
                         </v-text-field>
                     </v-flex>
                     
@@ -34,18 +34,18 @@
                     </v-flex>
                     
                     <v-flex xs4>
-                        <v-subheader>Tipo</v-subheader>
+                        <v-subheader>* Tipo</v-subheader>
                     </v-flex>
                     <v-flex xs5>                    
-                        <v-select :items="typeList" v-model="form.program_type" >
+                        <v-select :items="typeList" required :rules="validationRules.required" v-model="form.program_type" >
                         </v-select>
                     </v-flex>
 
                     <v-flex xs4>
-                        <v-subheader>Descrição</v-subheader>
+                        <v-subheader>* Descrição</v-subheader>
                     </v-flex>
                     <v-flex xs8>
-                        <v-text-field v-model="form.description" label="Descrição detalhada do programa de rádio" multi-line></v-text-field>
+                        <v-text-field v-model="form.description" required :rules="validationRules.required" label="Descrição detalhada do programa de rádio" multi-line></v-text-field>
                     </v-flex>
 
                     <v-flex xs4>
@@ -56,7 +56,7 @@
                             ref="pictureInput"
                             :width="500"
                             :removable="true"
-                            :prefill="img ? form.full_img_path : ''"
+                            :prefill="form.img ? form.full_img_path : ''"
                             removeButtonClass="btn picture-input-btn"
                             :height="500"
                             accept="image/jpeg, image/png, image/gif"
@@ -70,7 +70,10 @@
 
                             </picture-input>
                     </v-flex>
-                    <v-flex xs2 offset-xs10>
+                    <v-flex xs10>
+                        <small class="aviso" v-if="!valid">* Verifique o preenchimento de todos os campos obrigatórios antes de enviar o formulário</small>
+                    </v-flex>
+                    <v-flex xs2>
                         <v-btn @click="submit" :disabled="!valid">
                             <span v-if="!editing">Cadastrar</span>
                             <span v-if="editing">Atualizar</span>
@@ -104,6 +107,7 @@ import MessageDialog from '../../components/MessageDialog.vue';
 import ConfirmDialog from '../../components/ConfirmDialog.vue'
 import PictureInput from 'vue-picture-input';
 import FormData from '../../lib/FormData';
+import { required } from '../../lib/ValidationFunctions';
 
 export default {
     components: {
@@ -130,6 +134,11 @@ export default {
                 }
             ],
             valid: true,
+            validationRules: {
+                required: [
+                    v => required(v),
+                ]
+            },
 
             confirmDeletion: false,
             editing: false,
@@ -214,6 +223,16 @@ export default {
 <style>
     .picture-input-btn {
         padding: 10px 20px;
+    }
+
+    .preview-container {
+        margin: 0 !important;
+    }
+
+    .aviso {
+        display: block;
+        text-align: right;
+        margin-top: 20px;
     }
 </style>
 

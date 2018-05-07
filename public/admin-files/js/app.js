@@ -13373,21 +13373,20 @@ function updateLink (link, options, obj) {
                 cpf: [function (v) {
                     return !!_this.form.cpf || !!_this.form.cnpj || 'Preencha um CPF ou CNPJ';
                 }, function (v) {
-                    return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["b" /* validaCPF */])(v);
+                    return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["d" /* validaCPF */])(v);
                 }],
                 cnpj: [function (v) {
                     return !!_this.form.cpf || !!_this.form.cnpj || 'Preencha um CPF ou CNPJ';
                 }, function (v) {
-                    return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["a" /* validaCNPJ */])(v);
+                    return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["c" /* validaCNPJ */])(v);
                 }],
                 required: [function (v) {
-                    return !!v || 'Campo de preenchimento obrigatório.';
+                    return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["b" /* required */])(v);
                 }],
                 email: [function (v) {
-                    return !!v || 'Campo de preenchimento obrigatório.';
+                    return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["b" /* required */])(v);
                 }, function (v) {
-                    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Formato de e-mail errado.'
-                    );
+                    return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["a" /* email */])(v);
                 }]
             },
             form: this.blankForm(),
@@ -13692,6 +13691,7 @@ if (false) {(function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ConfirmDialog_vue__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_picture_input__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_FormData__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_ValidationFunctions__ = __webpack_require__(128);
 //
 //
 //
@@ -13793,6 +13793,10 @@ if (false) {(function () {
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -13822,6 +13826,11 @@ if (false) {(function () {
                 value: 'D'
             }],
             valid: true,
+            validationRules: {
+                required: [function (v) {
+                    return Object(__WEBPACK_IMPORTED_MODULE_4__lib_ValidationFunctions__["b" /* required */])(v);
+                }]
+            },
 
             confirmDeletion: false,
             editing: false,
@@ -38450,7 +38459,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.picture-input-btn {\n    padding: 10px 20px;\n}\n", ""]);
+exports.push([module.i, "\n.picture-input-btn {\n    padding: 10px 20px;\n}\n.preview-container {\n    margin: 0 !important;\n}\n.aviso {\n    display: block;\n    text-align: right;\n    margin-top: 20px;\n}\n", ""]);
 
 // exports
 
@@ -39009,7 +39018,7 @@ var render = function() {
                           _c(
                             "v-flex",
                             { attrs: { xs4: "" } },
-                            [_c("v-subheader", [_vm._v("Nome do Programa")])],
+                            [_c("v-subheader", [_vm._v("* Nome do Programa")])],
                             1
                           ),
                           _vm._v(" "),
@@ -39018,6 +39027,10 @@ var render = function() {
                             { attrs: { xs8: "" } },
                             [
                               _c("v-text-field", {
+                                attrs: {
+                                  required: "",
+                                  rules: _vm.validationRules.required
+                                },
                                 model: {
                                   value: _vm.form.name,
                                   callback: function($$v) {
@@ -39067,7 +39080,7 @@ var render = function() {
                           _c(
                             "v-flex",
                             { attrs: { xs4: "" } },
-                            [_c("v-subheader", [_vm._v("Tipo")])],
+                            [_c("v-subheader", [_vm._v("* Tipo")])],
                             1
                           ),
                           _vm._v(" "),
@@ -39076,7 +39089,11 @@ var render = function() {
                             { attrs: { xs5: "" } },
                             [
                               _c("v-select", {
-                                attrs: { items: _vm.typeList },
+                                attrs: {
+                                  items: _vm.typeList,
+                                  required: "",
+                                  rules: _vm.validationRules.required
+                                },
                                 model: {
                                   value: _vm.form.program_type,
                                   callback: function($$v) {
@@ -39092,7 +39109,7 @@ var render = function() {
                           _c(
                             "v-flex",
                             { attrs: { xs4: "" } },
-                            [_c("v-subheader", [_vm._v("Descrição")])],
+                            [_c("v-subheader", [_vm._v("* Descrição")])],
                             1
                           ),
                           _vm._v(" "),
@@ -39102,6 +39119,8 @@ var render = function() {
                             [
                               _c("v-text-field", {
                                 attrs: {
+                                  required: "",
+                                  rules: _vm.validationRules.required,
                                   label:
                                     "Descrição detalhada do programa de rádio",
                                   "multi-line": ""
@@ -39134,7 +39153,7 @@ var render = function() {
                                 attrs: {
                                   width: 500,
                                   removable: true,
-                                  prefill: _vm.img
+                                  prefill: _vm.form.img
                                     ? _vm.form.full_img_path
                                     : "",
                                   removeButtonClass: "btn picture-input-btn",
@@ -39153,9 +39172,19 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
+                          _c("v-flex", { attrs: { xs10: "" } }, [
+                            !_vm.valid
+                              ? _c("small", { staticClass: "aviso" }, [
+                                  _vm._v(
+                                    "* Verifique o preenchimento de todos os campos obrigatórios antes de enviar o formulário"
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "v-flex",
-                            { attrs: { xs2: "", "offset-xs10": "" } },
+                            { attrs: { xs2: "" } },
                             [
                               _c(
                                 "v-btn",
@@ -41186,8 +41215,10 @@ function telephone(value) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = validaCPF;
-/* harmony export (immutable) */ __webpack_exports__["a"] = validaCNPJ;
+/* harmony export (immutable) */ __webpack_exports__["d"] = validaCPF;
+/* harmony export (immutable) */ __webpack_exports__["c"] = validaCNPJ;
+/* harmony export (immutable) */ __webpack_exports__["b"] = required;
+/* harmony export (immutable) */ __webpack_exports__["a"] = email;
 function validaCPF(cpf) {
     if (cpf == null || cpf == '') return true;
     cpf = String(cpf);
@@ -41255,6 +41286,17 @@ function validaCNPJ(str) {
         if (resultado != digitos.charAt(1)) return 'CNPJ inválido';
         return true;
     } else return 'CNPJ inválido';
+}
+
+function required(v, message) {
+    message = !message ? 'Campo de preenchimento obrigatório.' : message;
+    return !!v || message;
+}
+
+function email(v, message) {
+    message = !message ? 'Formato de e-mail errado.' : message;
+    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || message
+    );
 }
 
 /***/ }),
