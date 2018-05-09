@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSignaturesTable extends Migration
+class CreateDownloadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSignaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('signatures', function (Blueprint $table) {
+        Schema::create('downloads', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('client_id');
-            $table->unsignedInteger('program_id');
-            $table->timestamps();
+            $table->unsignedInteger('program_file_id');
+            $table->unsignedInteger('signature_id');
+            $table->dateTime('download_date');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateSignaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('signatures');
+        Schema::dropIfExists('downloads');
     }
 }
