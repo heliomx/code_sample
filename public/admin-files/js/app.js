@@ -31175,6 +31175,9 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
 
 
 
@@ -31196,6 +31199,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             valid: false,
             sending: false,
             progress: 0,
+            bytesTotal: 0,
+            bytesUploaded: 0,
             uploadId: null,
             uploadPackage: null,
             validationRules: {
@@ -31294,6 +31299,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 },
                 onProgress: function onProgress(bytesUploaded, bytesTotal) {
                     var percentage = bytesUploaded / bytesTotal * 100;
+                    _this3.bytesUploaded = bytesUploaded;
+                    _this3.bytesTotal = bytesTotal;
                     _this3.progress = Math.round(percentage);
                     console.log(bytesUploaded, bytesTotal, percentage);
                 },
@@ -59081,10 +59088,19 @@ var render = function() {
                           _vm._v(
                             "\n                    " +
                               _vm._s(_vm.progress) +
-                              "%\n                "
-                          )
+                              "%"
+                          ),
+                          _c("br")
                         ]
-                      )
+                      ),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("small", [
+                          _vm._v(
+                            _vm._s(_vm._f("filesize")(_vm.bytesUploaded, 1))
+                          )
+                        ])
+                      ])
                     ],
                     1
                   )

@@ -55,8 +55,11 @@
                             :value="progress"
                             color="teal"
                             >
-                            {{ progress }}%
+                            {{ progress }}%<br>
+                            
                         </v-progress-circular>
+                        
+                        <div><small>{{ bytesUploaded | filesize(1) }}</small></div>
                     </v-flex>
                     
                     <v-flex xs12 v-if="sent">
@@ -126,6 +129,8 @@ export default {
             valid: false,
             sending: false,
             progress: 0,
+            bytesTotal: 0,
+            bytesUploaded: 0,
             uploadId: null,
             uploadPackage: null,
             validationRules: {
@@ -220,6 +225,8 @@ export default {
             },
             onProgress: (bytesUploaded, bytesTotal) => {
                 var percentage = (bytesUploaded / bytesTotal * 100);
+                this.bytesUploaded = bytesUploaded;
+                this.bytesTotal = bytesTotal;
                 this.progress = Math.round(percentage);
                 console.log(bytesUploaded, bytesTotal, percentage)
             },
