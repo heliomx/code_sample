@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import App from './App.vue';
+import VueLocalStorage from 'vue-localstorage'
 import { SharedData } from './shared';
 
 //Vuetify
@@ -24,6 +25,7 @@ import Layout from './pages/Layout.vue';
 // Programs
     import ListPrograms from './pages/programs/ListPrograms';
     import CreateEditProgram from './pages/programs/CreateEditProgram';
+    import UploadPrograms from './pages/programs/UploadPrograms';
 
 
 Vue.use(VueRouter);
@@ -35,6 +37,7 @@ Vue.use(Vuetify, {
         accent: colors.indigo.accent1
     }
 });
+Vue.use(VueLocalStorage);
 Vue.use(SharedData);
 
 axios.defaults.baseURL = '/api';
@@ -95,6 +98,11 @@ const router = new VueRouter({
                     path: 'programas/cadastrar',
                     name: 'createProgram',
                     component: CreateEditProgram
+                },
+                {
+                    path: 'programas/enviar',
+                    name: 'uploadPrograms',
+                    component: UploadPrograms
                 },
                 {
                     path: 'programas/:id',

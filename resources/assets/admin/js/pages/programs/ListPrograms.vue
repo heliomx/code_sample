@@ -9,6 +9,7 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
+        <td>{{ props.item.id }}</td>
         <td>
           <router-link 
           :to="{ name: 'editProgram', params: { id: props.item.id }}">
@@ -32,6 +33,11 @@ export default {
     data() {
         return {
             headers: [
+                {
+                  text: 'ID',
+                  align: 'left',
+                  value: 'id'
+                },
                 {
                   text: 'Nome do programa',
                   align: 'left',

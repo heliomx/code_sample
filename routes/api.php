@@ -43,3 +43,10 @@ Route::get('programs', 'Api\ProgramController@index');
 Route::get('programs/{id}', 'Api\ProgramController@show');
 Route::delete('programs/{id}', 'Api\ProgramController@destroy');
 Route::post('programs/{id}', 'Api\ProgramController@edit');
+
+//Packages
+Route::get('packages/{id}', 'Api\PackageController@show');
+
+//TUS
+
+Route::post('uploadjobs', '\OneOffTech\TusUpload\Http\Controllers\TusUploadQueueController@store');

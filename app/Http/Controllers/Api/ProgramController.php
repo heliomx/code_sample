@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Program;
+use App\ProgramFile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +17,16 @@ class ProgramController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json([ 'data' => Program::all()]);
+        if($request->has('downloads') && $request->input('downloads'))
+        {
+            $programs = Program::with('files')->whereHas('files', function ($query) {
+                return $query->whereStatus(ProgramFile::STATUS_PUBLISHED);
+            })->get();
+            $r = response()->json([ 'data' => $programs ]);
+        } else {
+            $r = response()->json([ 'data' => Program::all()]);
+        }
+        return $r;
     }
 
     /**

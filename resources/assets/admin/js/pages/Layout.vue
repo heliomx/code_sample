@@ -73,8 +73,8 @@
 
     <v-content>
         <v-progress-linear v-if="$global.loading" :indeterminate="true"></v-progress-linear>
-        <v-container fluid fill-height>
-            <v-layout justify-center align-center>
+        <v-container fluid>
+            <v-layout>
                 <router-view></router-view>
             </v-layout>
         </v-container>
@@ -111,7 +111,13 @@ export default {
                 icon: "keyboard_arrow_up",
                 "icon-alt": "keyboard_arrow_down",
                 text: "Programas",
-                children: [{
+                children: [
+                    {
+                        icon: "upload",
+                        text: "Enviar",
+                        link: "/programas/enviar"
+                    },
+                    {
                         icon: "radio",
                         text: "Listar",
                         link: "/programas"

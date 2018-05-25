@@ -25,6 +25,10 @@ class Program extends Model
         return $this->signatures()->whereStatus('A')->count();
     }
 
+    public function files(){
+        return $this->hasMany('App\ProgramFile');
+    }
+
     public function getFullImgPathAttribute() {
         $pattern = "/public\//";
 
