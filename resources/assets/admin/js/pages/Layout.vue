@@ -65,7 +65,7 @@
     <v-toolbar color="primary" dark app :clipped-left="true" fixed>
         <v-toolbar-title class="ml-0 pl-3">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <span class="hidden-sm-and-down">Rádio Brasil</span>
+            <span class="hidden-sm-and-down">Rádio Estúdio Brasil</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn flat @click="$auth.logout()">Sair</v-btn>

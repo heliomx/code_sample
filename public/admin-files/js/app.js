@@ -55035,7 +55035,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("span", { staticClass: "hidden-sm-and-down" }, [
-                _vm._v("Rádio Brasil")
+                _vm._v("Rádio Estúdio Brasil")
               ])
             ],
             1
