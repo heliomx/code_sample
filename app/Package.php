@@ -82,11 +82,17 @@ class Package extends Model
                     Log::info($subDirectories);
                     for ($j = 0; $j < count($subDirectories); $j++)
                     {
-                        Zipper::make("$subDirectories[$j].zip")
+                        $zipname = str_replace('.mp3', '', $subDirectories[$j]);
+                        Zipper::make("$zipname.zip")
                             ->add($subDirectories[$j])
                             ->close();
-
-                        Self::recursiveRemoveDirectory($subDirectories[$j]);
+                            
+                        if (is_dir($subDirectories[$j]))
+                        {
+                            Self::recursiveRemoveDirectory($subDirectories[$j]);
+                        } else {
+                            unlink($subDirectories[$j]);
+                        }
                     }
 
                     $files = File::allFiles(storage_path("app/packages/$dir_match[0]"));

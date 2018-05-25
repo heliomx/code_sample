@@ -29,6 +29,12 @@ class ProgramController extends Controller
         return $r;
     }
 
+    public function download(Request $request, $id)
+    {
+        $file = ProgramFile::find($id);
+        return Storage::drive('packages')->download($file->file_name);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

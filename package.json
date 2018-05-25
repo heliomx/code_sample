@@ -27,6 +27,7 @@
         "@websanova/vue-auth": "^2.21.6-beta",
         "ajv": "^6.4.0",
         "material-design-icons-iconfont": "^3.0.3",
+        "moment": "^2.22.1",
         "numeral": "^2.0.6",
         "uppy": "^0.24.2",
         "vue-localstorage": "^0.6.2",

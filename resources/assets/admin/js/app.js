@@ -24,6 +24,7 @@ import Layout from './pages/Layout.vue';
 
 // Programs
     import ListPrograms from './pages/programs/ListPrograms';
+    import ListDownloads from './pages/programs/ListDownloads';
     import CreateEditProgram from './pages/programs/CreateEditProgram';
     import UploadPrograms from './pages/programs/UploadPrograms';
 
@@ -93,6 +94,11 @@ const router = new VueRouter({
                     path: '/programas',
                     name: 'programs',
                     component: ListPrograms,
+                },
+                {
+                    path: 'programas/downloads',
+                    name: 'downloadPrograms',
+                    component: ListDownloads
                 },
                 {
                     path: 'programas/cadastrar',

@@ -113,7 +113,12 @@ export default {
                 text: "Programas",
                 children: [
                     {
-                        icon: "upload",
+                        icon: "get_app",
+                        text: "Downloads",
+                        link: "/programas/downloads"
+                    },
+                    {
+                        icon: "cloud_upload",
                         text: "Enviar",
                         link: "/programas/enviar"
                     },
