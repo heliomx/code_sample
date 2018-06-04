@@ -71,6 +71,12 @@ const router = new VueRouter({
                     component: Dashboard,
                 },
 
+                {
+                    path: '/cadastro',
+                    name: 'clientForm',
+                    component: CreateEditClient
+                },
+
                 // Clients
                 {
                     path: '/clientes',

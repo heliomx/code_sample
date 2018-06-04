@@ -20,7 +20,7 @@
             </v-flex>
           </v-layout>
           <v-list-group
-            v-else-if="item.children"
+            v-else-if="$auth.check(item.roles) && item.children"
             v-model="item.model"
             :key="item.text"
             :prepend-icon="item.model ? item.icon : item['icon-alt']"
@@ -36,6 +36,7 @@
             <v-list-tile class="ml-5"
               v-for="(child, i) in item.children"
               :key="i"
+              v-if="$auth.check(child.roles)"
               @click="open(child)"
             >
               <v-list-tile-action v-if="child.icon">
@@ -48,7 +49,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else :key="item.text" @click="open(item)">
+          <v-list-tile v-else-if="$auth.check(item.roles)" :key="item.text" @click="open(item)">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -90,10 +91,24 @@ export default {
     data: () => ({
         dialog: false,
         drawer: null,
-        items: [{
+        items: [
+            {
+                icon: "contacts",
+                text: "Alterar cadastro",
+                link: "/cadastro",
+                roles: [ 'C' ]
+            },
+            {
+                icon: "get_app",
+                text: "Download de programas",
+                link: "/programas/downloads",
+                roles: [ 'C' ]
+            },
+            {
                 icon: "keyboard_arrow_up",
                 "icon-alt": "keyboard_arrow_down",
                 text: "Clientes",
+                roles: ['A'],
                 children: [{
                         icon: "contacts",
                         text: "Listar",
@@ -102,7 +117,7 @@ export default {
                     {
                         icon: "add",
                         text: "Cadastrar",
-                        link: "/clientes/cadastrar"
+                        link: "/clientes/cadastrar",
                     },
 
                 ]
@@ -111,16 +126,17 @@ export default {
                 icon: "keyboard_arrow_up",
                 "icon-alt": "keyboard_arrow_down",
                 text: "Programas",
+                roles: [ 'A' ],
                 children: [
                     {
                         icon: "get_app",
                         text: "Downloads",
-                        link: "/programas/downloads"
+                        link: "/programas/downloads",
                     },
                     {
                         icon: "cloud_upload",
                         text: "Enviar",
-                        link: "/programas/enviar"
+                        link: "/programas/enviar",
                     },
                     {
                         icon: "radio",
@@ -159,7 +175,8 @@ export default {
         source: String
     },
     created() {
-
+        console.log(this.$auth.user());
+        window._auth = this.$auth;
     },
     methods: {
         open(item) {

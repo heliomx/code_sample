@@ -213,6 +213,7 @@ export default {
             var upload = new Tus.Upload(file, {
             endpoint: "/tus/uploads/",
             retryDelays: [0, 1000, 3000, 5000],
+            chunkSize: 1024 * 1024 * 5,
             metadata: {
                 upload_request_id: this.uploadId,
                 filename: file.name,

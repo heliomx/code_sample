@@ -17586,7 +17586,7 @@ function updateLink (link, options, obj) {
           success: function success() {},
           error: function error() {},
           rememberMe: true,
-          redirect: '/clientes',
+          redirect: '/dashboard',
           fetchUser: true
         });
       }
@@ -17684,6 +17684,7 @@ function updateLink (link, options, obj) {
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -17692,9 +17693,20 @@ function updateLink (link, options, obj) {
             dialog: false,
             drawer: null,
             items: [{
+                icon: "contacts",
+                text: "Alterar cadastro",
+                link: "/cadastro",
+                roles: ['C']
+            }, {
+                icon: "get_app",
+                text: "Download de programas",
+                link: "/programas/downloads",
+                roles: ['C']
+            }, {
                 icon: "keyboard_arrow_up",
                 "icon-alt": "keyboard_arrow_down",
                 text: "Clientes",
+                roles: ['A'],
                 children: [{
                     icon: "contacts",
                     text: "Listar",
@@ -17708,6 +17720,7 @@ function updateLink (link, options, obj) {
                 icon: "keyboard_arrow_up",
                 "icon-alt": "keyboard_arrow_down",
                 text: "Programas",
+                roles: ['A'],
                 children: [{
                     icon: "get_app",
                     text: "Downloads",
@@ -17731,7 +17744,10 @@ function updateLink (link, options, obj) {
     props: {
         source: String
     },
-    created: function created() {},
+    created: function created() {
+        console.log(this.$auth.user());
+        window._auth = this.$auth;
+    },
 
     methods: {
         open: function open(item) {
@@ -18045,6 +18061,7 @@ function dictionary(lang) {
                 info: '',
                 callback: function callback() {}
             },
+            clientEdit: false,
             valid: true,
             confirmDeletion: false,
             editing: false,
@@ -18182,13 +18199,21 @@ function dictionary(lang) {
             var _this4 = this;
 
             this.$global.loading = true;
+            var clientId = void 0;
+            if (this.$route.name == 'clientForm' || this.$route.name == 'editClient') {
+                this.editing = true;
+                this.clientEdit = this.$route.name == 'clientForm';
+                clientId = this.$route.name == 'clientForm' ? this.$auth.user().client_id : this.$route.params.id;
+            } else {
+                this.editing = false;
+            }
             this.$http.get("programs").then(function (response) {
                 _this4.programsList = response.data.data;
 
-                if (_this4.$route.params.id != null) {
-                    _this4.editing = true;
+                if (_this4.editing) {
+
                     console.log("editing");
-                    _this4.$http.get('clients/' + _this4.$route.params.id).then(function (r) {
+                    _this4.$http.get('clients/' + clientId).then(function (r) {
                         _this4.form = r.data.data;
                         for (var k = 0; k < _this4.form.programs.length; k++) {
                             for (var i = 0; i < _this4.programsList.length; i++) {
@@ -18203,7 +18228,6 @@ function dictionary(lang) {
                         _this4.$global.loading = false;
                     });
                 } else {
-                    _this4.editing = false;
                     _this4.$global.loading = false;
                     _this4.form = _this4.blankForm();
                 }
@@ -18361,6 +18385,12 @@ function dictionary(lang) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18370,7 +18400,8 @@ function dictionary(lang) {
     },
     data: function data() {
         return {
-            programs: null
+            programs: null,
+            waitingApproval: null
         };
     },
     created: function created() {
@@ -18385,7 +18416,12 @@ function dictionary(lang) {
             this.$global.loading = true;
             this.$http.get('programs?downloads=true').then(function (r) {
                 _this.$global.loading = false;
-                _this.programs = r.data.data;
+                if (_this.$auth.check('A')) {
+                    _this.programs = r.data.data;
+                } else {
+                    _this.programs = r.data.data.actives;
+                    _this.waitingApproval = r.data.data.waiting;
+                }
             });
         }
     }
@@ -31287,6 +31323,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             var upload = new __WEBPACK_IMPORTED_MODULE_2_tus_js_client___default.a.Upload(file, {
                 endpoint: "/tus/uploads/",
                 retryDelays: [0, 1000, 3000, 5000],
+                chunkSize: 1024 * 1024 * 5,
                 metadata: {
                     upload_request_id: this.uploadId,
                     filename: file.name,
@@ -31546,6 +31583,10 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
             path: '/dashboard',
             name: 'dashboard',
             component: __WEBPACK_IMPORTED_MODULE_12__pages_Dashboard_vue__["a" /* default */]
+        }, {
+            path: '/cadastro',
+            name: 'clientForm',
+            component: __WEBPACK_IMPORTED_MODULE_17__pages_clients_CreateEditClient__["a" /* default */]
         },
 
         // Clients
@@ -54211,11 +54252,14 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a3870e32_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Dashboard_vue__ = __webpack_require__(267);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a3870e32_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(1);
 var disposed = false
 /* script */
-var __vue_script__ = null
+
+
 /* template */
 
 /* template functional */
@@ -54227,10 +54271,10 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 
-var Component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
-  __vue_script__,
-  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a3870e32_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a3870e32_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__["b" /* staticRenderFns */],
+var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Dashboard_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a3870e32_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_a3870e32_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Dashboard_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -54269,7 +54313,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("v-app", [
-    _c("h1", { staticClass: "headline" }, [_vm._v("Dashboard")])
+    _c("h1", { staticClass: "headline" }, [
+      _vm._v("Bem vindo, " + _vm._s(_vm.firstName) + " :)")
+    ])
   ])
 }
 var staticRenderFns = []
@@ -54868,7 +54914,7 @@ var render = function() {
                         ],
                         1
                       )
-                    : item.children
+                    : _vm.$auth.check(item.roles) && item.children
                       ? _c(
                           "v-list-group",
                           {
@@ -54913,93 +54959,99 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _vm._l(item.children, function(child, i) {
-                              return _c(
-                                "v-list-tile",
-                                {
-                                  key: i,
-                                  staticClass: "ml-5",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.open(child)
-                                    }
-                                  }
-                                },
-                                [
-                                  child.icon
-                                    ? _c(
-                                        "v-list-tile-action",
+                              return _vm.$auth.check(child.roles)
+                                ? _c(
+                                    "v-list-tile",
+                                    {
+                                      key: i,
+                                      staticClass: "ml-5",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.open(child)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      child.icon
+                                        ? _c(
+                                            "v-list-tile-action",
+                                            [
+                                              _c("v-icon", [
+                                                _vm._v(_vm._s(child.icon))
+                                              ])
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile-content",
                                         [
-                                          _c("v-icon", [
-                                            _vm._v(_vm._s(child.icon))
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              "\n                  " +
+                                                _vm._s(child.text) +
+                                                "\n                "
+                                            )
                                           ])
                                         ],
                                         1
                                       )
-                                    : _vm._e(),
-                                  _vm._v(" "),
+                                    ],
+                                    1
+                                  )
+                                : _vm._e()
+                            })
+                          ],
+                          2
+                        )
+                      : _vm.$auth.check(item.roles)
+                        ? _c(
+                            "v-list-tile",
+                            {
+                              key: item.text,
+                              on: {
+                                click: function($event) {
+                                  _vm.open(item)
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "v-list-tile-action",
+                                [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-tile-content",
+                                [
                                   _c(
-                                    "v-list-tile-content",
+                                    "v-list-tile-title",
                                     [
-                                      _c("v-list-tile-title", [
-                                        _vm._v(
-                                          "\n                  " +
-                                            _vm._s(child.text) +
-                                            "\n                "
-                                        )
-                                      ])
+                                      item.link
+                                        ? _c(
+                                            "router-link",
+                                            { attrs: { to: item.link } },
+                                            [_vm._v(_vm._s(item.text))]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      !item.link
+                                        ? _c("span", [
+                                            _vm._v(_vm._s(item.text))
+                                          ])
+                                        : _vm._e()
                                     ],
                                     1
                                   )
                                 ],
                                 1
                               )
-                            })
-                          ],
-                          2
-                        )
-                      : _c(
-                          "v-list-tile",
-                          {
-                            key: item.text,
-                            on: {
-                              click: function($event) {
-                                _vm.open(item)
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "v-list-tile-action",
-                              [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-list-tile-content",
-                              [
-                                _c(
-                                  "v-list-tile-title",
-                                  [
-                                    item.link
-                                      ? _c(
-                                          "router-link",
-                                          { attrs: { to: item.link } },
-                                          [_vm._v(_vm._s(item.text))]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    !item.link
-                                      ? _c("span", [_vm._v(_vm._s(item.text))])
-                                      : _vm._e()
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
+                            ],
+                            1
+                          )
+                        : _vm._e()
                 ]
               })
             ],
@@ -55586,7 +55638,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm.editing
+                  _vm.editing && _vm.$auth.check("A")
                     ? _c(
                         "v-flex",
                         { attrs: { xs3: "" } },
@@ -55686,7 +55738,7 @@ var render = function() {
                                 attrs: {
                                   rules: _vm.validationRules.email,
                                   required: "",
-                                  label: "E-mail"
+                                  label: "E-mail (usado para login no sistema)"
                                 },
                                 model: {
                                   value: _vm.form.user.email,
@@ -55745,29 +55797,31 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs3: "" } },
-                            [
-                              _c("v-select", {
-                                attrs: {
-                                  items: _vm.statusList,
-                                  rules: _vm.validationRules.required,
-                                  required: "",
-                                  label: "Status",
-                                  "single-line": ""
-                                },
-                                model: {
-                                  value: _vm.form.status,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "status", $$v)
-                                  },
-                                  expression: "form.status"
-                                }
-                              })
-                            ],
-                            1
-                          ),
+                          _vm.$auth.check("A")
+                            ? _c(
+                                "v-flex",
+                                { attrs: { xs3: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.statusList,
+                                      rules: _vm.validationRules.required,
+                                      required: "",
+                                      label: "Status",
+                                      "single-line": ""
+                                    },
+                                    model: {
+                                      value: _vm.form.status,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "status", $$v)
+                                      },
+                                      expression: "form.status"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
                           _c(
                             "v-flex",
@@ -56041,50 +56095,55 @@ var render = function() {
                                             ]
                                           ),
                                           _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            { staticClass: "activation-board" },
-                                            [
-                                              program.pivot
-                                                ? _c(
-                                                    "div",
-                                                    [
-                                                      _c("v-switch", {
-                                                        attrs: {
-                                                          label: "Ativo"
-                                                        },
-                                                        on: {
-                                                          change: function(
-                                                            $event
-                                                          ) {
-                                                            _vm.updatePivot(
-                                                              program.pivot
-                                                            )
-                                                          }
-                                                        },
-                                                        model: {
-                                                          value:
-                                                            program.pivot
-                                                              .active,
-                                                          callback: function(
-                                                            $$v
-                                                          ) {
-                                                            _vm.$set(
-                                                              program.pivot,
-                                                              "active",
-                                                              $$v
-                                                            )
-                                                          },
-                                                          expression:
-                                                            "program.pivot.active"
-                                                        }
-                                                      })
-                                                    ],
-                                                    1
-                                                  )
-                                                : _vm._e()
-                                            ]
-                                          )
+                                          _vm.$auth.check("A")
+                                            ? _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "activation-board"
+                                                },
+                                                [
+                                                  program.pivot
+                                                    ? _c(
+                                                        "div",
+                                                        [
+                                                          _c("v-switch", {
+                                                            attrs: {
+                                                              label: "Ativo"
+                                                            },
+                                                            on: {
+                                                              change: function(
+                                                                $event
+                                                              ) {
+                                                                _vm.updatePivot(
+                                                                  program.pivot
+                                                                )
+                                                              }
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                program.pivot
+                                                                  .active,
+                                                              callback: function(
+                                                                $$v
+                                                              ) {
+                                                                _vm.$set(
+                                                                  program.pivot,
+                                                                  "active",
+                                                                  $$v
+                                                                )
+                                                              },
+                                                              expression:
+                                                                "program.pivot.active"
+                                                            }
+                                                          })
+                                                        ],
+                                                        1
+                                                      )
+                                                    : _vm._e()
+                                                ]
+                                              )
+                                            : _vm._e()
                                         ],
                                         1
                                       )
@@ -56827,57 +56886,79 @@ var render = function() {
           _c(
             "v-layout",
             { attrs: { row: "", wrap: "" } },
-            _vm._l(_vm.programs, function(program) {
-              return _c(
-                "v-flex",
-                { key: program.id, attrs: { xs12: "", sm7: "" } },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c("v-card-title", [
-                        _c("h2", { staticClass: "subheading" }, [
-                          _vm._v(_vm._s(program.name))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("v-card-text", [
-                        _c(
-                          "ul",
-                          _vm._l(program.files, function(file) {
-                            return _c("li", { key: file.id }, [
-                              _c("small", [
-                                _vm._v(
-                                  _vm._s(_vm._f("dateformat")(file.air_on))
-                                )
-                              ]),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    target: "_blank",
-                                    href: "/api/programs/downloads/" + file.id
-                                  }
-                                },
-                                [
+            [
+              _vm._l(_vm.programs, function(program) {
+                return _c(
+                  "v-flex",
+                  { key: program.id, attrs: { xs12: "", sm7: "" } },
+                  [
+                    _c(
+                      "v-card",
+                      [
+                        _c("v-card-title", [
+                          _c("h2", { staticClass: "subheading" }, [
+                            _vm._v(_vm._s(program.name))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("v-card-text", [
+                          _c(
+                            "ul",
+                            _vm._l(program.files, function(file) {
+                              return _c("li", { key: file.id }, [
+                                _c("small", [
                                   _vm._v(
-                                    "Programa " + _vm._s(file.program_number)
+                                    _vm._s(_vm._f("dateformat")(file.air_on))
                                   )
-                                ]
-                              )
-                            ])
-                          })
-                        )
-                      ])
-                    ],
-                    1
-                  )
+                                ]),
+                                _c("br"),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      target: "_blank",
+                                      href: "/api/programs/downloads/" + file.id
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "Programa " + _vm._s(file.program_number)
+                                    )
+                                  ]
+                                )
+                              ])
+                            })
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "", sm7: "" } },
+                [
+                  _c("h2", [_vm._v("Assinaturas aguardando aprovação:")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.waitingApproval, function(program) {
+                    return _c("p", { key: program.id }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(program.name) +
+                          "\n                "
+                      )
+                    ])
+                  })
                 ],
-                1
+                2
               )
-            })
+            ],
+            2
           )
         ],
         1
@@ -60364,6 +60445,30 @@ module.exports = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 266 */,
+/* 267 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    data: function data() {
+        return {
+            firstName: ''
+        };
+    },
+    created: function created() {
+        this.firstName = this.$auth.user().name.split(' ')[0];
+    }
+});
 
 /***/ })
 /******/ ]);

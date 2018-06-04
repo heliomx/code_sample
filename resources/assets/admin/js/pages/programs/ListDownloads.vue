@@ -20,6 +20,12 @@
                     </v-card>
 
                 </v-flex>
+                <v-flex xs12 sm7>
+                    <h2>Assinaturas aguardando aprovação:</h2>
+                    <p v-for="program in waitingApproval" :key="program.id">
+                        {{ program.name }}
+                    </p>
+                </v-flex>
             </v-layout>
         </v-container>
     </v-container>
@@ -34,7 +40,8 @@ export default {
     },
     data() {
         return {
-            programs: null
+            programs: null,
+            waitingApproval: null
         }
     },
 
@@ -49,7 +56,15 @@ export default {
             this.$http.get('programs?downloads=true')
                 .then( r => {
                     this.$global.loading = false;
-                    this.programs = r.data.data;
+                    if (this.$auth.check('A'))
+                    {
+                        this.programs = r.data.data;
+                    } else {
+                        this.programs = r.data.data.actives;
+                        this.waitingApproval = r.data.data.waiting;
+                    }
+                    
+                    
                 });
         }
     }

@@ -74,7 +74,7 @@
               success: function () {},
               error: function () {},
               rememberMe: true,
-              redirect: '/clientes',
+              redirect: '/dashboard',
               fetchUser: true,
           }); 
         }      

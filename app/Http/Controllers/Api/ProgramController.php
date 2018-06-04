@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Auth;
+use App\User;
+use App\Client;
 use App\Program;
 use App\ProgramFile;
 use Illuminate\Http\Request;
@@ -19,10 +22,30 @@ class ProgramController extends Controller
     {
         if($request->has('downloads') && $request->input('downloads'))
         {
-            $programs = Program::with('files')->whereHas('files', function ($query) {
-                return $query->whereStatus(ProgramFile::STATUS_PUBLISHED);
-            })->get();
-            $r = response()->json([ 'data' => $programs ]);
+            $user = Auth::user();
+            if ($user->role == User::ROLE_ADMIN)
+            {
+                $programs = Program::with('files')->whereHas('files', function ($query) {
+                    return $query->whereStatus(ProgramFile::STATUS_PUBLISHED);
+                })->get();
+                $r = response()->json([ 'data' => $programs ]);
+            } else {
+                $client = Client::whereUserId($user->id)->first();
+                $actives = $client->programs()
+                    ->whereStatus('A')
+                    ->with('files')
+                    ->whereHas('files', function ($q) {
+                        return $q->whereStatus(ProgramFile::STATUS_PUBLISHED);
+                    })->get();
+
+                $waiting = $client->programs()
+                    ->whereStatus('D')
+                    ->with('files')
+                    ->get();
+
+                $r = response()->json([ 'data' => [ 'actives' => $actives, 'waiting' => $waiting ]]);
+            }
+            
         } else {
             $r = response()->json([ 'data' => Program::all()]);
         }

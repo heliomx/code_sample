@@ -21,7 +21,8 @@ class Client extends Model
 
     public function programs()
     {
-        return $this->belongsToMany('App\Program', 'signatures')->withPivot('status');
+        return $this->belongsToMany('App\Program', 'signatures')
+            ->withPivot('status');
     }
 
     public function getQtSignaturesAttribute() {

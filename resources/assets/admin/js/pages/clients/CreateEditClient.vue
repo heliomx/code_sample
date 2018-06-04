@@ -6,7 +6,7 @@
         <v-flex xs9>
             <h2 class="headline">Editando {{ form.radio_name }}</h2>
         </v-flex>
-        <v-flex xs3 v-if="editing">
+        <v-flex xs3 v-if="editing && $auth.check('A')">
             <v-btn @click="showConfirmDelete">
                 Remover cliente <v-icon>delete</v-icon>
             </v-btn>
@@ -25,7 +25,7 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs8>
-                        <v-text-field :rules="validationRules.email" required v-model="form.user.email" label="E-mail">
+                        <v-text-field :rules="validationRules.email" required v-model="form.user.email" label="E-mail (usado para login no sistema)">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs4>
@@ -36,7 +36,7 @@
                         <v-select :items="radioList" :rules="validationRules.required" label="Tipo de rádio" required v-model="form.radio_type" single-line>
                         </v-select>
                     </v-flex>
-                    <v-flex xs3>
+                    <v-flex xs3 v-if="$auth.check('A')">
                         <v-select :items="statusList" :rules="validationRules.required" v-model="form.status" required label="Status" single-line>
                         </v-select>
                     </v-flex>
@@ -92,7 +92,7 @@
                                             {{ program.name }}
                                         </div>
                                     </v-checkbox>
-                                    <div class="activation-board">
+                                    <div class="activation-board" v-if="$auth.check('A')">
                                         <div v-if="program.pivot">
                                             <v-switch :label="`Ativo`" @change="updatePivot(program.pivot)" v-model="program.pivot.active"></v-switch>
                                         </div>
@@ -160,6 +160,7 @@ export default {
                 info: '',
                 callback: ()=>{}
             },
+            clientEdit: false,
             valid: true,
             confirmDeletion: false,
             editing: false,
@@ -300,13 +301,24 @@ export default {
         },
         fetchData() {
             this.$global.loading = true;
+            let clientId;
+            if (this.$route.name == 'clientForm' || this.$route.name == 'editClient')
+            {
+                this.editing = true;
+                this.clientEdit = this.$route.name == 'clientForm';
+                clientId = this.$route.name == 'clientForm' ? 
+                    this.$auth.user().client_id : 
+                    this.$route.params.id;
+            } else {
+                this.editing = false;
+            }
             this.$http.get("programs").then(response => {
                 this.programsList = response.data.data;
 
-                if (this.$route.params.id != null) {
-                    this.editing = true;
+                if (this.editing) {
+                    
                     console.log("editing");
-                    this.$http.get(`clients/${this.$route.params.id}`).then(r => {
+                    this.$http.get(`clients/${clientId}`).then(r => {
                         this.form = r.data.data;
                         for (let k = 0; k < this.form.programs.length; k++) {
                             for (let i = 0; i < this.programsList.length; i++) {
@@ -321,7 +333,6 @@ export default {
                         this.$global.loading = false;
                     });
                 } else {
-                    this.editing = false;
                     this.$global.loading = false;
                     this.form = this.blankForm();
                 }
