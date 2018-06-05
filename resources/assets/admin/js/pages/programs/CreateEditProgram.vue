@@ -49,6 +49,13 @@
                     </v-flex>
 
                     <v-flex xs4>
+                        <v-subheader>* Quantidade de Dias em publicação</v-subheader>
+                    </v-flex>
+                    <v-flex xs8>
+                        <v-text-field v-model="form.publication_days" required :rules="validationRules.required" type="number" label="Dias"></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs4>
                         <v-subheader>Imagem</v-subheader>
                     </v-flex>
                     <v-flex xs8>
@@ -201,18 +208,33 @@ export default {
             formData.inputs.append('name', this.form.name);
             formData.inputs.append('description', this.form.description);
             formData.inputs.append('program_type', this.form.program_type);
-            formData.inputs.append('img', this.$refs.pictureInput.file, this.$refs.pictureInput.file.name);
-            console.log(this.$refs.pictureInput.file);
+            formData.inputs.append('publication_days', this.form.publication_days);
+            if (this.$refs.pictureInput.file)
+            {
+                formData.inputs.append('img', this.$refs.pictureInput.file, this.$refs.pictureInput.file.name);
+            }
+            
+            
             if (this.editing)
             {
                 formData.post().
                 then( r => {
-                    console.log(r);
+                    this.message.visible = true;
+                    this.message.title = 'Alteração';
+                    this.message.info = `O programa "${this.form.name}" foi alterado com sucesso`;
+                    this.message.callback = () => {
+                        this.$router.push('/programas');
+                    }
                 });
             } else {
                 formData.post().
                 then( r => {
-                    console.log(r);
+                    this.message.visible = true;
+                    this.message.title = 'Criação';
+                    this.message.info = `O programa "${this.form.name}" foi criado com sucesso`;
+                    this.message.callback = () => {
+                        this.$router.push('/programas');
+                    }
                 });
             }
         }
@@ -221,6 +243,10 @@ export default {
 </script>
 
 <style>
+    .picture-input {
+        position: relative;
+        z-index: 1;
+    }
     .picture-input-btn {
         padding: 10px 20px;
     }

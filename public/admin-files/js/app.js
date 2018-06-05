@@ -30386,6 +30386,13 @@ function dictionary(lang) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -30476,19 +30483,34 @@ function dictionary(lang) {
             });
         },
         submit: function submit() {
+            var _this3 = this;
+
             var formData = new __WEBPACK_IMPORTED_MODULE_3__lib_FormData__["a" /* default */](this.$http, this.editing ? 'programs/' + this.form.id : 'programs');
             formData.inputs.append('name', this.form.name);
             formData.inputs.append('description', this.form.description);
             formData.inputs.append('program_type', this.form.program_type);
-            formData.inputs.append('img', this.$refs.pictureInput.file, this.$refs.pictureInput.file.name);
-            console.log(this.$refs.pictureInput.file);
+            formData.inputs.append('publication_days', this.form.publication_days);
+            if (this.$refs.pictureInput.file) {
+                formData.inputs.append('img', this.$refs.pictureInput.file, this.$refs.pictureInput.file.name);
+            }
+
             if (this.editing) {
                 formData.post().then(function (r) {
-                    console.log(r);
+                    _this3.message.visible = true;
+                    _this3.message.title = 'Alteração';
+                    _this3.message.info = 'O programa "' + _this3.form.name + '" foi alterado com sucesso';
+                    _this3.message.callback = function () {
+                        _this3.$router.push('/programas');
+                    };
                 });
             } else {
                 formData.post().then(function (r) {
-                    console.log(r);
+                    _this3.message.visible = true;
+                    _this3.message.title = 'Criação';
+                    _this3.message.info = 'O programa "' + _this3.form.name + '" foi criado com sucesso';
+                    _this3.message.callback = function () {
+                        _this3.$router.push('/programas');
+                    };
                 });
             }
         }
@@ -57071,7 +57093,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.picture-input-btn {\n    padding: 10px 20px;\n}\n.preview-container {\n    margin: 0 !important;\n}\n.aviso {\n    display: block;\n    text-align: right;\n    margin-top: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.picture-input {\n    position: relative;\n    z-index: 1;\n}\n.picture-input-btn {\n    padding: 10px 20px;\n}\n.preview-container {\n    margin: 0 !important;\n}\n.aviso {\n    display: block;\n    text-align: right;\n    margin-top: 20px;\n}\n", ""]);
 
 // exports
 
@@ -57776,6 +57798,40 @@ var render = function() {
                                     _vm.$set(_vm.form, "description", $$v)
                                   },
                                   expression: "form.description"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs4: "" } },
+                            [
+                              _c("v-subheader", [
+                                _vm._v("* Quantidade de Dias em publicação")
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { xs8: "" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  required: "",
+                                  rules: _vm.validationRules.required,
+                                  type: "number",
+                                  label: "Dias"
+                                },
+                                model: {
+                                  value: _vm.form.publication_days,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "publication_days", $$v)
+                                  },
+                                  expression: "form.publication_days"
                                 }
                               })
                             ],

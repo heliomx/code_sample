@@ -47,7 +47,6 @@ class Package extends Model
         Log::info('metadata', ['data' => $upload->metadata['publish_on']]);
         preg_match('/(\d+)\/(\d+)\/(\d+)/', $upload->metadata['publish_on'], $date);
         $publish_start = Carbon::createFromDate($date[3], $date[2], $date[1]);
-        $publish_end = (new Carbon($publish_start))->addWeek();
 
         $package->upload()->associate($upload);
         $package->status = self::STATUS_UNPACKING;
@@ -111,7 +110,7 @@ class Package extends Model
                             $pfile->package()->associate($package);
                             $pfile->file_name = "$dir_match[0]/$fname";
                             $pfile->publish_start = $publish_start;
-                            $pfile->publish_end = $publish_end;
+                            $pfile->publish_end = (new Carbon($publish_start))->addDays($program->publication_days);
                             $pfile->status = ProgramFile::STATUS_WAITING;
                             $pfile->air_on = Carbon::createFromDate($f_match[5], $f_match[4], $f_match[3]);
                             $pfile->save();

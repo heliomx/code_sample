@@ -76,7 +76,21 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $program = new Program();
+        
+        $path = $request->has('img') ? $request->file('img')->store('public/programs') : '';
+        $program->fill([
+            'name'          => $request->input('name'),
+            'description'   => $request->input('description'),
+            'program_type'  => $request->input('program_type'),
+            'publication_days'  => $request->input('publication_days'),
+            'img'           => $path
+        ]);
+        
+
+        $program->save();
+
+        return response()->json( [ 'data' => $program ] );
     }
 
     /**
@@ -100,11 +114,12 @@ class ProgramController extends Controller
     {
         $program = Program::find($id);
         
-        $path = $request->file('img')->store('public/programs');
+        $path = $request->has('img') ? $request->file('img')->store('public/programs') : '';
         $program->fill([
             'name'          => $request->input('name'),
             'description'   => $request->input('description'),
             'program_type'  => $request->input('program_type'),
+            'publication_days'  => $request->input('publication_days'),
             'img'           => $path
         ]);
         

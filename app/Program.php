@@ -9,7 +9,7 @@ class Program extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [ 'name', 'description', 'program_type', 'img', 'updated_at', 'created_at' ];
+    protected $fillable = [ 'name', 'description', 'program_type', 'publication_days', 'img', 'updated_at', 'created_at' ];
     protected $appends = ['qt_signatures', 'full_img_path'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
     
