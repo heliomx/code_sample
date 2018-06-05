@@ -18171,7 +18171,11 @@ function dictionary(lang) {
                     _this3.message.title = 'Alteração';
                     _this3.message.info = 'O cliente ' + _this3.form.radio_name + ' foi alterado com sucesso';
                     _this3.message.callback = function () {
-                        _this3.$router.push('/clientes');
+                        if (_this3.clientEdit) {
+                            _this3.$router.push('/dashboard');
+                        } else {
+                            _this3.$router.push('/clientes');
+                        }
                     };
                 });
             } else {
@@ -18180,7 +18184,11 @@ function dictionary(lang) {
                     _this3.message.title = 'Criado';
                     _this3.message.info = 'O cliente ' + _this3.form.radio_name + ' foi criado com sucesso';
                     _this3.message.callback = function () {
-                        _this3.$router.push('/clientes');
+                        if (_this3.clientEdit) {
+                            _this3.$router.push('/dashboard');
+                        } else {
+                            _this3.$router.push('/clientes');
+                        }
                     };
                 });
             }

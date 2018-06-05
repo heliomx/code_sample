@@ -272,7 +272,11 @@ export default {
                     this.message.title = 'Alteração';
                     this.message.info = `O cliente ${this.form.radio_name} foi alterado com sucesso`;
                     this.message.callback = () => {
-                        this.$router.push('/clientes');
+                        if (this.clientEdit) {
+                            this.$router.push('/dashboard');
+                        } else {
+                            this.$router.push('/clientes');
+                        }
                     }
                 });
             } else {
@@ -281,7 +285,11 @@ export default {
                     this.message.title = 'Criado';
                     this.message.info = `O cliente ${this.form.radio_name} foi criado com sucesso`;
                     this.message.callback = () => {
-                        this.$router.push('/clientes');
+                        if (this.clientEdit) {
+                            this.$router.push('/dashboard');
+                        } else {
+                            this.$router.push('/clientes');
+                        }
                     }
                 });
             }
