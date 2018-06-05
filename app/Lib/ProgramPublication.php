@@ -8,7 +8,7 @@ class ProgramPublication {
     
     public static function check()
     {
-        // validates and manage current program publication
+        // validates and unpublish current program publication
         self::unpublish();
         // verifies if there's programs for publication
         self::publish();
@@ -16,7 +16,7 @@ class ProgramPublication {
 
     private static function unpublish()
     {
-        $now = Carbon::now();
+        $now = (Carbon::now())->addMinutes(10);
         $programFiles = ProgramFile::whereStatus( ProgramFile::STATUS_PUBLISHED )
             ->where('publish_end', '<', $now )
             ->get();
