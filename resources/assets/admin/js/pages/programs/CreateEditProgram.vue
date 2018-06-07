@@ -61,11 +61,11 @@
                     <v-flex xs8>
                         <picture-input
                             ref="pictureInput"
-                            :width="500"
+                            :width="288"
                             :removable="true"
                             :prefill="form.img ? form.full_img_path : ''"
                             removeButtonClass="btn picture-input-btn"
-                            :height="500"
+                            :height="288"
                             accept="image/jpeg, image/png, image/gif"
                             buttonClass="btn primary picture-input-btn"
                             :customStrings="{

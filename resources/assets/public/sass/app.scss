@@ -1,0 +1,29 @@
+// Variables
+@import "variables";
+
+.container {
+    padding: 0;
+}
+
+.content-area {
+    
+    &>div{
+        width: $content-width;
+        margin: 0 auto;
+        background-color: #fff;
+        height: 100%;
+    }
+}
+
+body {
+    color: $title-color;
+    font-family: $title-font;
+}
+
+.btn__content {
+    font-family: $title-font;
+}
+
+.btn--large {
+    font-size: 20px;
+}
