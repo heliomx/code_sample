@@ -27,3 +27,32 @@ body {
 .btn--large {
     font-size: 20px;
 }
+
+section {
+
+    &.content-area > div {
+        padding: 50px 30px;
+    }
+
+    h2 {
+        color: $title-color;
+        font-size: 35px;
+        line-height: 31px;
+        font-family: $title-font;
+        font-weight: 300;
+        margin-bottom: 20px;
+
+        strong {
+            font-weight: 700;    
+            display: block;
+            margin-left: 63px;   
+        }
+    }
+
+    p {
+        margin-left: 25px;
+        width: 80%;
+        font-size: 17px;
+        font-family: $title-font;
+    }
+}

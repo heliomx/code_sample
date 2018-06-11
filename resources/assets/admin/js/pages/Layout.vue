@@ -151,24 +151,22 @@ export default {
 
                 ]
             },
-            // {
-            //     icon: "keyboard_arrow_up",
-            //     "icon-alt": "keyboard_arrow_down",
-            //     text: "Relatórios",
-            //     children: [{
-            //             text: "Clientes"
-            //         },
-            //         {
-            //             text: "Programas"
-            //         },
-
-            //     ]
-            // },
-            // {
-            //     icon: "radio",
-            //     text: "Programas",
-            // },
-
+            {
+                icon: "keyboard_arrow_up",
+                "icon-alt": "keyboard_arrow_down",
+                text: "Conteúdo",
+                roles: [ 'A' ],
+                children: [
+                    {
+                        text: "Home",
+                        link: "/conteudo/home",
+                    },
+                    {
+                        text: "Quem somos",
+                        link: "/conteudo/quemsomos",
+                    }
+                ]
+            },
         ]
     }),
     props: {

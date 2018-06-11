@@ -22,3 +22,29 @@ body {
   font-size: 20px;
 }
 
+section.content-area > div {
+  padding: 50px 30px;
+}
+
+section h2 {
+  color: #504f4f;
+  font-size: 35px;
+  line-height: 31px;
+  font-family: "Titillium Web";
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+section h2 strong {
+  font-weight: 700;
+  display: block;
+  margin-left: 63px;
+}
+
+section p {
+  margin-left: 25px;
+  width: 80%;
+  font-size: 17px;
+  font-family: "Titillium Web";
+}
+

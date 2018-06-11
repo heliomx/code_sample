@@ -30,6 +30,7 @@
         "moment": "^2.22.1",
         "numeral": "^2.0.6",
         "uppy": "^0.24.2",
+        "vue-carousel": "^0.8.1",
         "vue-localstorage": "^0.6.2",
         "vue-picture-input": "^2.1.5",
         "vuetify": "^1.0.16"

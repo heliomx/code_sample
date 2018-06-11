@@ -28,6 +28,10 @@ import Layout from './pages/Layout.vue';
     import CreateEditProgram from './pages/programs/CreateEditProgram';
     import UploadPrograms from './pages/programs/UploadPrograms';
 
+// Content
+    import HomeContent from './pages/content/HomeContent';
+    import WhoWeAreContent from './pages/content/WhoWeAreContent';
+
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -121,6 +125,19 @@ const router = new VueRouter({
                     name: 'editProgram',
                     component: CreateEditProgram
                 },
+
+                // Content
+                {
+                    path: 'conteudo/home',
+                    name: 'homeContent',
+                    component: HomeContent
+                },
+                {
+                    path: 'conteudo/quemsomos',
+                    name: 'whoWeAreContent',
+                    component: WhoWeAreContent
+                },
+
 
                 {
                     path: '/registro',

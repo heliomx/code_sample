@@ -15,13 +15,14 @@
         </div>
     </div>
     <div class="header">
+        <div class="bg"></div>
         <div class="header-content">
             <img src="/img/LogoRadio.png">
             
             <nav>
                 <ul>
                     <li>
-                        <router-link to="home">Home</router-link>
+                        <router-link to="/">Home</router-link>
                     </li>
                     <li>
                         <router-link to="quemsomos">Quem somos</router-link>
@@ -49,8 +50,9 @@
         </v-container>
     </v-content>
     <v-footer app color="#c0c0c0">
-        <div class="">
-            Radio Estúdio Brasil
+        <div>
+            Radio Estúdio Brasil - <a href="mailto:contato@radioestudiobrasil.com.br">contato@radioestudiobrasil.com.br</a> 
+                    | (61) 3532-6993
         </div>
     </v-footer>
 </v-app>
@@ -63,6 +65,7 @@
 
 .header-info {
     background-color: $primary-light;
+    
     color: #fff;
     font-size: 12px;
     -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
@@ -78,6 +81,7 @@
 .header {
     
     background-color: $primary-color; // Old browsers
+    
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005b03+0,2d870c+17,2d870c+83,005b03+100 */
     background: -moz-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(left, #005b03 0%,#2d870c 17%,#2d870c 83%,#005b03 100%); /* Chrome10-25,Safari5.1-6 */
@@ -85,9 +89,22 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005b03', endColorstr='#005b03',GradientType=1 ); /* IE6-9 */
     -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
     -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
+    
     box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
     position:relative;
     padding-top:20px;
+
+    .bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url('/img/transmission.png');
+        top:0;
+        left: 0;
+        z-index: 1;
+        background-position: 825px;
+        opacity: 0.2;
+    }
     
     a {
         color: #fff;
@@ -95,7 +112,7 @@
         padding: 10px;
         text-decoration: none;
         transition: 0.5s;   
-        
+
         &:hover {
             background-color: $primary-light;
             transition: 0.5s;
@@ -118,6 +135,9 @@
 
     .header-content {
         padding: 0;
+        position: relative;
+        z-index: 2;
+        
     }
 }
 .header-content {
@@ -126,6 +146,13 @@
     flex-wrap: wrap;
     padding: 10px 0;
     margin: 0 auto;
+}
+footer div{
+    width: $content-width;
+    margin: 0 auto;
+    padding: 0 10px;
+    font-size: 12px;
+
 }
 </style>
 

@@ -16,6 +16,7 @@ import '../sass/app.scss';
 
 // Public Pages
 import Home from './pages/Home.vue';
+import Program from './pages/Program.vue';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -37,8 +38,13 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home
+        },
+        {
+            path: '/programas/:id',
+            name: 'program',
+            component: Program
         }
-    ]
+    ]  
 });
 Vue.router = router
 Vue.use(require('@websanova/vue-auth'), {

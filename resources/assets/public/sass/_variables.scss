@@ -1,3 +1,17 @@
+// mixin 
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+
+
 // Variables
 $content-width: 1000px;
 
