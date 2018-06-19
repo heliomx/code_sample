@@ -14,7 +14,8 @@ class ContentController extends Controller
 
     public function storeImage(Request $request, $docType)
     {
-        $path = $request->img->storeAs('public/content', $request->id . '.' . $request->img->extension());
+        $time = time();
+        $path = $request->img->storeAs('public/content', $request->id . "-$time" . '.' . $request->img->extension());
         $path = preg_replace('/public/', '/storage', $path);
         return response()->json( [ 'data' => $path ] );
     }

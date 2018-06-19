@@ -56,7 +56,12 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="darken-1" flat @click="cancel">Cancelar</v-btn>
-                    <v-btn color="darken-1" flat @click="confirm">Confirmar</v-btn>
+                    <v-btn 
+					:loading="loading"
+      				:disabled="loading"
+					color="darken-1" 
+					flat 
+					@click="confirm">Confirmar</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -75,6 +80,7 @@ export default {
 		   editedSlide: null,
 		   originalSlide: null,
 		   visible: false,
+		   loading: false,
 		   isSeeAlso: false,
 		   successCallback: null,
 		   cancelCallback: null,
@@ -108,8 +114,9 @@ export default {
 
 		uploadImg(image)
 		{
+			this.loading = true;
 			let className = this.isSeeAlso ? 'seeAlso' : 'slides';
-			console.log('uploading');
+			
 			let formData = new FormData(this.$http, `contents/images/home`);
 			formData.inputs.append('id', this.editedSlide.id);
 			formData.inputs.append('class', className);
@@ -117,6 +124,8 @@ export default {
 			formData.post().
 				then( r => {
 					this.editedSlide.img = r.data.data;
+					this.loading = false;
+					console.log('done');
 				});
 		}
     }
