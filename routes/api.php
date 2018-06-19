@@ -49,5 +49,9 @@ Route::get('programs/downloads/{id}', 'Api\ProgramController@download');
 Route::get('packages/{id}', 'Api\PackageController@show');
 
 //TUS
-
 Route::post('uploadjobs', '\OneOffTech\TusUpload\Http\Controllers\TusUploadQueueController@store');
+
+// Content
+Route::post('contents/images/{docType}', 'Api\ContentController@storeImage');
+Route::post('contents/{docType}', 'Api\ContentController@store');
+Route::get('contents/{docType}', 'Api\ContentController@show');

@@ -105,17 +105,17 @@
                     <v-flex xs10>
                         <small v-if="!valid">* Verifique o preenchimento de todos os campos obrigatórios antes de enviar o formulário</small>
                     </v-flex>
-                    <v-flex xs2>
-                        <v-btn color="primary" @click="submit" :disabled="!valid">
-                            <span v-if="!editing">Cadastrar</span>
-                            <span v-if="editing">Atualizar</span>
-                        </v-btn>
-                        <br>
-                        
-                    </v-flex>
+                    
                 </v-layout>
+                
             </v-container>
         </v-form>
+    </div>
+    <div class="page-actions">
+        <v-btn color="secondary" @click="submit" :disabled="!valid">
+            <span v-if="!editing">Cadastrar</span>
+            <span v-if="editing">Atualizar</span>
+        </v-btn>
     </div>
     <v-layout row justify-center>
         <v-dialog v-model="confirmDeletion" persistent max-width="290">

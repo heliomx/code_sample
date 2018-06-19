@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from 'vue/dist/vue.common';
 import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -9,8 +9,8 @@ import { SharedData } from './shared';
 //Vuetify
 import Vuetify from 'vuetify';
 import colors from 'vuetify/es5/util/colors';
-import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
+import 'vuetify/dist/vuetify.min.css';
 
 import '../sass/app.scss';
 

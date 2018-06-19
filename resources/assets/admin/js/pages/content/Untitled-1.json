@@ -1,0 +1,34 @@
+{
+  "slides": [
+    {
+      "id": "m348934tnv8hv-asdfn244-vxf4",
+      "img": "/img/amado hi.jpg",
+      "link": "/programas/2",
+      "order": 2,
+      "title": "Cantores do Brasil",
+      "description":
+        "Cantores do Brasil é um programa semanal com a apresentação de Edelson Moura"
+    },
+    {
+      "id": "lkjasdf-43534ks-dfg-sm",
+      "img": "/img/amado hi.jpg",
+      "link": "/programas/1",
+      "order": 1,
+      "title": "Amado Batista 2",
+      "description":
+        "Programa distribuído pela Rádio Estúdio Brasil para 800 emissoras."
+    }
+  ],
+  "welcome":
+    "A 10 Anos no mercado a Rádio Estúdio Brasil vem inovando sempre nos seus conceitos e nos seus produtos. Nossa empresa oferece programas de áudio produzidos, gravados e editados para mais de 1.200 Emissoras de Rádio no Brasil e no Mundo.&nbsp;&nbsp;<div><br></div><div><a href=\"/quemsomos\">Nossa equipe</a>&nbsp;cuida de todos os detalhes: Edição de Áudio , Sonoplastia.&nbsp; <br>Tudo para lhe oferecer de forma Gratuita conteúdo para sua emissora de Rádio.<br></div>",
+  "ourPrograms": "São diversos programas a escolha da sua emissora: programas gratuitos, com conteudos jornalísticos, programas diários com duração de uma ou duas horas e programas semanais.<p><strong>Confira o conteúdo que preparamos para sua emissora.</strong></p>",
+  "selectedPrograms": [1,2,3],
+  "seeAlso": [
+    {
+      "id": "m3468934tnv8hv-asdfn244-vxf4",
+      "img": "/img/mock/amado hi.jpg",
+      "link": "/programas/2",
+      "title": "TV Estúdio Brasil"
+    }
+  ]
+}

@@ -147,6 +147,7 @@
     padding: 10px 0;
     margin: 0 auto;
 }
+
 footer div{
     width: $content-width;
     margin: 0 auto;

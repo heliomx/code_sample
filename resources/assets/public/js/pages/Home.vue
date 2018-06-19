@@ -4,31 +4,24 @@
             <div>
                 
                 <carousel 
+                    v-if="content.slides.length > 0"
                     :perPage="1"  
                     :paginationEnabled="false" 
                     :navigationEnabled="true" 
                     navigationNextLabel="&#10217;" 
                     navigationPrevLabel="&#10216;"
                 >
-                    <slide>
-                        <img src="/img/mock/amado hi.jpg" width="100%">
+                    <slide v-for="slide in content.slides" :key="slide.id">
+                        <a :href="slide.link">
+                        <img :src="slide.img" width="100%">
                         
                         <div class="slide-label">
-                            Amado Batista
+                            {{ slide.title }}
                             <div class="description">
-                                Este programa já está sendo distribuído pela Rádio Estúdio Brasil 
-                                para mais de 800 rádios cadastradas no Brasil e no exterior
+                                {{ slide.description }}
                             </div>
                         </div>
-                    </slide>
-                    <slide>
-                        <img src="/img/mock/edelson hi.jpg" width="100%">
-                        <div class="slide-label">
-                            Cantores do Brasil
-                            <div class="description">
-                                Cantores do Brasil é um programa semanal, com apresentação de Edelson Moura.
-                            </div>
-                        </div>
+                        </a>
                     </slide>
                 </carousel>
                 <div class="mask"></div>    
@@ -38,15 +31,7 @@
         <section class="content-area radio">
             <div>
                 <h2>Bem-vindo a <strong>Rádio Estúdio Brasil</strong></h2>
-                <p>A 10 Anos no mercado a Rádio Estúdio Brasil vem inovando sempre
-                    nos seus conceitos e nos seus produtos. Nossa empresa oferece 
-                    programas de áudio produzidos, gravados e editados para mais de 1.200 
-                    Emissoras de Rádio no Brasil e no Mundo. 
-                </p>
-                <p><router-link to="quemsomos">Nossa equipe</router-link> cuida de todos 
-                    os detalhes: Edição de Áudio , Sonoplastia. <br>Tudo para lhe oferecer 
-                    de forma Gratuita conteúdo para sua emissora de Rádio.
-                </p>
+                <div class="section-text" v-html="content.welcome"></div>
 
                 <v-btn class="clearfix" color="secondary" large to="cadastro">Cadastre-se e receba nosso conteúdo gratuito</v-btn>
                 
@@ -55,13 +40,7 @@
         <section class="content-area programs">
             <div>
                 <h2>Nossos <strong>Programas</strong></h2>
-                <p>São diversos programas a escolha da sua emissora: programas gratuitos, 
-                    com conteudos jornalísticos, programas diários com duração de uma ou duas horas  
-                    e programas semanais. 
-                    </p>
-                    <p>
-                        <strong>Confira o conteúdo que preparamos para sua emissora.</strong>
-                    </p>
+                <div class="section-text" v-html="content.ourPrograms"></div>
                     
                     <v-container grid-list-xl>
                         <v-layout row wrap>
@@ -92,18 +71,19 @@
             <div>
                 <h2>Conheça também</h2>
                 <carousel 
+                    v-if="content.seeAlso.length > 0"
                     :perPage="1" 
                     :paginationEnabled="false" 
                     :navigationEnabled="true" 
                     navigationNextLabel="&#10217;" 
                     navigationPrevLabel="&#10216;"
                 >
-                    <slide>
-                        <img src="/img/bannerTvEstudioBrasil.jpg">
+                    <slide v-for="slide in content.seeAlso" :key="slide.id">
+                        <a :href="slide.link" :title="slide.title" target="_blank">
+                            <img :src="slide.img">
+                        </a>
                     </slide>
-                    <slide>
-                        <img src="/img/mock/saudeComBeleza.jpg">
-                    </slide>
+                    
                 </carousel>
                 
             </div>
@@ -122,7 +102,15 @@ export default {
 
     data(){
         return {
-            programs:[],
+            content: {
+				slides: [],
+				welcome: '',
+				ourPrograms: '',
+				selectedPrograms: [],
+				seeAlso: []
+			},
+            availablePrograms:[],
+            programsHighlight: [],
             filteredPrograms: [],
             showHilight: true
         }
@@ -141,21 +129,32 @@ export default {
             console.log('aqui');
             if (this.showHilight)
             {
-                this.filteredPrograms = this.programs.slice(0,3);
+                this.filteredPrograms = this.programsHighlight;
             } else {
-                this.filteredPrograms = this.programs;
+                this.filteredPrograms = this.availablePrograms;
             }
         },
         
-        fetchData(){
-            this.$global.loading = true;
-            this.$http.get('programs')
-            .then( r => {
-                this.$global.loading = false;
-                this.programs = r.data.data;
-                this.filterPrograms();
-            });
-        }
+        fetchData() {
+			this.$global.loading = true;
+			this.$http.get('contents/home')
+				.then( response => {
+					this.content = response.data.data.doc;
+					
+					return this.$http.get('programs')
+						.then( response => {
+							this.availablePrograms = response.data.data;
+							this.programsHighlight = this.content.selectedPrograms
+								.map(p => 
+								{
+									return this.availablePrograms[this.availablePrograms.findIndex(e => e.id == p)];
+								})
+                            this.$global.loading = false;
+                            this.filterPrograms();
+                            window._ref = this;
+						})
+				});
+		},
     },
     created() {
         this.fetchData();
@@ -187,6 +186,13 @@ export default {
 #home {
     section {
 
+        .section-text {
+            margin-left: 25px;
+            width: 80%;
+            font-size: 17px;
+            font-family: $title-font;
+        }
+
         &.highlight {
             background: #000;
             height: 400px;
@@ -213,7 +219,7 @@ export default {
                 height: 100%;
                 top: 0;
                 left: 0;
-                
+                pointer-events:none;
             } 
 
             &.content-area > div {
@@ -283,7 +289,7 @@ export default {
 
             background-color: $primary-dark;
 
-            p {
+            .section-text {
                 color: $body-color-light;
             }
 
