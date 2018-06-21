@@ -73,10 +73,14 @@
     </v-toolbar>
 
     <v-content>
-        <v-progress-linear v-if="$global.loading" :indeterminate="true"></v-progress-linear>
-        <v-container fluid>
+        <transition name="fade" mode="out-in">
+            <v-progress-linear v-if="$global.loading" :indeterminate="true"></v-progress-linear>
+        </transition>
+        <v-container fluid >
             <v-layout>
-                <router-view></router-view>
+                <transition name="fade" appear mode="out-in">
+                    <router-view></router-view>
+                </transition>
             </v-layout>
         </v-container>
     </v-content>
@@ -183,3 +187,8 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+
+</style>
+

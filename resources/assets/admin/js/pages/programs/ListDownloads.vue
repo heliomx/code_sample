@@ -3,10 +3,11 @@
         <h1 class="headline">Programas disponíveis para baixar</h1>
         <v-container fluid grid-list-md>
             <v-layout row wrap>
+                
                 <v-flex xs12 sm7 v-for="program in programs" :key="program.id">
                     <v-card>
                         <v-card-title>
-                            <h2 class="subheading">{{ program.name }}</h2>
+                            <h2>{{ program.name }}</h2>
                         </v-card-title>
                         <v-card-text>
                             <ul>
@@ -17,9 +18,11 @@
                                 </li>
                             </ul>  
                         </v-card-text>
+                        <img :src="program.full_img_path">
                     </v-card>
 
                 </v-flex>
+                
                 <v-flex xs12 sm7>
                     <h2>Assinaturas aguardando aprovação:</h2>
                     <p v-for="program in waitingApproval" :key="program.id">
@@ -81,5 +84,10 @@ ul {
     li:hover {
         background-color: #F0F0F0;
     }
+}
+.card img {
+    position:absolute;
+    right: 0;
+    top: 0;
 }
 </style>

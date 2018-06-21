@@ -1,4 +1,5 @@
 <template>
+<transition name="fade" mode="out-in">
 <div v-if="!$global.loading" style="margin: 0 60px">
     
     <h1 v-if="!editing" class="headline">Cadastrar Novo Cliente</h1>
@@ -140,6 +141,7 @@
         @done="message.callback"
     ></message-dialog>
 </div>
+</transition>
 </template>
 
 <script>

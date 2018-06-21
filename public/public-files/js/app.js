@@ -36396,6 +36396,8 @@ module.exports = {
 //
 //
 //
+//
+//
 
 
 
@@ -36635,6 +36637,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__sass_app_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__sass_app_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_Home_vue__ = __webpack_require__(315);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_Program_vue__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_WhoWeAre_vue__ = __webpack_require__(327);
 
 
 
@@ -36652,6 +36655,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 // Public Pages
+
 
 
 
@@ -36678,6 +36682,10 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
         path: '/programas/:id',
         name: 'program',
         component: __WEBPACK_IMPORTED_MODULE_13__pages_Program_vue__["a" /* default */]
+    }, {
+        path: '/quemsomos',
+        name: 'whoWeAre',
+        component: __WEBPACK_IMPORTED_MODULE_14__pages_WhoWeAre_vue__["a" /* default */]
     }]
 });
 __WEBPACK_IMPORTED_MODULE_0_vue_dist_vue_common___default.a.router = router;
@@ -36780,7 +36788,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.container {\n  padding: 0;\n}\n.content-area > div {\n  width: 1000px;\n  margin: 0 auto;\n  background-color: #fff;\n  height: 100%;\n}\nbody {\n  color: #504f4f;\n  font-family: \"Titillium Web\";\n}\n.btn__content {\n  font-family: \"Titillium Web\";\n}\n.btn--large {\n  font-size: 20px;\n}\nsection.content-area > div {\n  padding: 50px 30px;\n}\nsection h2 {\n  color: #504f4f;\n  font-size: 35px;\n  line-height: 31px;\n  font-family: \"Titillium Web\";\n  font-weight: 300;\n  margin-bottom: 20px;\n}\nsection h2 strong {\n    font-weight: 700;\n    display: block;\n    margin-left: 63px;\n}\n.header-info {\n  background-color: #4f9257;\n  color: #fff;\n  font-size: 12px;\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  z-index: 10;\n}\n.header-info a {\n    color: #fff;\n}\n.header {\n  background-color: #2d870c;\n  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005b03+0,2d870c+17,2d870c+83,005b03+100 */\n  background: -moz-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* FF3.6-15 */\n  background: -webkit-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* Chrome10-25,Safari5.1-6 */\n  background: linear-gradient(to right, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005b03', endColorstr='#005b03',GradientType=1 );\n  /* IE6-9 */\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  padding-top: 20px;\n}\n.header .bg {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background-image: url(\"/img/transmission.png\");\n    top: 0;\n    left: 0;\n    z-index: 1;\n    background-position: 825px;\n    opacity: 0.2;\n}\n.header a {\n    color: #fff;\n    display: inline-block;\n    padding: 10px;\n    text-decoration: none;\n    transition: 0.5s;\n}\n.header a:hover {\n      background-color: #4f9257;\n      transition: 0.5s;\n}\n.header nav {\n    display: flex;\n    flex-basis: 100%;\n    flex-direction: row-reverse;\n}\n.header nav ul {\n      list-style-type: none;\n}\n.header nav ul li {\n        float: left;\n}\n.header .header-content {\n    padding: 0;\n    position: relative;\n    z-index: 2;\n}\n.header-content {\n  max-width: 1000px;\n  display: flex;\n  flex-wrap: wrap;\n  padding: 10px 0;\n  margin: 0 auto;\n}\nfooter div {\n  width: 1000px;\n  margin: 0 auto;\n  padding: 0 10px;\n  font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.container {\n  padding: 0;\n}\n.content-area > div {\n  width: 1000px;\n  margin: 0 auto;\n  background-color: #fff;\n  height: 100%;\n}\nbody {\n  color: #504f4f;\n  font-family: \"Titillium Web\";\n}\n.btn__content {\n  font-family: \"Titillium Web\";\n}\n.btn--large {\n  font-size: 20px;\n}\nsection.content-area > div {\n  padding: 50px 30px;\n}\nsection h2 {\n  color: #504f4f;\n  font-size: 35px;\n  line-height: 31px;\n  font-family: \"Titillium Web\";\n  font-weight: 300;\n  margin-bottom: 20px;\n}\nsection h2 strong {\n    font-weight: 700;\n    display: block;\n    margin-left: 63px;\n}\n.header-info {\n  background-color: #4f9257;\n  color: #fff;\n  font-size: 12px;\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  z-index: 10;\n}\n.header-info a {\n    color: #fff;\n}\n.header {\n  background-color: #2d870c;\n  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005b03+0,2d870c+17,2d870c+83,005b03+100 */\n  background: -moz-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* FF3.6-15 */\n  background: -webkit-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* Chrome10-25,Safari5.1-6 */\n  background: linear-gradient(to right, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005b03', endColorstr='#005b03',GradientType=1 );\n  /* IE6-9 */\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  padding-top: 20px;\n}\n.header .bg {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background-image: url(\"/img/transmission.png\");\n    top: 0;\n    left: 0;\n    z-index: 1;\n    background-position: 825px;\n    opacity: 0.2;\n}\n.header a {\n    color: #fff;\n    display: inline-block;\n    padding: 10px;\n    text-decoration: none;\n    transition: 0.5s;\n}\n.header a:hover {\n      background-color: #4f9257;\n      transition: 0.5s;\n}\n.header nav {\n    display: flex;\n    flex-basis: 100%;\n    flex-direction: row-reverse;\n}\n.header nav ul {\n      list-style-type: none;\n}\n.header nav ul li {\n        float: left;\n}\n.header .header-content {\n    padding: 0;\n    position: relative;\n    z-index: 2;\n}\n.header-content {\n  max-width: 1000px;\n  display: flex;\n  flex-wrap: wrap;\n  padding: 10px 0;\n  margin: 0 auto;\n}\nfooter div {\n  width: 1000px;\n  margin: 0 auto;\n  padding: 0 10px;\n  font-size: 12px;\n}\n.fade-enter {\n  opacity: 0;\n}\n.fade-enter-active {\n  transition: opacity 0.3s ease;\n}\n.fade-leave-active {\n  transition: opacity 0.3s ease;\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -36913,7 +36921,21 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-content",
-        [_c("v-container", { attrs: { fluid: "" } }, [_c("router-view")], 1)],
+        [
+          _c(
+            "v-container",
+            { attrs: { fluid: "" } },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "fade", appear: "", mode: "out-in" } },
+                [_c("router-view")],
+                1
+              )
+            ],
+            1
+          )
+        ],
         1
       ),
       _vm._v(" "),
@@ -37310,47 +37332,60 @@ var render = function() {
               _c(
                 "v-layout",
                 { attrs: { row: "", wrap: "" } },
-                _vm._l(_vm.filteredPrograms, function(program) {
-                  return _c("v-flex", { key: program.id, attrs: { xs4: "" } }, [
-                    _c(
-                      "div",
-                      {
-                        on: {
-                          click: function($event) {
-                            _vm.openProgram(program)
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "v-card",
-                          [
-                            _c("v-card-media", {
-                              attrs: {
-                                src: program.full_img_path,
-                                height: "220px"
+                [
+                  _c(
+                    "transition-group",
+                    { attrs: { name: "fade" } },
+                    _vm._l(_vm.filteredPrograms, function(program) {
+                      return _c(
+                        "v-flex",
+                        { key: program.id, attrs: { xs4: "" } },
+                        [
+                          _c(
+                            "div",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.openProgram(program)
+                                }
                               }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "v-card-title",
-                              { attrs: { "primary-title": "" } },
-                              [
-                                _c("div", [
-                                  _c("h3", [_vm._v(_vm._s(program.name))]),
+                            },
+                            [
+                              _c(
+                                "v-card",
+                                [
+                                  _c("v-card-media", {
+                                    attrs: {
+                                      src: program.full_img_path,
+                                      height: "220px"
+                                    }
+                                  }),
                                   _vm._v(" "),
-                                  _c("div")
-                                ])
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                })
+                                  _c(
+                                    "v-card-title",
+                                    { attrs: { "primary-title": "" } },
+                                    [
+                                      _c("div", [
+                                        _c("h3", [
+                                          _vm._v(_vm._s(program.name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div")
+                                      ])
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    })
+                  )
+                ],
+                1
               )
             ],
             1
@@ -37521,6 +37556,193 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-05f87736", { render: render, staticRenderFns: staticRenderFns })
   }
 }
+
+/***/ }),
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    data: function data() {
+        return {
+            content: {}
+        };
+    },
+    created: function created() {
+        this.fetchData();
+    },
+
+    watch: {
+        // call again the method if the route changes
+        $route: "fetchData"
+    },
+    methods: {
+        fetchData: function fetchData() {
+            var _this = this;
+
+            this.$global.loading = true;
+
+            this.$http.get("contents/whoWeAre").then(function (r) {
+                _this.$global.loading = false;
+                _this.content = r.data.data.doc;
+                _this.$global.loading = false;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 327 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_WhoWeAre_vue__ = __webpack_require__(326);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_275b7412_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_WhoWeAre_vue__ = __webpack_require__(328);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(2);
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(329)
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_WhoWeAre_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_275b7412_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_WhoWeAre_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_275b7412_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_WhoWeAre_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/public/js/pages/WhoWeAre.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-275b7412", Component.options)
+  } else {
+    hotAPI.reload("data-v-275b7412", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 328 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "content-area", attrs: { id: "whoWeAre" } },
+    [
+      _c("div", [
+        _c("h2", [_vm._v("Quem somos")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "section-text" }, [
+          _c("img", { attrs: { src: _vm.content.img, align: "left" } }),
+          _vm._v(" "),
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.content.body) } })
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-275b7412", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(330);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(4).default
+var update = add("3845927a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./WhoWeAre.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./WhoWeAre.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#whoWeAre img {\n  margin-right: 20px;\n  margin-bottom: 20px;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

@@ -44,20 +44,22 @@
                     
                     <v-container grid-list-xl>
                         <v-layout row wrap>
-                            <v-flex xs4 v-for="program in filteredPrograms" :key="program.id">
-                                <div @click="openProgram(program)">
-                                    <v-card >
-                                        <v-card-media :src="program.full_img_path" height="220px">
-                                        </v-card-media>
-                                        <v-card-title primary-title>
-                                        <div>
-                                            <h3>{{ program.name }}</h3>
-                                            <div></div>
-                                        </div>
-                                        </v-card-title>
-                                    </v-card>
-                                </div>
-                            </v-flex>
+                            <transition-group name="fade">
+                                <v-flex xs4 v-for="program in filteredPrograms" :key="program.id">
+                                    <div @click="openProgram(program)">
+                                        <v-card >
+                                            <v-card-media :src="program.full_img_path" height="220px">
+                                            </v-card-media>
+                                            <v-card-title primary-title>
+                                            <div>
+                                                <h3>{{ program.name }}</h3>
+                                                <div></div>
+                                            </div>
+                                            </v-card-title>
+                                        </v-card>
+                                    </div>
+                                </v-flex>
+                            </transition-group>
                         </v-layout>
                     </v-container>
                 

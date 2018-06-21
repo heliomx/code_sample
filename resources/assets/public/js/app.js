@@ -17,6 +17,7 @@ import '../sass/app.scss';
 // Public Pages
 import Home from './pages/Home.vue';
 import Program from './pages/Program.vue';
+import WhoWeAre from './pages/WhoWeAre.vue';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -43,6 +44,11 @@ const router = new VueRouter({
             path: '/programas/:id',
             name: 'program',
             component: Program
+        },
+        {
+            path: '/quemsomos',
+            name: 'whoWeAre',
+            component: WhoWeAre
         }
     ]  
 });

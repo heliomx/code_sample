@@ -46,7 +46,9 @@
     </div>
     <v-content>
         <v-container fluid>
-            <router-view></router-view>
+            <transition name="fade" appear mode="out-in">
+                <router-view></router-view>
+            </transition>
         </v-container>
     </v-content>
     <v-footer app color="#c0c0c0">
@@ -155,5 +157,22 @@ footer div{
     font-size: 12px;
 
 }
+
+.fade-enter {
+        opacity: 0;
+    }
+
+    .fade-enter-active {
+        transition: opacity 0.3s ease;
+    }
+
+    .fade-leave {
+
+    }
+
+    .fade-leave-active {
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
 </style>
 

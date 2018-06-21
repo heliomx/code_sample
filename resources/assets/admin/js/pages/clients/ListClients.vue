@@ -1,4 +1,5 @@
 <template>
+<transition name="fade" mode="out-in">
   <v-container v-if="!$global.loading" fluid >
     
     <h1 class="headline">Lista de clientes</h1>
@@ -34,6 +35,7 @@
       </template>
     </v-data-table>
   </v-container>
+</transition>
 </template>
 
 <script>

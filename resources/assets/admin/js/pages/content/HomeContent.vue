@@ -1,5 +1,6 @@
 <template>
 <div id="homeContent">
+	<transition name="fade" mode="out-in">
 	<v-container
 		v-if="!$global.loading"
 		fluid
@@ -172,6 +173,7 @@
 		</div>
 		
 	</v-container>
+	</transition>
 	<message-dialog ref="messageDialog"></message-dialog>
 </div>
 </template>
