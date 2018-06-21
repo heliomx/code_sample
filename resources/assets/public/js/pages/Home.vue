@@ -44,7 +44,7 @@
                     
                     <v-container grid-list-xl>
                         <v-layout row wrap>
-                            <transition-group name="fade">
+                            
                                 <v-flex xs4 v-for="program in filteredPrograms" :key="program.id">
                                     <div @click="openProgram(program)">
                                         <v-card >
@@ -59,7 +59,7 @@
                                         </v-card>
                                     </div>
                                 </v-flex>
-                            </transition-group>
+                            
                         </v-layout>
                     </v-container>
                 
