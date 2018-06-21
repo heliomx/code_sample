@@ -87,7 +87,7 @@ export default {
 				.then( response => {
 					this.$refs.messageDialog.show(
 						'Alteração',
-						'O conteúdo da Home foi alterado com sucesso'
+						'O conteúdo foi alterado com sucesso'
 					)
 					this.$global.loading = false;
 				});

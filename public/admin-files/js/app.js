@@ -55883,7 +55883,7 @@ if(false) {
 			this.$global.loading = true;
 
 			this.$http.post('contents/whoWeAre', { doc: this.content }).then(function (response) {
-				_this2.$refs.messageDialog.show('Alteração', 'O conteúdo da Home foi alterado com sucesso');
+				_this2.$refs.messageDialog.show('Alteração', 'O conteúdo foi alterado com sucesso');
 				_this2.$global.loading = false;
 			});
 		},
