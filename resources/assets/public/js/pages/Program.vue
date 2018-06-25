@@ -1,17 +1,27 @@
 <template>
-    <section class="content-area">
-        <div>
-            <h2>Programa {{ program.name }}</h2>
-            
-        </div>
-    </section>
+    <transition name="fade" appear mode="out-in">
+        <section id="program" v-if="!$global.loading" class="content-area">
+            <div>
+                <h2>Programa <strong>{{ program.name }}</strong></h2>
+                <img :src="program.full_img_path">
+                <span>{{program.description}}</span>
+                <div class="btn-area clear-fix">
+                    <v-btn class="clearfix" color="secondary" to="cadastro">Cadastre-se e receba nosso conteúdo gratuito</v-btn>
+                </div>
+            </div>
+        </section>
+    </transition>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            program: {}
+            program: {
+                name: '',
+                full_img_path: '',
+                description: ''
+            }
         }
     },
     created(){
@@ -34,3 +44,28 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+@import '../../sass/variables';
+
+#program>div {
+    @include clearfix;
+
+    &>img {
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 20px
+    }
+
+    &>span {
+        font-size: 16px;
+        font-family: $title-font;
+    }
+
+    .btn-area {
+        text-align: right;
+        margin-top: 40px;
+    }
+
+}
+</style>
+

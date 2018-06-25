@@ -1,13 +1,15 @@
 <template>
-    <section class="content-area" id="whoWeAre">
-        <div>
-            <h2>Quem somos</h2>
-            <div class="section-text">
-                <img :src="content.img" align="left">
-                <span v-html="content.body"></span>
+    <transition name="fade" appear mode="out-in">
+        <section v-if="!$global.loading" class="content-area" id="whoWeAre">
+            <div>
+                <h2>Quem somos</h2>
+                <div class="section-text">
+                    <img :src="content.img" align="left">
+                    <span v-html="content.body"></span>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </transition>
 </template>
 
 <script>

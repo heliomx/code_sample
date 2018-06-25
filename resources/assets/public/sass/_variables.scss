@@ -10,6 +10,10 @@
     }
 }
 
+.clear-fix {
+    @include clearfix;
+}
+
 
 
 // Variables

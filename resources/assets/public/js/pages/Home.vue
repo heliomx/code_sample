@@ -1,96 +1,99 @@
 <template>
-    <div id="home">
-        <section class="content-area highlight">
-            <div>
-                
-                <carousel 
-                    v-if="content.slides.length > 0"
-                    :perPage="1"  
-                    :paginationEnabled="false" 
-                    :navigationEnabled="true" 
-                    navigationNextLabel="&#10217;" 
-                    navigationPrevLabel="&#10216;"
-                >
-                    <slide v-for="slide in content.slides" :key="slide.id">
-                        <a :href="slide.link">
-                        <img :src="slide.img" width="100%">
-                        
-                        <div class="slide-label">
-                            {{ slide.title }}
-                            <div class="description">
-                                {{ slide.description }}
+    <transition name="fade" appear mode="out-in">
+        <div v-if="!$global.loading" id="home">
+            <section class="content-area highlight">
+                <div>
+                    
+                    <carousel 
+                        v-if="content.slides.length > 0"
+                        :perPage="1"  
+                        :paginationEnabled="false" 
+                        :navigationEnabled="true" 
+                        navigationNextLabel="&#10217;" 
+                        navigationPrevLabel="&#10216;"
+                    >
+                        <slide v-for="slide in content.slides" :key="slide.id">
+                            <a :href="slide.link">
+                            <img :src="slide.img" width="100%">
+                            
+                            <div class="slide-label">
+                                {{ slide.title }}
+                                <div class="description">
+                                    {{ slide.description }}
+                                </div>
                             </div>
-                        </div>
-                        </a>
-                    </slide>
-                </carousel>
-                <div class="mask"></div>    
-            </div>   
-            
-        </section>
-        <section class="content-area radio">
-            <div>
-                <h2>Bem-vindo a <strong>Rádio Estúdio Brasil</strong></h2>
-                <div class="section-text" v-html="content.welcome"></div>
+                            </a>
+                        </slide>
+                    </carousel>
+                    <div class="mask"></div>    
+                </div>   
+                
+            </section>
+            <section class="content-area radio">
+                <div>
+                    <h2>Bem-vindo a <strong>Rádio Estúdio Brasil</strong></h2>
+                    <div class="section-text" v-html="content.welcome"></div>
 
-                <v-btn class="clearfix" color="secondary" large to="cadastro">Cadastre-se e receba nosso conteúdo gratuito</v-btn>
-                
-            </div>   
-        </section>
-        <section class="content-area programs">
-            <div>
-                <h2>Nossos <strong>Programas</strong></h2>
-                <div class="section-text" v-html="content.ourPrograms"></div>
+                    <v-btn class="clearfix" color="secondary" large to="cadastro">Cadastre-se e receba nosso conteúdo gratuito</v-btn>
                     
-                    <v-container grid-list-xl>
-                        <v-layout row wrap>
-                            
-                                <v-flex xs4 v-for="program in filteredPrograms" :key="program.id">
-                                    <div @click="openProgram(program)">
-                                        <v-card >
-                                            <v-card-media :src="program.full_img_path" height="220px">
-                                            </v-card-media>
-                                            <v-card-title primary-title>
-                                            <div>
-                                                <h3>{{ program.name }}</h3>
-                                                <div></div>
-                                            </div>
-                                            </v-card-title>
-                                        </v-card>
-                                    </div>
-                                </v-flex>
-                            
-                        </v-layout>
-                    </v-container>
-                
-                <v-btn class="bt-ver-mais" color="secondary" @click="toggleHilight" large right>
-                    Ver
-                    {{ showHilight ? 'Todos' : 'Menos' }}
-                </v-btn>
-            </div>   
-        </section>
-        <section class="content-area advertisement">
-            <div>
-                <h2>Conheça também</h2>
-                <carousel 
-                    v-if="content.seeAlso.length > 0"
-                    :perPage="1" 
-                    :paginationEnabled="false" 
-                    :navigationEnabled="true" 
-                    navigationNextLabel="&#10217;" 
-                    navigationPrevLabel="&#10216;"
-                >
-                    <slide v-for="slide in content.seeAlso" :key="slide.id">
-                        <a :href="slide.link" :title="slide.title" target="_blank">
-                            <img :src="slide.img">
-                        </a>
-                    </slide>
+                </div>   
+            </section>
+            <section class="content-area programs">
+                <div>
+                    <h2>Nossos <strong>Programas</strong></h2>
+                    <div class="section-text" v-html="content.ourPrograms"></div>
+                        
+                        <v-container grid-list-xl>
+                            <v-layout row wrap>
+                                
+                                    <v-flex xs4 v-for="program in filteredPrograms" :key="program.id">
+                                        <div @click="openProgram(program)">
+                                            <v-card >
+                                                <v-card-media :src="program.full_img_path" height="220px">
+                                                </v-card-media>
+                                                <v-card-title primary-title>
+                                                <div>
+                                                    <h3>{{ program.name }}</h3>
+                                                    <div></div>
+                                                </div>
+                                                </v-card-title>
+                                            </v-card>
+                                        </div>
+                                    </v-flex>
+                                
+                            </v-layout>
+                        </v-container>
                     
-                </carousel>
-                
-            </div>
-        </section>
-    </div>
+                    <v-btn class="bt-ver-mais" color="secondary" @click="toggleHilight" large right>
+                        Ver
+                        {{ showHilight ? 'Todos' : 'Menos' }}
+                    </v-btn>
+                </div>   
+            </section>
+            <section class="content-area advertisement">
+                <div>
+                    <h2>Conheça também</h2>
+                    <carousel 
+                        v-if="content.seeAlso.length > 0"
+                        :perPage="1" 
+                        :paginationEnabled="false" 
+                        :navigationEnabled="true" 
+                        navigationNextLabel="&#10217;" 
+                        navigationPrevLabel="&#10216;"
+                    >
+                        <slide v-for="slide in content.seeAlso" :key="slide.id">
+                            <a :href="slide.link" :title="slide.title" target="_blank">
+                                <img :src="slide.img">
+                            </a>
+                        </slide>
+                        
+                    </carousel>
+                    
+                </div>
+            </section>
+        </div>
+    </transition>
+
 </template>
 
 <script>
