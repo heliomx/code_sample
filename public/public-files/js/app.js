@@ -36401,6 +36401,9 @@ module.exports = {
 //
 //
 //
+//
+//
+//
 
 
 
@@ -36482,11 +36485,21 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
         return {
-            program: {}
+            program: {
+                name: '',
+                full_img_path: '',
+                description: ''
+            }
         };
     },
     created: function created() {
@@ -36503,7 +36516,7 @@ module.exports = {
 
             this.$global.loading = true;
 
-            this.$http.get("programs/" + this.$route.params.id).then(function (r) {
+            this.$http.get('programs/' + this.$route.params.id).then(function (r) {
                 _this.$global.loading = false;
                 _this.program = r.data.data;
             });
@@ -36516,6 +36529,8 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
+//
 //
 //
 //
@@ -36837,7 +36852,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.container {\n  padding: 0;\n}\n.content-area > div {\n  width: 1000px;\n  margin: 0 auto;\n  background-color: #fff;\n  height: 100%;\n}\nbody {\n  color: #504f4f;\n  font-family: \"Titillium Web\";\n}\n.btn__content {\n  font-family: \"Titillium Web\";\n}\n.btn--large {\n  font-size: 20px;\n}\nsection.content-area > div {\n  padding: 50px 30px;\n}\nsection h2 {\n  color: #504f4f;\n  font-size: 35px;\n  line-height: 31px;\n  font-family: \"Titillium Web\";\n  font-weight: 300;\n  margin-bottom: 20px;\n}\nsection h2 strong {\n    font-weight: 700;\n    display: block;\n    margin-left: 63px;\n}\n.header-info {\n  background-color: #4f9257;\n  color: #fff;\n  font-size: 12px;\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  z-index: 10;\n}\n.header-info a {\n    color: #fff;\n}\n.header {\n  background-color: #2d870c;\n  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005b03+0,2d870c+17,2d870c+83,005b03+100 */\n  background: -moz-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* FF3.6-15 */\n  background: -webkit-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* Chrome10-25,Safari5.1-6 */\n  background: linear-gradient(to right, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005b03', endColorstr='#005b03',GradientType=1 );\n  /* IE6-9 */\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  padding-top: 20px;\n}\n.header .bg {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background-image: url(\"/img/transmission.png\");\n    top: 0;\n    left: 0;\n    z-index: 1;\n    background-position: 825px;\n    opacity: 0.2;\n}\n.header a {\n    color: #fff;\n    display: inline-block;\n    padding: 10px;\n    text-decoration: none;\n    transition: 0.5s;\n}\n.header a:hover {\n      background-color: #4f9257;\n      transition: 0.5s;\n}\n.header nav {\n    display: flex;\n    flex-basis: 100%;\n    flex-direction: row-reverse;\n}\n.header nav ul {\n      list-style-type: none;\n}\n.header nav ul li {\n        float: left;\n}\n.header .header-content {\n    padding: 0;\n    position: relative;\n    z-index: 2;\n}\n.header-content {\n  max-width: 1000px;\n  display: flex;\n  flex-wrap: wrap;\n  padding: 10px 0;\n  margin: 0 auto;\n}\nfooter div {\n  width: 1000px;\n  margin: 0 auto;\n  padding: 0 10px;\n  font-size: 12px;\n}\n.fade-enter {\n  opacity: 0;\n}\n.fade-enter-active {\n  transition: opacity 0.3s ease;\n}\n.fade-leave-active {\n  transition: opacity 0.3s ease;\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.clear-fix:before, .clear-fix:after {\n  content: \"\";\n  display: table;\n}\n.clear-fix:after {\n  clear: both;\n}\n.container {\n  padding: 0;\n}\n.content-area > div {\n  width: 1000px;\n  margin: 0 auto;\n  background-color: #fff;\n  height: 100%;\n}\nbody {\n  color: #504f4f;\n  font-family: \"Titillium Web\";\n}\n.btn__content {\n  font-family: \"Titillium Web\";\n}\n.btn--large {\n  font-size: 20px;\n}\nsection.content-area > div {\n  padding: 50px 30px;\n}\nsection h2 {\n  color: #504f4f;\n  font-size: 35px;\n  line-height: 31px;\n  font-family: \"Titillium Web\";\n  font-weight: 300;\n  margin-bottom: 20px;\n}\nsection h2 strong {\n    font-weight: 700;\n    display: block;\n    margin-left: 63px;\n}\n.header-info {\n  background-color: #4f9257;\n  color: #fff;\n  font-size: 12px;\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  z-index: 10;\n}\n.header-info a {\n    color: #fff;\n}\n.header {\n  background-color: #2d870c;\n  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005b03+0,2d870c+17,2d870c+83,005b03+100 */\n  background: -moz-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* FF3.6-15 */\n  background: -webkit-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* Chrome10-25,Safari5.1-6 */\n  background: linear-gradient(to right, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005b03', endColorstr='#005b03',GradientType=1 );\n  /* IE6-9 */\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  padding-top: 20px;\n}\n.header .bg {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background-image: url(\"/img/transmission.png\");\n    top: 0;\n    left: 0;\n    z-index: 1;\n    background-position: 825px;\n    opacity: 0.2;\n}\n.header a {\n    color: #fff;\n    display: inline-block;\n    padding: 10px;\n    text-decoration: none;\n    transition: 0.5s;\n}\n.header a:hover {\n      background-color: #4f9257;\n      transition: 0.5s;\n}\n.header nav {\n    display: flex;\n    flex-basis: 100%;\n    flex-direction: row-reverse;\n}\n.header nav ul {\n      list-style-type: none;\n}\n.header nav ul li {\n        float: left;\n}\n.header .header-content {\n    padding: 0;\n    position: relative;\n    z-index: 2;\n}\n.header-content {\n  max-width: 1000px;\n  display: flex;\n  flex-wrap: wrap;\n  padding: 10px 0;\n  margin: 0 auto;\n}\nfooter div {\n  width: 1000px;\n  margin: 0 auto;\n  padding: 0 10px;\n  font-size: 12px;\n}\n.fade-enter {\n  opacity: 0;\n}\n.fade-enter-active {\n  transition: opacity 0.3s ease;\n}\n.fade-leave-active {\n  transition: opacity 0.3s ease;\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -37165,7 +37180,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, ".container {\n  padding: 0; }\n\n.content-area > div {\n  width: 1000px;\n  margin: 0 auto;\n  background-color: #fff;\n  height: 100%; }\n\nbody {\n  color: #504f4f;\n  font-family: \"Titillium Web\"; }\n\n.btn__content {\n  font-family: \"Titillium Web\"; }\n\n.btn--large {\n  font-size: 20px; }\n\nsection.content-area > div {\n  padding: 50px 30px; }\n\nsection h2 {\n  color: #504f4f;\n  font-size: 35px;\n  line-height: 31px;\n  font-family: \"Titillium Web\";\n  font-weight: 300;\n  margin-bottom: 20px; }\n  section h2 strong {\n    font-weight: 700;\n    display: block;\n    margin-left: 63px; }\n", ""]);
+exports.push([module.i, ".clear-fix:before, .clear-fix:after {\n  content: \"\";\n  display: table; }\n\n.clear-fix:after {\n  clear: both; }\n\n.container {\n  padding: 0; }\n\n.content-area > div {\n  width: 1000px;\n  margin: 0 auto;\n  background-color: #fff;\n  height: 100%; }\n\nbody {\n  color: #504f4f;\n  font-family: \"Titillium Web\"; }\n\n.btn__content {\n  font-family: \"Titillium Web\"; }\n\n.btn--large {\n  font-size: 20px; }\n\nsection.content-area > div {\n  padding: 50px 30px; }\n\nsection h2 {\n  color: #504f4f;\n  font-size: 35px;\n  line-height: 31px;\n  font-family: \"Titillium Web\";\n  font-weight: 300;\n  margin-bottom: 20px; }\n  section h2 strong {\n    font-weight: 700;\n    display: block;\n    margin-left: 63px; }\n", ""]);
 
 // exports
 
@@ -37264,7 +37279,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.list-complete-item {\n  transition: all 1s;\n}\n.list-complete-enter {\n  opacity: 0;\n  transform: translateY(-20px);\n}\n.list-complete-leave-to {\n  opacity: 0;\n  transform: translateY(20px);\n}\n.list-complete-leave-active {\n  position: absolute;\n}\n#home section .section-text {\n  margin-left: 25px;\n  width: 80%;\n  font-size: 17px;\n  font-family: \"Titillium Web\";\n}\n#home section.highlight {\n  background: #000;\n  height: 400px;\n  position: relative;\n  z-index: 0;\n}\n#home section.highlight * {\n    color: #fff;\n}\n#home section.highlight .VueCarousel-navigation-button {\n    font-size: 70px !important;\n    color: #fff !important;\n    top: 45%;\n}\n#home section.highlight .mask {\n    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&1+0,0+5,0+90,1+100 */\n    background: -moz-linear-gradient(left, black 0%, transparent 5%, transparent 95%, black 100%);\n    /* FF3.6-15 */\n    background: -webkit-linear-gradient(left, black 0%, transparent 5%, transparent 95%, black 100%);\n    /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to right, black 0%, transparent 5%, transparent 95%, black 100%);\n    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0;\n    pointer-events: none;\n}\n#home section.highlight.content-area > div {\n    background-color: transparent;\n    padding: 0;\n    position: relative;\n}\n#home section.highlight .VueCarousel-pagination {\n    display: none;\n}\n#home section.highlight .VueCarousel-slide {\n    height: 400px;\n    position: relative;\n}\n#home section.highlight .VueCarousel-slide .slide-label {\n      position: absolute;\n      top: 100px;\n      left: 500px;\n      background: #00000090;\n      color: #fff;\n      font-family: \"Titillium Web\";\n      font-size: 40px;\n      padding: 0 20px;\n}\n#home section.highlight .VueCarousel-slide .slide-label .description {\n        font-size: 16px;\n        padding-bottom: 20px;\n}\n#home section.radio {\n  background: url(/img/waves2.png) no-repeat;\n  background-position: center;\n  background-size: 100%;\n}\n#home section.radio .btn {\n    float: right;\n    margin-top: 40px;\n}\n#home section.radio.content-area > div {\n    background-color: #ffffffd0;\n}\n#home section.radio.content-area > div:before, #home section.radio.content-area > div:after {\n      content: \"\";\n      display: table;\n}\n#home section.radio.content-area > div:after {\n      clear: both;\n}\n#home section.programs {\n  padding-bottom: 80px;\n  background-color: #174606;\n}\n#home section.programs .bt-ver-mais {\n    float: right;\n}\n#home section.programs.content-area > div {\n    background-color: transparent;\n}\n#home section.programs .section-text {\n    color: #f0f0f0;\n}\n#home section.programs .container.grid-list-xl .layout .flex {\n    padding: 22px;\n}\n#home section.programs .card {\n    cursor: pointer;\n    background-color: #caecc8;\n}\n#home section.programs .card:hover .card__title {\n      background-color: #caecc8;\n      transition: 0.5s;\n}\n#home section.programs .card:hover .card__title h3 {\n        color: #504f4f;\n        transition: 0.5s;\n}\n#home section.programs .card .card__title {\n      background-color: #4f9257;\n      transition: 0.5s;\n      padding-top: 15px;\n}\n#home section.programs .card .card__title h3 {\n        color: #caecc8;\n        font-family: \"Titillium Web\";\n        font-weight: normal;\n        transition: 0.5s;\n}\n#home section.programs .card .card__media__content {\n      background-color: transparent;\n}\n#home section.programs h2 {\n    color: #caecc8;\n}\n#home section.programs h2 strong {\n      color: #fe9924;\n}\n#home section.advertisement .VueCarousel-navigation-button {\n  font-size: 70px !important;\n  top: 45%;\n}\n#home section.advertisement .VueCarousel-slide {\n  text-align: center;\n}\n#home section .VueCarousel-navigation--disabled {\n  opacity: 0.1;\n}\n", ""]);
+exports.push([module.i, "\n.clear-fix:before, .clear-fix:after {\n  content: \"\";\n  display: table;\n}\n.clear-fix:after {\n  clear: both;\n}\n.list-complete-item {\n  transition: all 1s;\n}\n.list-complete-enter {\n  opacity: 0;\n  transform: translateY(-20px);\n}\n.list-complete-leave-to {\n  opacity: 0;\n  transform: translateY(20px);\n}\n.list-complete-leave-active {\n  position: absolute;\n}\n#home section .section-text {\n  margin-left: 25px;\n  width: 80%;\n  font-size: 17px;\n  font-family: \"Titillium Web\";\n}\n#home section.highlight {\n  background: #000;\n  height: 400px;\n  position: relative;\n  z-index: 0;\n}\n#home section.highlight * {\n    color: #fff;\n}\n#home section.highlight .VueCarousel-navigation-button {\n    font-size: 70px !important;\n    color: #fff !important;\n    top: 45%;\n}\n#home section.highlight .mask {\n    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&1+0,0+5,0+90,1+100 */\n    background: -moz-linear-gradient(left, black 0%, transparent 5%, transparent 95%, black 100%);\n    /* FF3.6-15 */\n    background: -webkit-linear-gradient(left, black 0%, transparent 5%, transparent 95%, black 100%);\n    /* Chrome10-25,Safari5.1-6 */\n    background: linear-gradient(to right, black 0%, transparent 5%, transparent 95%, black 100%);\n    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    left: 0;\n    pointer-events: none;\n}\n#home section.highlight.content-area > div {\n    background-color: transparent;\n    padding: 0;\n    position: relative;\n}\n#home section.highlight .VueCarousel-pagination {\n    display: none;\n}\n#home section.highlight .VueCarousel-slide {\n    height: 400px;\n    position: relative;\n}\n#home section.highlight .VueCarousel-slide .slide-label {\n      position: absolute;\n      top: 100px;\n      left: 500px;\n      background: #00000090;\n      color: #fff;\n      font-family: \"Titillium Web\";\n      font-size: 40px;\n      padding: 0 20px;\n}\n#home section.highlight .VueCarousel-slide .slide-label .description {\n        font-size: 16px;\n        padding-bottom: 20px;\n}\n#home section.radio {\n  background: url(/img/waves2.png) no-repeat;\n  background-position: center;\n  background-size: 100%;\n}\n#home section.radio .btn {\n    float: right;\n    margin-top: 40px;\n}\n#home section.radio.content-area > div {\n    background-color: #ffffffd0;\n}\n#home section.radio.content-area > div:before, #home section.radio.content-area > div:after {\n      content: \"\";\n      display: table;\n}\n#home section.radio.content-area > div:after {\n      clear: both;\n}\n#home section.programs {\n  padding-bottom: 80px;\n  background-color: #174606;\n}\n#home section.programs .bt-ver-mais {\n    float: right;\n}\n#home section.programs.content-area > div {\n    background-color: transparent;\n}\n#home section.programs .section-text {\n    color: #f0f0f0;\n}\n#home section.programs .container.grid-list-xl .layout .flex {\n    padding: 22px;\n}\n#home section.programs .card {\n    cursor: pointer;\n    background-color: #caecc8;\n}\n#home section.programs .card:hover .card__title {\n      background-color: #caecc8;\n      transition: 0.5s;\n}\n#home section.programs .card:hover .card__title h3 {\n        color: #504f4f;\n        transition: 0.5s;\n}\n#home section.programs .card .card__title {\n      background-color: #4f9257;\n      transition: 0.5s;\n      padding-top: 15px;\n}\n#home section.programs .card .card__title h3 {\n        color: #caecc8;\n        font-family: \"Titillium Web\";\n        font-weight: normal;\n        transition: 0.5s;\n}\n#home section.programs .card .card__media__content {\n      background-color: transparent;\n}\n#home section.programs h2 {\n    color: #caecc8;\n}\n#home section.programs h2 strong {\n      color: #fe9924;\n}\n#home section.advertisement .VueCarousel-navigation-button {\n  font-size: 70px !important;\n  top: 45%;\n}\n#home section.advertisement .VueCarousel-slide {\n  text-align: center;\n}\n#home section .VueCarousel-navigation--disabled {\n  opacity: 0.1;\n}\n", ""]);
 
 // exports
 
@@ -37291,233 +37306,226 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "home" } }, [
-    _c("section", { staticClass: "content-area highlight" }, [
-      _c(
-        "div",
-        [
-          _vm.content.slides.length > 0
-            ? _c(
-                "carousel",
-                {
-                  attrs: {
-                    perPage: 1,
-                    paginationEnabled: false,
-                    navigationEnabled: true,
-                    navigationNextLabel: "&#10217;",
-                    navigationPrevLabel: "&#10216;"
-                  }
-                },
-                _vm._l(_vm.content.slides, function(slide) {
-                  return _c("slide", { key: slide.id }, [
-                    _c("a", { attrs: { href: slide.link } }, [
-                      _c("img", { attrs: { src: slide.img, width: "100%" } }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "slide-label" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(slide.title) +
-                            "\n                        "
-                        ),
-                        _c("div", { staticClass: "description" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(slide.description) +
-                              "\n                        "
-                          )
-                        ])
-                      ])
-                    ])
-                  ])
-                })
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "mask" })
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("section", { staticClass: "content-area radio" }, [
-      _c(
-        "div",
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", {
-            staticClass: "section-text",
-            domProps: { innerHTML: _vm._s(_vm.content.welcome) }
-          }),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              staticClass: "clearfix",
-              attrs: { color: "secondary", large: "", to: "cadastro" }
-            },
-            [_vm._v("Cadastre-se e receba nosso conteúdo gratuito")]
-          )
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("section", { staticClass: "content-area programs" }, [
-      _c(
-        "div",
-        [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", {
-            staticClass: "section-text",
-            domProps: { innerHTML: _vm._s(_vm.content.ourPrograms) }
-          }),
-          _vm._v(" "),
-          _c(
-            "v-container",
-            { attrs: { "grid-list-xl": "" } },
-            [
+  return _c(
+    "transition",
+    { attrs: { name: "fade", appear: "", mode: "out-in" } },
+    [
+      !_vm.$global.loading
+        ? _c("div", { attrs: { id: "home" } }, [
+            _c("section", { staticClass: "content-area highlight" }, [
               _c(
-                "v-layout",
-                { attrs: { row: "", wrap: "" } },
+                "div",
                 [
-                  _c(
-                    "transition-group",
-                    { attrs: { name: "fade" } },
-                    _vm._l(_vm.filteredPrograms, function(program) {
-                      return _c(
-                        "v-flex",
-                        { key: program.id, attrs: { xs4: "" } },
-                        [
-                          _c(
-                            "div",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.openProgram(program)
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "v-card",
-                                [
-                                  _c("v-card-media", {
-                                    attrs: {
-                                      src: program.full_img_path,
-                                      height: "220px"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-card-title",
-                                    { attrs: { "primary-title": "" } },
-                                    [
-                                      _c("div", [
-                                        _c("h3", [
-                                          _vm._v(_vm._s(program.name))
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("div")
-                                      ])
-                                    ]
+                  _vm.content.slides.length > 0
+                    ? _c(
+                        "carousel",
+                        {
+                          attrs: {
+                            perPage: 1,
+                            paginationEnabled: false,
+                            navigationEnabled: true,
+                            navigationNextLabel: "&#10217;",
+                            navigationPrevLabel: "&#10216;"
+                          }
+                        },
+                        _vm._l(_vm.content.slides, function(slide) {
+                          return _c("slide", { key: slide.id }, [
+                            _c("a", { attrs: { href: slide.link } }, [
+                              _c("img", {
+                                attrs: { src: slide.img, width: "100%" }
+                              }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "slide-label" }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(slide.title) +
+                                    "\n                            "
+                                ),
+                                _c("div", { staticClass: "description" }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(slide.description) +
+                                      "\n                            "
                                   )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ]
+                                ])
+                              ])
+                            ])
+                          ])
+                        })
                       )
-                    })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mask" })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("section", { staticClass: "content-area radio" }, [
+              _c(
+                "div",
+                [
+                  _c("h2", [
+                    _vm._v("Bem-vindo a "),
+                    _c("strong", [_vm._v("Rádio Estúdio Brasil")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "section-text",
+                    domProps: { innerHTML: _vm._s(_vm.content.welcome) }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "clearfix",
+                      attrs: { color: "secondary", large: "", to: "cadastro" }
+                    },
+                    [_vm._v("Cadastre-se e receba nosso conteúdo gratuito")]
                   )
                 ],
                 1
               )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              staticClass: "bt-ver-mais",
-              attrs: { color: "secondary", large: "", right: "" },
-              on: { click: _vm.toggleHilight }
-            },
-            [
-              _vm._v(
-                "\n                Ver\n                " +
-                  _vm._s(_vm.showHilight ? "Todos" : "Menos") +
-                  "\n            "
+            ]),
+            _vm._v(" "),
+            _c("section", { staticClass: "content-area programs" }, [
+              _c(
+                "div",
+                [
+                  _c("h2", [
+                    _vm._v("Nossos "),
+                    _c("strong", [_vm._v("Programas")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "section-text",
+                    domProps: { innerHTML: _vm._s(_vm.content.ourPrograms) }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-container",
+                    { attrs: { "grid-list-xl": "" } },
+                    [
+                      _c(
+                        "v-layout",
+                        { attrs: { row: "", wrap: "" } },
+                        _vm._l(_vm.filteredPrograms, function(program) {
+                          return _c(
+                            "v-flex",
+                            { key: program.id, attrs: { xs4: "" } },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      _vm.openProgram(program)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "v-card",
+                                    [
+                                      _c("v-card-media", {
+                                        attrs: {
+                                          src: program.full_img_path,
+                                          height: "220px"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-card-title",
+                                        { attrs: { "primary-title": "" } },
+                                        [
+                                          _c("div", [
+                                            _c("h3", [
+                                              _vm._v(_vm._s(program.name))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("div")
+                                          ])
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        })
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "bt-ver-mais",
+                      attrs: { color: "secondary", large: "", right: "" },
+                      on: { click: _vm.toggleHilight }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Ver\n                    " +
+                          _vm._s(_vm.showHilight ? "Todos" : "Menos") +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
               )
-            ]
-          )
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("section", { staticClass: "content-area advertisement" }, [
-      _c(
-        "div",
-        [
-          _c("h2", [_vm._v("Conheça também")]),
-          _vm._v(" "),
-          _vm.content.seeAlso.length > 0
-            ? _c(
-                "carousel",
-                {
-                  attrs: {
-                    perPage: 1,
-                    paginationEnabled: false,
-                    navigationEnabled: true,
-                    navigationNextLabel: "&#10217;",
-                    navigationPrevLabel: "&#10216;"
-                  }
-                },
-                _vm._l(_vm.content.seeAlso, function(slide) {
-                  return _c("slide", { key: slide.id }, [
-                    _c(
-                      "a",
-                      {
-                        attrs: {
-                          href: slide.link,
-                          title: slide.title,
-                          target: "_blank"
-                        }
-                      },
-                      [_c("img", { attrs: { src: slide.img } })]
-                    )
-                  ])
-                })
+            ]),
+            _vm._v(" "),
+            _c("section", { staticClass: "content-area advertisement" }, [
+              _c(
+                "div",
+                [
+                  _c("h2", [_vm._v("Conheça também")]),
+                  _vm._v(" "),
+                  _vm.content.seeAlso.length > 0
+                    ? _c(
+                        "carousel",
+                        {
+                          attrs: {
+                            perPage: 1,
+                            paginationEnabled: false,
+                            navigationEnabled: true,
+                            navigationNextLabel: "&#10217;",
+                            navigationPrevLabel: "&#10216;"
+                          }
+                        },
+                        _vm._l(_vm.content.seeAlso, function(slide) {
+                          return _c("slide", { key: slide.id }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: slide.link,
+                                  title: slide.title,
+                                  target: "_blank"
+                                }
+                              },
+                              [_c("img", { attrs: { src: slide.img } })]
+                            )
+                          ])
+                        })
+                      )
+                    : _vm._e()
+                ],
+                1
               )
-            : _vm._e()
-        ],
-        1
-      )
-    ])
-  ])
+            ])
+          ])
+        : _vm._e()
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h2", [
-      _vm._v("Bem-vindo a "),
-      _c("strong", [_vm._v("Rádio Estúdio Brasil")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h2", [_vm._v("Nossos "), _c("strong", [_vm._v("Programas")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 if (false) {
@@ -37537,6 +37545,10 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05f87736_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Program_vue__ = __webpack_require__(324);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(2);
 var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(331)
+}
 /* script */
 
 
@@ -37545,7 +37557,7 @@ var disposed = false
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -37592,9 +37604,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "content-area" }, [
-    _c("div", [_c("h2", [_vm._v("Programa " + _vm._s(_vm.program.name))])])
-  ])
+  return _c(
+    "transition",
+    { attrs: { name: "fade", appear: "", mode: "out-in" } },
+    [
+      !_vm.$global.loading
+        ? _c(
+            "section",
+            { staticClass: "content-area", attrs: { id: "program" } },
+            [
+              _c("div", [
+                _c("h2", [
+                  _vm._v("Programa "),
+                  _c("strong", [_vm._v(_vm._s(_vm.program.name))])
+                ]),
+                _vm._v(" "),
+                _c("img", { attrs: { src: _vm.program.full_img_path } }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.program.description))]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "btn-area clear-fix" },
+                  [
+                    _c(
+                      "v-btn",
+                      {
+                        staticClass: "clearfix",
+                        attrs: { color: "secondary", to: "cadastro" }
+                      },
+                      [_vm._v("Cadastre-se e receba nosso conteúdo gratuito")]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ]
+          )
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37717,18 +37766,28 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "section",
-    { staticClass: "content-area", attrs: { id: "whoWeAre" } },
+    "transition",
+    { attrs: { name: "fade", appear: "", mode: "out-in" } },
     [
-      _c("div", [
-        _c("h2", [_vm._v("Quem somos")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "section-text" }, [
-          _c("img", { attrs: { src: _vm.content.img, align: "left" } }),
-          _vm._v(" "),
-          _c("span", { domProps: { innerHTML: _vm._s(_vm.content.body) } })
-        ])
-      ])
+      !_vm.$global.loading
+        ? _c(
+            "section",
+            { staticClass: "content-area", attrs: { id: "whoWeAre" } },
+            [
+              _c("div", [
+                _c("h2", [_vm._v("Quem somos")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "section-text" }, [
+                  _c("img", { attrs: { src: _vm.content.img, align: "left" } }),
+                  _vm._v(" "),
+                  _c("span", {
+                    domProps: { innerHTML: _vm._s(_vm.content.body) }
+                  })
+                ])
+              ])
+            ]
+          )
+        : _vm._e()
     ]
   )
 }
@@ -37741,6 +37800,49 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-275b7412", { render: render, staticRenderFns: staticRenderFns })
   }
 }
+
+/***/ }),
+/* 329 */,
+/* 330 */,
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(332);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(4).default
+var update = add("ce5230e6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Program.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Program.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 332 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.clear-fix:before, .clear-fix:after {\n  content: \"\";\n  display: table;\n}\n.clear-fix:after {\n  clear: both;\n}\n#program > div:before, #program > div:after {\n  content: \"\";\n  display: table;\n}\n#program > div:after {\n  clear: both;\n}\n#program > div > img {\n  float: left;\n  margin-right: 20px;\n  margin-bottom: 20px;\n}\n#program > div > span {\n  font-size: 16px;\n  font-family: \"Titillium Web\";\n}\n#program > div .btn-area {\n  text-align: right;\n  margin-top: 40px;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
