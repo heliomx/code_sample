@@ -171,6 +171,12 @@ export default {
                     }
                 ]
             },
+            {
+                icon: "keyboard_arrow_up",
+                text: "Fale Conosco",
+                link: "/faleconosco",
+                roles: [ 'A' ]
+            },
         ]
     }),
     props: {

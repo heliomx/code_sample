@@ -18,6 +18,8 @@ import '../sass/app.scss';
 import Home from './pages/Home.vue';
 import Program from './pages/Program.vue';
 import WhoWeAre from './pages/WhoWeAre.vue';
+import Register from './pages/Register.vue';
+import ContactForm from './pages/ContactForm.vue';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -49,6 +51,16 @@ const router = new VueRouter({
             path: '/quemsomos',
             name: 'whoWeAre',
             component: WhoWeAre
+        },
+        {
+            path: '/cadastro',
+            name: 'register',
+            component: Register
+        },
+        {
+            path: '/faleconosco',
+            name: 'contact',
+            component: ContactForm
         }
     ]  
 });

@@ -55,3 +55,9 @@ Route::post('uploadjobs', '\OneOffTech\TusUpload\Http\Controllers\TusUploadQueue
 Route::post('contents/images/{docType}', 'Api\ContentController@storeImage');
 Route::post('contents/{docType}', 'Api\ContentController@store');
 Route::get('contents/{docType}', 'Api\ContentController@show');
+
+// Contact
+Route::get('contacts', 'Api\ContactController@index');
+Route::get('contacts/{id}', 'Api\ContactController@show');
+Route::post('contacts', 'Api\ContactController@store');
+Route::post('contacts/{id}', 'Api\ContactController@update');

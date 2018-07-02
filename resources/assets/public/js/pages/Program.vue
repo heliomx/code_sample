@@ -61,10 +61,7 @@ export default {
         font-family: $title-font;
     }
 
-    .btn-area {
-        text-align: right;
-        margin-top: 40px;
-    }
+    
 
 }
 </style>

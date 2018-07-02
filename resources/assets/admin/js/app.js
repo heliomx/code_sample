@@ -34,6 +34,10 @@ import Layout from './pages/Layout.vue';
     import HomeContent from './pages/content/HomeContent';
     import WhoWeAreContent from './pages/content/WhoWeAreContent';
 
+// Contacts
+    import EditContact from './pages/contacts/EditContact';
+    import ListContacts from './pages/contacts/ListContacts';
+
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -161,7 +165,21 @@ const router = new VueRouter({
                     path: '/registro',
                     name: 'register',
                     component: Register,
-                }
+                },
+
+                // Contacts
+                {
+                    path: '/faleconosco',
+                    name: 'listContacts',
+                    component: ListContacts
+                },
+
+                {
+                    path: 'faleconosco/:id',
+                    name: 'editContact',
+                    component: EditContact
+                },
+
             ]
         }
     ]

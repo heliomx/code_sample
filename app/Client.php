@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+    const STATUS_ACTIVE = 'A';
+    const STATUS_INACTIVE = 'I';
+    
     protected $fillable = [
         'user_id', 'updated_at', 'created_at', 'radio_type', 'radio_name', 'cpf',
         'cnpj', 'address','address_cep','address_complement','address_city',

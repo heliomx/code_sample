@@ -40,7 +40,6 @@ class ClientController extends Controller
                 'password' => bcrypt($request->input('user.password')),
             ]);
             
-            
             $client = Client::create([
                 'user_id'       => $user->id,
                 'radio_type'    => $request->input('radio_type'),
@@ -55,7 +54,7 @@ class ClientController extends Controller
                 'tel' => $request->input('tel'),
                 'tel_mobile'   => $request->input('tel_mobile'),
                 'site' => $request->input('site'),
-                'status' => $request->input('status'),
+                'status' => $request->input('status', Client::STATUS_ACTIVE),
             ]);
 
             $programs = $request->input('programs');
@@ -103,7 +102,7 @@ class ClientController extends Controller
                 'tel' => $request->input('tel'),
                 'tel_mobile'   => $request->input('tel_mobile'),
                 'site' => $request->input('site'),
-                'status' => $request->input('status'),
+                'status' => $request->input('status', Client::STATUS_ACTIVE),
             ]);
            
             $client->user->fill([

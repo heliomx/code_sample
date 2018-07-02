@@ -64,6 +64,9 @@
 // Global CSS and Variables
 @import '../sass/app.scss';
 
+* {
+    font-family: $title-font;
+}
 
 .header-info {
     background-color: $primary-light;
@@ -156,6 +159,11 @@ footer div{
     padding: 0 10px;
     font-size: 12px;
 
+}
+
+.btn-area {
+    text-align: right;
+    margin-top: 40px;
 }
 
 .fade-enter {

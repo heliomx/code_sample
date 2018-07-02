@@ -19,6 +19,11 @@ function dictionary(lang) {
         ProgramType: {
             S: 'Semanal',
             D: 'Diário'
+        },
+
+        ContactStatus: {
+            N: 'Novo',
+            R: 'Resolvido'
         }
     }
 
