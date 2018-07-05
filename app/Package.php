@@ -110,7 +110,7 @@ class Package extends Model
                             $pfile->package()->associate($package);
                             $pfile->file_name = "$dir_match[0]/$fname";
                             $pfile->publish_start = $publish_start;
-                            $pfile->publish_end = (new Carbon($publish_start))->addDays($program->publication_days);
+                            $pfile->publish_end = (new Carbon($publish_start))->addDays($program->publication_days)->addMinutes(2);
                             $pfile->status = ProgramFile::STATUS_WAITING;
                             $pfile->air_on = Carbon::createFromDate($f_match[5], $f_match[4], $f_match[3]);
                             $pfile->save();

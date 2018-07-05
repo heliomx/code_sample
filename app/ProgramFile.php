@@ -24,7 +24,11 @@ class ProgramFile extends Model
     public function unpublish(){
         $this->status = self::STATUS_UNPUBLISHED;
         $this->save();
-        unlink(storage_path("app/packages/$this->file_name"));
+        if(file_exists ( storage_path("app/packages/$this->file_name") ))
+        {
+            unlink(storage_path("app/packages/$this->file_name"));
+        }
+        
     }
 
     

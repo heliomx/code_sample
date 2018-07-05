@@ -23,7 +23,7 @@
 
                 </v-flex>
                 
-                <v-flex xs12 sm7>
+                <v-flex v-if="waitingApproval && waitingApproval.length > 0" xs12 sm7>
                     <h2>Assinaturas aguardando aprovação:</h2>
                     <p v-for="program in waitingApproval" :key="program.id">
                         {{ program.name }}
@@ -85,9 +85,17 @@ ul {
         background-color: #F0F0F0;
     }
 }
-.card img {
-    position:absolute;
-    right: 0;
-    top: 0;
+.card 
+{
+    min-height: 288px;
+    img {
+        position:absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+h2 { 
+    margin-top: 50px;
 }
 </style>

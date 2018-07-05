@@ -59002,7 +59002,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.program[data-v-60915c4a] {\n  margin-bottom: 30px;\n}\nul[data-v-60915c4a] {\n  margin-left: 30px;\n}\nul li[data-v-60915c4a]:hover {\n    background-color: #F0F0F0;\n}\n.card img[data-v-60915c4a] {\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n", ""]);
+exports.push([module.i, "\n.program[data-v-60915c4a] {\n  margin-bottom: 30px;\n}\nul[data-v-60915c4a] {\n  margin-left: 30px;\n}\nul li[data-v-60915c4a]:hover {\n    background-color: #F0F0F0;\n}\n.card[data-v-60915c4a] {\n  min-height: 288px;\n}\n.card img[data-v-60915c4a] {\n    position: absolute;\n    right: 0;\n    top: 0;\n}\nh2[data-v-60915c4a] {\n  margin-top: 50px;\n}\n", ""]);
 
 // exports
 
@@ -59381,24 +59381,26 @@ var render = function() {
                 )
               }),
               _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "", sm7: "" } },
-                [
-                  _c("h2", [_vm._v("Assinaturas aguardando aprovação:")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.waitingApproval, function(program) {
-                    return _c("p", { key: program.id }, [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(program.name) +
-                          "\n                "
-                      )
-                    ])
-                  })
-                ],
-                2
-              )
+              _vm.waitingApproval && _vm.waitingApproval.length > 0
+                ? _c(
+                    "v-flex",
+                    { attrs: { xs12: "", sm7: "" } },
+                    [
+                      _c("h2", [_vm._v("Assinaturas aguardando aprovação:")]),
+                      _vm._v(" "),
+                      _vm._l(_vm.waitingApproval, function(program) {
+                        return _c("p", { key: program.id }, [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(program.name) +
+                              "\n                "
+                          )
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                : _vm._e()
             ],
             2
           )

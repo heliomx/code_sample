@@ -25,17 +25,22 @@ class ProgramController extends Controller
             $user = Auth::user();
             if ($user->role == User::ROLE_ADMIN)
             {
-                $programs = Program::with('files')->whereHas('files', function ($query) {
-                    return $query->whereStatus(ProgramFile::STATUS_PUBLISHED);
+                $programs = Program::with(['files' => function ($query) {
+                    return $query->where('status', '=', ProgramFile::STATUS_PUBLISHED);
+                }])
+                ->whereHas('files', function ($q) {
+                    return $q->where('status', '=', ProgramFile::STATUS_PUBLISHED);
                 })->get();
                 $r = response()->json([ 'data' => $programs ]);
             } else {
                 $client = Client::whereUserId($user->id)->first();
                 $actives = $client->programs()
                     ->whereStatus('A')
-                    ->with('files')
+                    ->with(['files' => function ($query) {
+                        return $query->where('status', '=', ProgramFile::STATUS_PUBLISHED);
+                    }])
                     ->whereHas('files', function ($q) {
-                        return $q->whereStatus(ProgramFile::STATUS_PUBLISHED);
+                        return $q->where('status', '=', ProgramFile::STATUS_PUBLISHED);
                     })->get();
 
                 $waiting = $client->programs()
