@@ -41558,6 +41558,7 @@ module.exports = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__filters_DictFilter__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filters_NumberFormatFilter__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_Debounce__ = __webpack_require__(356);
 //
 //
 //
@@ -41598,6 +41599,21 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -41608,6 +41624,8 @@ module.exports = {
     telephone: __WEBPACK_IMPORTED_MODULE_1__filters_NumberFormatFilter__["a" /* telephone */]
   },
   data: function data() {
+    var _this = this;
+
     return {
       headers: [{
         text: 'Nome da rádio',
@@ -41618,7 +41636,8 @@ module.exports = {
         value: 'radio_type'
       }, {
         text: 'Assinaturas',
-        value: 'qt_signatures'
+        value: 'qt_signatures',
+        sorteable: false
       }, {
         text: 'Cidade',
         value: 'address_city'
@@ -41633,21 +41652,44 @@ module.exports = {
         text: 'Status',
         value: 'status'
       }],
-      items: []
+      search: '',
+      pagination: { rowsPerPage: 10 },
+      items: [],
+      totalItems: 0,
+      loading: true,
+      debounceSearch: Object(__WEBPACK_IMPORTED_MODULE_2__lib_Debounce__["a" /* default */])(function () {
+        _this.pagination.page = 1;
+        _this.fetchData();
+        //this.pagination.totalItems = 0;
+      }, 500)
     };
   },
-  created: function created() {
-    this.fetchData();
-  },
 
+  watch: {
+    search: function search() {
+      this.debounceSearch();
+    },
+
+    pagination: {
+      handler: function handler() {
+        this.fetchData();
+      },
+
+      deep: true
+    }
+  },
   methods: {
     fetchData: function fetchData() {
-      var _this = this;
+      var _this2 = this;
 
-      this.$global.loading = true;
-      this.$http.get('clients').then(function (r) {
-        _this.$global.loading = false;
-        _this.items = r.data.data;
+      this.loading = true;
+      //this.pagination.q = this.search;
+      var params = { q: this.search };
+      Object.assign(params, this.pagination);
+      this.$http.get('clients', { params: params }).then(function (response) {
+        _this2.items = response.data.items;
+        _this2.totalItems = response.data.total;
+        _this2.loading = false;
       });
     }
   }
@@ -41666,7 +41708,8 @@ function dictionary(lang) {
     var dicts = {
         ClientStatus: {
             I: 'Inativo',
-            A: 'Ativo'
+            A: 'Ativo',
+            M: 'Migrado'
         },
 
         RadioType: {
@@ -41885,6 +41928,9 @@ function dictionary(lang) {
             }, {
                 text: "Inativo",
                 value: "I"
+            }, {
+                text: "Migrado",
+                value: "M"
             }],
             validationRules: {
                 tel: [function (v) {
@@ -54229,6 +54275,15 @@ function dictionary(lang) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -57707,108 +57762,169 @@ var render = function() {
             "v-container",
             { attrs: { fluid: "" } },
             [
-              _c("h1", { staticClass: "headline" }, [
-                _vm._v("Lista de clientes")
-              ]),
+              _c(
+                "h1",
+                { staticClass: "headline" },
+                [
+                  _vm._v("Lista de clientes\n      "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      "append-icon": "search",
+                      label: "Buscar por nome da rádio, cidade ou UF",
+                      "single-line": "",
+                      "hide-details": "",
+                      debounce: "500"
+                    },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("v-data-table", {
-                staticClass: "elevation-1",
-                attrs: {
-                  headers: _vm.headers,
-                  items: _vm.items,
-                  "hide-actions": ""
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "items",
-                    fn: function(props) {
-                      return [
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                attrs: {
-                                  to: {
-                                    name: "editClient",
-                                    params: { id: props.item.id }
+              _c(
+                "v-data-table",
+                {
+                  staticClass: "elevation-1",
+                  attrs: {
+                    headers: _vm.headers,
+                    items: _vm.items,
+                    pagination: _vm.pagination,
+                    "total-items": _vm.totalItems,
+                    loading: _vm.loading
+                  },
+                  on: {
+                    "update:pagination": function($event) {
+                      _vm.pagination = $event
+                    }
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "items",
+                      fn: function(props) {
+                        return [
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "editClient",
+                                      params: { id: props.item.id }
+                                    }
                                   }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n            " +
-                                    _vm._s(props.item.radio_name) +
-                                    "\n          "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("dict")(props.item.radio_type, "RadioType")
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n          " +
-                              _vm._s(props.item.qt_signatures) +
-                              " "
+                                },
+                                [
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(props.item.radio_name) +
+                                      "\n          "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
                           ),
-                          _c("br"),
                           _vm._v(" "),
-                          _c("small", [
+                          _c("td", [
                             _vm._v(
-                              "\n            Ativas: " +
-                                _vm._s(props.item.qt_signatures_active) +
-                                " / \n            Não ativas: " +
-                                _vm._s(props.item.qt_signatures_not_active) +
-                                "\n          "
+                              _vm._s(
+                                _vm._f("dict")(
+                                  props.item.radio_type,
+                                  "RadioType"
+                                )
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n          " +
+                                _vm._s(props.item.qt_signatures) +
+                                " "
+                            ),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("small", [
+                              _vm._v(
+                                "\n            Ativas: " +
+                                  _vm._s(props.item.qt_signatures_active) +
+                                  " / \n            Não ativas: " +
+                                  _vm._s(props.item.qt_signatures_not_active) +
+                                  "\n          "
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(props.item.address_city))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(props.item.address_uf))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n          " +
+                                _vm._s(_vm._f("telephone")(props.item.tel)) +
+                                " \n          "
+                            ),
+                            !!props.item.tel && !!props.item.tel_mobile
+                              ? _c("br")
+                              : _vm._e(),
+                            _vm._v(
+                              "\n          " +
+                                _vm._s(
+                                  _vm._f("telephone")(props.item.tel_mobile)
+                                ) +
+                                "\n        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("dict")(
+                                  props.item.status,
+                                  "ClientStatus"
+                                )
+                              )
                             )
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(props.item.address_city))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(props.item.address_uf))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n          " +
-                              _vm._s(_vm._f("telephone")(props.item.tel)) +
-                              " \n          "
-                          ),
-                          !!props.item.tel && !!props.item.tel_mobile
-                            ? _c("br")
-                            : _vm._e(),
-                          _vm._v(
-                            "\n          " +
-                              _vm._s(
-                                _vm._f("telephone")(props.item.tel_mobile)
-                              ) +
-                              "\n        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("dict")(props.item.status, "ClientStatus")
-                            )
-                          )
-                        ])
-                      ]
+                        ]
+                      }
                     }
-                  }
-                ])
-              })
+                  ])
+                },
+                [
+                  _c(
+                    "v-alert",
+                    {
+                      attrs: {
+                        slot: "no-results",
+                        value: true,
+                        color: "error",
+                        icon: "warning"
+                      },
+                      slot: "no-results"
+                    },
+                    [
+                      _vm._v(
+                        '\n        Sua busca "' +
+                          _vm._s(_vm.search) +
+                          '" não teve nenhum resultado.\n      '
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
             ],
             1
           )
@@ -59428,12 +59544,12 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_CreateEditProgram_vue__ = __webpack_require__(199);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_410591db_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreateEditProgram_vue__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_410591db_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreateEditProgram_vue__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(1);
 var disposed = false
 function injectStyle (context) {
   if (disposed) return
-  __webpack_require__(259)
+  __webpack_require__(351)
 }
 /* script */
 
@@ -59445,14 +59561,14 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-410591db"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_CreateEditProgram_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_410591db_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreateEditProgram_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_410591db_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreateEditProgram_vue__["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_410591db_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreateEditProgram_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_410591db_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_CreateEditProgram_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -59480,47 +59596,8 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 259 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(260);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(4).default
-var update = add("593d3d28", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateEditProgram.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateEditProgram.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 260 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.picture-input {\n    position: relative;\n    z-index: 1;\n}\n.preview-container {\n    margin: 0 !important;\n}\n.aviso {\n    display: block;\n    text-align: right;\n    margin-top: 20px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 259 */,
+/* 260 */,
 /* 261 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -59934,367 +60011,7 @@ if (false) {
 }
 
 /***/ }),
-/* 266 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
-    !_vm.$global.loading
-      ? _c(
-          "div",
-          [
-            !_vm.editing
-              ? _c("h1", { staticClass: "headline" }, [
-                  _vm._v("Cadastrar Novo Programa")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.editing
-              ? _c(
-                  "v-layout",
-                  { attrs: { row: "", wrap: "" } },
-                  [
-                    _c("v-flex", { attrs: { xs9: "" } }, [
-                      _c("h2", { staticClass: "headline" }, [
-                        _vm._v("Editando " + _vm._s(_vm.form.name))
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "v-flex",
-                      { attrs: { xs3: "" } },
-                      [
-                        _c(
-                          "v-btn",
-                          { on: { click: _vm.showConfirmDelete } },
-                          [
-                            _vm._v(
-                              "\n                Remover programa\n                "
-                            ),
-                            _c("v-icon", [_vm._v("delete")])
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "form-margin" },
-              [
-                _c(
-                  "v-form",
-                  {
-                    model: {
-                      value: _vm.valid,
-                      callback: function($$v) {
-                        _vm.valid = $$v
-                      },
-                      expression: "valid"
-                    }
-                  },
-                  [
-                    _c(
-                      "v-container",
-                      { attrs: { fluid: "", "grid-list-lg": "true" } },
-                      [
-                        _c(
-                          "v-layout",
-                          { attrs: { row: "", wrap: "" } },
-                          [
-                            _c(
-                              "v-flex",
-                              { attrs: { xs4: "" } },
-                              [
-                                _c("v-subheader", [
-                                  _vm._v("* Nome do Programa")
-                                ])
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs8: "" } },
-                              [
-                                _c("v-text-field", {
-                                  attrs: {
-                                    required: "",
-                                    rules: _vm.validationRules.required
-                                  },
-                                  model: {
-                                    value: _vm.form.name,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "name", $$v)
-                                    },
-                                    expression: "form.name"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _vm.editing
-                              ? _c(
-                                  "v-flex",
-                                  { attrs: { xs4: "" } },
-                                  [
-                                    _c("v-subheader", [
-                                      _vm._v("Quantidade de assinaturas ativas")
-                                    ])
-                                  ],
-                                  1
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.editing
-                              ? _c(
-                                  "v-flex",
-                                  { attrs: { xs5: "" } },
-                                  [
-                                    _c("v-text-field", {
-                                      staticStyle: { width: "fit-content" },
-                                      attrs: { disabled: true },
-                                      model: {
-                                        value: _vm.form.qt_signatures,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.form,
-                                            "qt_signatures",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "form.qt_signatures"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs4: "" } },
-                              [_c("v-subheader", [_vm._v("* Tipo")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs5: "" } },
-                              [
-                                _c("v-select", {
-                                  attrs: {
-                                    items: _vm.typeList,
-                                    required: "",
-                                    rules: _vm.validationRules.required
-                                  },
-                                  model: {
-                                    value: _vm.form.program_type,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "program_type", $$v)
-                                    },
-                                    expression: "form.program_type"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs4: "" } },
-                              [_c("v-subheader", [_vm._v("* Descrição")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs8: "" } },
-                              [
-                                _c("v-text-field", {
-                                  attrs: {
-                                    required: "",
-                                    rules: _vm.validationRules.required,
-                                    label:
-                                      "Descrição detalhada do programa de rádio",
-                                    "multi-line": ""
-                                  },
-                                  model: {
-                                    value: _vm.form.description,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form, "description", $$v)
-                                    },
-                                    expression: "form.description"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs4: "" } },
-                              [
-                                _c("v-subheader", [
-                                  _vm._v("* Quantidade de Dias em publicação")
-                                ])
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs8: "" } },
-                              [
-                                _c("v-text-field", {
-                                  attrs: {
-                                    required: "",
-                                    rules: _vm.validationRules.required,
-                                    type: "number",
-                                    label: "Dias"
-                                  },
-                                  model: {
-                                    value: _vm.form.publication_days,
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.form,
-                                        "publication_days",
-                                        $$v
-                                      )
-                                    },
-                                    expression: "form.publication_days"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs4: "" } },
-                              [_c("v-subheader", [_vm._v("Imagem")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs8: "" } },
-                              [
-                                _c("picture-input", {
-                                  ref: "pictureInput",
-                                  attrs: {
-                                    width: 288,
-                                    removable: true,
-                                    prefill: _vm.form.img
-                                      ? _vm.form.full_img_path
-                                      : "",
-                                    removeButtonClass: "btn picture-input-btn",
-                                    height: 288,
-                                    accept: "image/jpeg, image/png, image/gif",
-                                    buttonClass:
-                                      "btn primary picture-input-btn",
-                                    customStrings: {
-                                      change: "Alterar imagem",
-                                      remove: "Remover imagem",
-                                      upload: "<h1>Enviar</h1>",
-                                      drag: "Arraste e solte a imagem aqui"
-                                    }
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("v-flex", { attrs: { xs10: "" } }, [
-                              !_vm.valid
-                                ? _c("small", { staticClass: "aviso" }, [
-                                    _vm._v(
-                                      "* Verifique o preenchimento de todos os campos obrigatórios antes de enviar o formulário"
-                                    )
-                                  ])
-                                : _vm._e()
-                            ])
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "page-actions" },
-              [
-                _c(
-                  "v-btn",
-                  {
-                    attrs: { color: "secondary", disabled: !_vm.valid },
-                    on: { click: _vm.submit }
-                  },
-                  [
-                    !_vm.editing ? _c("span", [_vm._v("Cadastrar")]) : _vm._e(),
-                    _vm._v(" "),
-                    _vm.editing ? _c("span", [_vm._v("Atualizar")]) : _vm._e()
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("confirm-dialog", {
-              attrs: {
-                title: "Remover?",
-                body: "Deseja remover o programa " + _vm.form.name + "?",
-                visible: _vm.confirmDeletion,
-                confirmLabel: "Apagar",
-                cancelLabel: "Cancelar"
-              },
-              on: { confirm: _vm.deleteProgram }
-            }),
-            _vm._v(" "),
-            _c("message-dialog", {
-              attrs: {
-                visible: _vm.message.visible,
-                title: _vm.message.title,
-                info: _vm.message.info
-              },
-              on: { done: _vm.message.callback }
-            })
-          ],
-          1
-        )
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-410591db", { render: render, staticRenderFns: staticRenderFns })
-  }
-}
-
-/***/ }),
+/* 266 */,
 /* 267 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -65851,7 +65568,7 @@ var render = function() {
             { attrs: { fluid: "" } },
             [
               _c("h1", { staticClass: "headline" }, [
-                _vm._v("Lista de programas")
+                _vm._v("Lista de solicitações")
               ]),
               _vm._v(" "),
               _c("v-data-table", {
@@ -65971,6 +65688,453 @@ exports.push([module.i, "\n#editContact {\n  width: 100%;\n  margin-bottom: 60px
 
 // exports
 
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(352);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(4).default
+var update = add("46921ee6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-410591db\",\"scoped\":true,\"sourceMap\":false}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateEditProgram.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-410591db\",\"scoped\":true,\"sourceMap\":false}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateEditProgram.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.picture-input[data-v-410591db] {\n    position: relative;\n    z-index: 1;\n}\n.preview-container[data-v-410591db] {\n    margin: 0 !important;\n}\n.aviso[data-v-410591db] {\n    display: block;\n    text-align: right;\n    margin-top: 20px;\n}\n.img-field[data-v-410591db] {\n    align-items: flex-start;\n    flex-direction: column;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 353 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
+    !_vm.$global.loading
+      ? _c(
+          "div",
+          [
+            !_vm.editing
+              ? _c("h1", { staticClass: "headline" }, [
+                  _vm._v("Cadastrar Novo Programa")
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.editing
+              ? _c(
+                  "v-layout",
+                  { attrs: { row: "", wrap: "" } },
+                  [
+                    _c("v-flex", { attrs: { xs9: "" } }, [
+                      _c("h2", { staticClass: "headline" }, [
+                        _vm._v("Editando " + _vm._s(_vm.form.name))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "v-flex",
+                      { attrs: { xs3: "" } },
+                      [
+                        _c(
+                          "v-btn",
+                          { on: { click: _vm.showConfirmDelete } },
+                          [
+                            _vm._v(
+                              "\n                Remover programa\n                "
+                            ),
+                            _c("v-icon", [_vm._v("delete")])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-margin" },
+              [
+                _c(
+                  "v-form",
+                  {
+                    model: {
+                      value: _vm.valid,
+                      callback: function($$v) {
+                        _vm.valid = $$v
+                      },
+                      expression: "valid"
+                    }
+                  },
+                  [
+                    _c(
+                      "v-container",
+                      { attrs: { fluid: "", "grid-list-lg": "true" } },
+                      [
+                        _c(
+                          "v-layout",
+                          { attrs: { row: "", wrap: "" } },
+                          [
+                            _c(
+                              "v-flex",
+                              { attrs: { xs4: "" } },
+                              [
+                                _c("v-subheader", [
+                                  _vm._v("* Nome do Programa")
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs8: "" } },
+                              [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    required: "",
+                                    rules: _vm.validationRules.required
+                                  },
+                                  model: {
+                                    value: _vm.form.name,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "name", $$v)
+                                    },
+                                    expression: "form.name"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _vm.editing
+                              ? _c(
+                                  "v-flex",
+                                  { attrs: { xs4: "" } },
+                                  [
+                                    _c("v-subheader", [
+                                      _vm._v("Quantidade de assinaturas ativas")
+                                    ])
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.editing
+                              ? _c(
+                                  "v-flex",
+                                  { attrs: { xs5: "" } },
+                                  [
+                                    _c("v-text-field", {
+                                      staticStyle: { width: "fit-content" },
+                                      attrs: { disabled: true },
+                                      model: {
+                                        value: _vm.form.qt_signatures,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.form,
+                                            "qt_signatures",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "form.qt_signatures"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs4: "" } },
+                              [_c("v-subheader", [_vm._v("* Tipo")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs5: "" } },
+                              [
+                                _c("v-select", {
+                                  attrs: {
+                                    items: _vm.typeList,
+                                    required: "",
+                                    rules: _vm.validationRules.required
+                                  },
+                                  model: {
+                                    value: _vm.form.program_type,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "program_type", $$v)
+                                    },
+                                    expression: "form.program_type"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs4: "" } },
+                              [_c("v-subheader", [_vm._v("* Descrição")])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs8: "" } },
+                              [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    required: "",
+                                    rules: _vm.validationRules.required,
+                                    label:
+                                      "Descrição detalhada do programa de rádio",
+                                    "multi-line": ""
+                                  },
+                                  model: {
+                                    value: _vm.form.description,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "description", $$v)
+                                    },
+                                    expression: "form.description"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs4: "" } },
+                              [
+                                _c("v-subheader", [
+                                  _vm._v("* Quantidade de Dias em publicação")
+                                ])
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs8: "" } },
+                              [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    required: "",
+                                    rules: _vm.validationRules.required,
+                                    type: "number",
+                                    label: "Dias"
+                                  },
+                                  model: {
+                                    value: _vm.form.publication_days,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.form,
+                                        "publication_days",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "form.publication_days"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs4: "" } },
+                              [
+                                _c(
+                                  "v-subheader",
+                                  { staticClass: "img-field" },
+                                  [
+                                    _c("div", [_vm._v("Imagem")]),
+                                    _vm._v(" "),
+                                    _c("div", [
+                                      _c("small", [
+                                        _vm._v(
+                                          "288 x 288 pixels (72dpi) | 300Kb máximo"
+                                        )
+                                      ])
+                                    ])
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-flex",
+                              { attrs: { xs8: "" } },
+                              [
+                                _c("picture-input", {
+                                  ref: "pictureInput",
+                                  attrs: {
+                                    width: 288,
+                                    removable: true,
+                                    prefill: _vm.form.img
+                                      ? _vm.form.full_img_path
+                                      : "",
+                                    removeButtonClass: "btn picture-input-btn",
+                                    height: 288,
+                                    accept: "image/jpeg, image/png, image/gif",
+                                    buttonClass:
+                                      "btn primary picture-input-btn",
+                                    size: "0.3",
+                                    customStrings: {
+                                      change: "Alterar imagem",
+                                      remove: "Remover imagem",
+                                      upload: "<h1>Enviar</h1>",
+                                      drag: "Arraste e solte a imagem aqui",
+                                      fileSize:
+                                        "O arquivo excede o tamanho permitido",
+                                      fileType:
+                                        "Esse tipo de arquivo não é permitido"
+                                    }
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("v-flex", { attrs: { xs10: "" } }, [
+                              !_vm.valid
+                                ? _c("small", { staticClass: "aviso" }, [
+                                    _vm._v(
+                                      "* Verifique o preenchimento de todos os campos obrigatórios antes de enviar o formulário"
+                                    )
+                                  ])
+                                : _vm._e()
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "page-actions" },
+              [
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { color: "secondary", disabled: !_vm.valid },
+                    on: { click: _vm.submit }
+                  },
+                  [
+                    !_vm.editing ? _c("span", [_vm._v("Cadastrar")]) : _vm._e(),
+                    _vm._v(" "),
+                    _vm.editing ? _c("span", [_vm._v("Atualizar")]) : _vm._e()
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("confirm-dialog", {
+              attrs: {
+                title: "Remover?",
+                body: "Deseja remover o programa " + _vm.form.name + "?",
+                visible: _vm.confirmDeletion,
+                confirmLabel: "Apagar",
+                cancelLabel: "Cancelar"
+              },
+              on: { confirm: _vm.deleteProgram }
+            }),
+            _vm._v(" "),
+            _c("message-dialog", {
+              attrs: {
+                visible: _vm.message.visible,
+                title: _vm.message.title,
+                info: _vm.message.info
+              },
+              on: { done: _vm.message.callback }
+            })
+          ],
+          1
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-410591db", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
+
+/***/ }),
+/* 354 */,
+/* 355 */,
+/* 356 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = debounce;
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function () {
+		var context = this,
+		    args = arguments;
+		var later = function later() {
+			timeout = null;
+			if (!immediate) func();
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func();
+	};
+};
 
 /***/ })
 /******/ ]);

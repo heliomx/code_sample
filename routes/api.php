@@ -43,6 +43,7 @@ Route::get('programs', 'Api\ProgramController@index');
 Route::get('programs/{id}', 'Api\ProgramController@show');
 Route::delete('programs/{id}', 'Api\ProgramController@destroy');
 Route::post('programs/{id}', 'Api\ProgramController@edit');
+Route::post('programs', 'Api\ProgramController@store');
 Route::get('programs/downloads/{id}', 'Api\ProgramController@download');
 
 //Packages

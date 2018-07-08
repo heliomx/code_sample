@@ -186,6 +186,10 @@ export default {
                 {
                     text: "Inativo",
                     value: "I"
+                },
+                {
+                    text: "Migrado",
+                    value: "M"
                 }
             ],
             validationRules: 

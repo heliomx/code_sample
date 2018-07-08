@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterFormRequest;
 use App\User;
+use App\Client;
 use Auth;
 
 class AuthController extends Controller
@@ -32,9 +33,46 @@ class AuthController extends Controller
                     'msg' => 'Invalid Credentials.'
                 ], 400);
         }
-        return response([
-                'status' => 'success'
-            ])
+        $client = Client::whereUserId(Auth::user()->id)->first();
+        if($client){
+            switch ($client->status) {
+                case 'M':
+                    $client->status = 'A';
+                    $client->save();
+                    $response = [
+                        'status' => 'success'
+                    ];
+                    break;
+                
+                case 'I':
+                    auth()->logoff();
+                    $response = [
+                        'status' => 'error',
+                        'msg' => 'Cliente inativo'
+                    ];
+                
+                default:
+                    $response = [
+                        'status' => 'success'
+                    ];
+                    break;
+            }
+        } else {
+            $user = User::find(Auth::user()->id);
+            if($user->role == 'A')
+            {
+                $response = [
+                    'status' => 'success'
+                ];
+            } else {
+                $response = [
+                    'status' => 'error',
+                    'msg' => 'Usuário inválido. Verifique o banco de dados'
+                ];
+                auth()->logoff();
+            }
+        }
+        return response($response)
             ->header('Authorization', $token);
     }
 

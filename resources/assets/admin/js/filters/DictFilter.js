@@ -7,7 +7,8 @@ function dictionary(lang) {
     let dicts = {
         ClientStatus: {
             I: 'Inativo',
-            A: 'Ativo'
+            A: 'Ativo',
+            M: 'Migrado'
         },
 
         RadioType: {

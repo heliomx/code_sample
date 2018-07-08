@@ -2,11 +2,22 @@
 <transition name="fade" mode="out-in">
   <v-container v-if="!$global.loading" fluid >
     
-    <h1 class="headline">Lista de clientes</h1>
+    <h1 class="headline">Lista de clientes
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model.lazy="search"
+        append-icon="search"
+        label="Buscar por nome da rádio, cidade ou UF"
+        single-line
+        hide-details
+        debounce="500"
+      ></v-text-field></h1>
     <v-data-table
       :headers="headers"
       :items="items"
-      hide-actions
+      :pagination.sync="pagination"
+      :total-items="totalItems"
+      :loading="loading"
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
@@ -33,6 +44,9 @@
         </td>
         <td>{{ props.item.status | dict('ClientStatus')}}</td>
       </template>
+      <v-alert slot="no-results" :value="true" color="error" icon="warning">
+        Sua busca "{{ search }}" não teve nenhum resultado.
+      </v-alert>
     </v-data-table>
   </v-container>
 </transition>
@@ -41,6 +55,7 @@
 <script>
 import dict from '../../filters/DictFilter';
 import {telephone} from '../../filters/NumberFormatFilter';
+import debounce from '../../lib/Debounce';
 
 
 export default {
@@ -64,7 +79,8 @@ export default {
 
                 {
                   text: 'Assinaturas',
-                  value: 'qt_signatures'
+                  value: 'qt_signatures',
+                  sorteable: false
                 },
                 {
                   text: 'Cidade',
@@ -84,25 +100,46 @@ export default {
                   value: 'status'
                 }
             ],
-            items: []
+            search:'',
+            pagination: { rowsPerPage: 10 },
+            items: [],
+            totalItems: 0,
+            loading: true,
+            debounceSearch: debounce( () => {
+              this.pagination.page = 1;
+              this.fetchData();
+              //this.pagination.totalItems = 0;
+            }, 500)
         }
     },
-    created() {
-      this.fetchData();
+    watch: {
+      search(){
+        this.debounceSearch();
+      },
+      pagination: {
+        handler () {
+          this.fetchData();
+            
+        },
+        deep: true
+      }
     },
     methods: {
       fetchData()
       {
-        this.$global.loading = true;
-        this.$http.get('clients')
-        .then( r => {
-          this.$global.loading = false;
-          this.items = r.data.data;
-        });
+        this.loading = true;
+        //this.pagination.q = this.search;
+        let params = { q: this.search };
+        Object.assign(params, this.pagination);
+        this.$http.get('clients', {params: params})
+          .then(response => {
+            this.items = response.data.items;
+            this.totalItems = response.data.total;
+            this.loading = false;
+          });
       }
-      
-    }
-};
+  }
+}
 </script>
 
 <style>

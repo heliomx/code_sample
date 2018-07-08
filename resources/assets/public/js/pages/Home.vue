@@ -49,7 +49,7 @@
                                     <v-flex xs4 v-for="program in filteredPrograms" :key="program.id">
                                         <div @click="openProgram(program)">
                                             <v-card >
-                                                <v-card-media :src="program.full_img_path" height="220px">
+                                                <v-card-media :src="program.full_img_path" height="288px">
                                                 </v-card-media>
                                                 <v-card-title primary-title>
                                                 <div>
@@ -298,8 +298,13 @@ export default {
                 color: $body-color-light;
             }
 
-            .container.grid-list-xl .layout .flex {
-                padding: 22px;
+            .container.grid-list-xl 
+            {
+                padding: 0;
+
+                .layout .flex {
+                    padding: 15px;
+                }
             }
 
             .card {

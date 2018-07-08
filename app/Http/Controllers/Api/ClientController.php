@@ -16,9 +16,37 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ClientResource::collection(Client::with('user')->get());
+        $query = Client::with('user');
+        if ($request->has('q')) {
+            if (strlen($request->input('q')) > 2) {
+                $query->where('radio_name', 'LIKE', '%' . $request->input('q') . '%')
+                ->orWhere('address_city', 'LIKE', '%' . $request->input('q') . '%');
+                
+                $count = Client::where('radio_name', 'LIKE', '%' . $request->input('q') . '%')
+                ->orWhere('address_city', 'LIKE', '%' . $request->input('q') . '%')
+                ->count();
+            } else {
+                $query->where('address_uf', 'LIKE', '%' . $request->input('q') . '%');
+                $count = Client::where('address_uf', 'LIKE', '%' . $request->input('q') . '%')->count();
+            }
+        } else {
+            $count = Client::count();
+        }
+
+        $query->limit($request->input('rowsPerPage'))
+            ->offset($request->input('rowsPerPage') * ($request->input('page') - 1));
+        
+        if ($request->has('sortBy')) {
+            $query->orderBy($request->input('sortBy'), $request->input('descending') == 'true' ? 'DESC' : 'ASC');
+        }
+
+        
+        
+        $data = ClientResource::collection($query->get());
+
+        return response()->json( [ 'items' => $data, 'total' => $count, 'sql' => $query->toSql() ] );
     }
 
     /**

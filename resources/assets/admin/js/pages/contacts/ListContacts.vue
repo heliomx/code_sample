@@ -2,7 +2,7 @@
 <transition name="fade" mode="out-in">
   <v-container v-if="!$global.loading" fluid >
     
-    <h1 class="headline">Lista de programas</h1>
+    <h1 class="headline">Lista de solicitações</h1>
     <v-data-table
       :headers="headers"
       :items="items"

@@ -57,7 +57,13 @@
                     </v-flex>
 
                     <v-flex xs4>
-                        <v-subheader>Imagem</v-subheader>
+                        <v-subheader class="img-field">
+                            <div>Imagem</div>
+                            <div>
+                            <small>288 x 288 pixels (72dpi) | 300Kb máximo</small>
+                            </div>
+                        </v-subheader>
+                        
                     </v-flex>
                     <v-flex xs8>
                         <picture-input
@@ -69,11 +75,14 @@
                             :height="288"
                             accept="image/jpeg, image/png, image/gif"
                             buttonClass="btn primary picture-input-btn"
+                            size="0.3"
                             :customStrings="{
                                 change: 'Alterar imagem', 
                                 remove: 'Remover imagem',
                                 upload: '<h1>Enviar</h1>',
-                                drag: 'Arraste e solte a imagem aqui'
+                                drag: 'Arraste e solte a imagem aqui',
+                                fileSize: 'O arquivo excede o tamanho permitido',
+                                fileType: 'Esse tipo de arquivo não é permitido',
                             }">
 
                             </picture-input>
@@ -246,7 +255,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .picture-input {
         position: relative;
         z-index: 1;
@@ -260,6 +269,11 @@ export default {
         display: block;
         text-align: right;
         margin-top: 20px;
+    }
+
+    .img-field {
+        align-items: flex-start;
+        flex-direction: column;
     }
 </style>
 

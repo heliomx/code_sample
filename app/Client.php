@@ -8,6 +8,7 @@ class Client extends Model
 {
     const STATUS_ACTIVE = 'A';
     const STATUS_INACTIVE = 'I';
+    const STATUS_MIGRATION = 'M';
     
     protected $fillable = [
         'user_id', 'updated_at', 'created_at', 'radio_type', 'radio_name', 'cpf',
