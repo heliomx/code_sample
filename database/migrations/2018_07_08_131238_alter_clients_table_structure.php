@@ -14,8 +14,8 @@ class AlterClientsTableStructure extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->char('address', 250)->change();
-            $table->char('site', 250)->change();
+            $table->string('address', 250)->change();
+            $table->string('site', 250)->change();
         });
     }
 
@@ -27,8 +27,8 @@ class AlterClientsTableStructure extends Migration
     public function down()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->char('address', 50)->change();
-            $table->char('site', 50)->change();
+            $table->string('address', 50)->change();
+            $table->string('site', 50)->change();
         });
     }
 }
