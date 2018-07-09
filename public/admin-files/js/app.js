@@ -41396,6 +41396,7 @@ module.exports = {
           fetchUser: true
         });
       }
+      return false;
     }
   }
 });
@@ -66061,6 +66062,12 @@ var render = function() {
                         "v-form",
                         {
                           ref: "form",
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.login($event)
+                            }
+                          },
                           model: {
                             value: _vm.valid,
                             callback: function($$v) {
@@ -66138,11 +66145,11 @@ var render = function() {
                                     "v-btn",
                                     {
                                       attrs: {
+                                        type: "submit",
                                         loading: _vm.loading,
                                         disabled: _vm.loading,
                                         color: "primary"
-                                      },
-                                      on: { click: _vm.login }
+                                      }
                                     },
                                     [
                                       _vm._v(

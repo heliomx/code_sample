@@ -22,8 +22,8 @@
           
           <v-layout align-center justify-center>
             <v-flex xs12 sm10 md6>
-              <v-form v-model="valid" ref="form">
-              <v-card class="elevation-12">
+              <v-form v-model="valid" ref="form" @submit.prevent="login">
+              <v-card class="elevation-12">   
                 <v-toolbar dark color="primary">
                   <v-toolbar-title>Administração</v-toolbar-title>
                 </v-toolbar>
@@ -34,7 +34,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn 
-                    @click="login" 
+                    type="submit" 
                     :loading="loading"
       				      :disabled="loading" 
                     color="primary">
@@ -111,7 +111,8 @@
               redirect: '/dashboard',
               fetchUser: true,
           }); 
-        }      
+        }   
+        return false;   
       },
     }
   } 
