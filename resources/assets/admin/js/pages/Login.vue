@@ -28,12 +28,18 @@
                   <v-toolbar-title>Administração</v-toolbar-title>
                 </v-toolbar>
                 <v-card-text>
-                    <v-text-field :rules="emailRules" prepend-icon="person" v-model="email" label="E-mail" placeholder="nome@exemplo.com.br" type="email" required></v-text-field>
-                    <v-text-field :rules="passwordRules" prepend-icon="lock" v-model="password" label="Senha" id="password" type="password" required></v-text-field>
+                    <v-text-field :rules="emailRules" prepend-icon="person" v-model="email" label="E-mail" placeholder="nome@exemplo.com.br" name="email" type="email" required></v-text-field>
+                    <v-text-field :rules="passwordRules" prepend-icon="lock" v-model="password" label="Senha" id="password" type="password" name="password" required></v-text-field>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn @click="login" color="primary">Acessar</v-btn>
+                  <v-btn 
+                    @click="login" 
+                    :loading="loading"
+      				      :disabled="loading" 
+                    color="primary">
+                      Acessar
+                  </v-btn>
                 </v-card-actions>
               </v-card>
               </v-form>
@@ -43,11 +49,22 @@
         </v-container>
       
     </v-content>
+    <v-footer app color="#A0A0A0">
+        <div>
+            <small>Em caso de dúvidas com o seu acesso ligue <strong>(61) 3532-6993</strong></small>
+        </div>
+    </v-footer>
+    <message-dialog ref="messageDialog"></message-dialog>
   </v-app>
 </template>
 
 <script>
+  import MessageDialog from '../components/MessageDialog2.vue';
+
   export default {
+    components: {
+        MessageDialog,
+    },
     data(){
       return {
         email: '',
@@ -59,11 +76,13 @@
         passwordRules: [
           v => !!v || 'Senha é obrigatória',
         ],
-        valid: true
+        valid: true,
+        loading: false
       }
     },
     methods: {
       login(){
+        this.loading = true;
         var app = this;
         if (this.$refs.form.validate()) {
           this.$auth.login({
@@ -71,8 +90,23 @@
                 email: app.email,
                 password: app.password
               }, 
-              success: function () {},
-              error: function () {},
+              success:  (r) => this.loading = false,
+              error: (r) => {
+                if(r.response.data.status && r.response.data.error == 'invalid.credentials')
+                {
+                  this.$refs.messageDialog.show(
+                    'Usuário ou senha inválidos',
+                    'Verifique o preenchimento do e-mail e senha e tente novamente.'
+                  )
+                } else {
+                  this.$refs.messageDialog.show(
+                    'Erro',
+                    'Não foi possível efetuar o login. Verifique sua conexão e tente novamente.'
+                  )
+                }
+
+                this.loading = false;
+              },
               rememberMe: true,
               redirect: '/dashboard',
               fetchUser: true,
@@ -82,3 +116,9 @@
     }
   } 
 </script>
+<style lang="scss" scoped>
+  footer div {
+    width: 100%;
+    text-align: center;
+  }
+</style>

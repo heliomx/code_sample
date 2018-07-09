@@ -37,8 +37,8 @@ class ImportClientsFromCSV extends Seeder
                         'migration_password' => $pswd
                     ]);
     
-                    $doc = intval(preg_replace('/[^0-9]+/', '', $customerArr[$i]['documento']));
-                    $cep = intval(preg_replace('/[^0-9]+/', '', $customerArr[$i]['cep']));
+                    $doc = (preg_replace('/[^0-9]+/', '', $customerArr[$i]['documento']));
+                    $cep = (preg_replace('/[^0-9]+/', '', $customerArr[$i]['cep']));
                     
                     $client = Client::create([
                         'user_id'       => $user->id,
