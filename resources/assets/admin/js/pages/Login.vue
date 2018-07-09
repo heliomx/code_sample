@@ -36,7 +36,7 @@
                   <v-btn 
                     type="submit" 
                     :loading="loading"
-      				      :disabled="loading" 
+      				      :disabled="!valid || loading" 
                     color="primary">
                       Acessar
                   </v-btn>
@@ -49,9 +49,9 @@
         </v-container>
       
     </v-content>
-    <v-footer app color="#A0A0A0">
+    <v-footer app color="secondary">
         <div>
-            <small>Em caso de dúvidas com o seu acesso ligue <strong>(61) 3532-6993</strong></small>
+            Em caso de dúvidas com o seu acesso ligue <strong>(61) 3532-6993</strong>
         </div>
     </v-footer>
     <message-dialog ref="messageDialog"></message-dialog>
@@ -120,6 +120,7 @@
 <style lang="scss" scoped>
   footer div {
     width: 100%;
+    color: #fff;
     text-align: center;
   }
 </style>

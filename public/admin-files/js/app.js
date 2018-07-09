@@ -66147,7 +66147,7 @@ var render = function() {
                                       attrs: {
                                         type: "submit",
                                         loading: _vm.loading,
-                                        disabled: _vm.loading,
+                                        disabled: !_vm.valid || _vm.loading,
                                         color: "primary"
                                       }
                                     },
@@ -66179,12 +66179,10 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-footer", { attrs: { app: "", color: "#A0A0A0" } }, [
+      _c("v-footer", { attrs: { app: "", color: "secondary" } }, [
         _c("div", [
-          _c("small", [
-            _vm._v("Em caso de dúvidas com o seu acesso ligue "),
-            _c("strong", [_vm._v("(61) 3532-6993")])
-          ])
+          _vm._v("\n          Em caso de dúvidas com o seu acesso ligue "),
+          _c("strong", [_vm._v("(61) 3532-6993")])
         ])
       ]),
       _vm._v(" "),
@@ -66239,7 +66237,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\nfooter div[data-v-c855be88] {\n  width: 100%;\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "\nfooter div[data-v-c855be88] {\n  width: 100%;\n  color: #fff;\n  text-align: center;\n}\n", ""]);
 
 // exports
 
