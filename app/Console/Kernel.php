@@ -27,7 +27,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function() {
-            Log::info('*** SCHEDULE verificando publicações ');
             ProgramPublication::check();
         })
         ->everyMinute();
