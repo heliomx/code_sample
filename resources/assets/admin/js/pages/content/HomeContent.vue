@@ -66,13 +66,18 @@
 
 		<section>
 			<h2>Bem-vindo</h2>
-			<wysiwyg v-model="content.welcome" />
+			<h4>Título</h4>
+			<wysiwyg class="one-line" v-model="content.welcome.title" />
+			<h4>Conteúdo</h4>
+			<wysiwyg v-model="content.welcome.body" />
 		</section>
 
 		<section class="programs">
 			<h2>Nossos programas</h2>
+			<h4>Título</h4>
+			<wysiwyg class="one-line" v-model="content.ourPrograms.title" />
 			<h4>Texto de abertura</h4>
-			<wysiwyg v-model="content.ourPrograms" />
+			<wysiwyg v-model="content.ourPrograms.body" />
 			<h4>Programas em destaque</h4>
 			<v-list class="half">
 				<draggable v-model="form.programsHighlight">
@@ -331,6 +336,12 @@ export default {
 <style lang="scss">
 #homeContent
 {
+	.one-line {
+		.editr--content {
+			min-height: 47px;
+		}
+	}
+
 	section {
 		margin: 60px 0;
 		.actions {

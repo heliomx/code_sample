@@ -31,8 +31,8 @@
             </section>
             <section class="content-area radio">
                 <div>
-                    <h2>Bem-vindo à <strong>Rádio Estúdio Brasil</strong></h2>
-                    <div class="section-text" v-html="content.welcome"></div>
+                    <h2 v-html="content.welcome.title"></h2>
+                    <div class="section-text" v-html="content.welcome.body"></div>
 
                     <v-btn class="clearfix" color="secondary" large to="cadastro">Cadastre-se e receba nosso conteúdo gratuito</v-btn>
                     
@@ -40,8 +40,8 @@
             </section>
             <section class="content-area programs">
                 <div>
-                    <h2>Nossos <strong>Programas</strong></h2>
-                    <div class="section-text" v-html="content.ourPrograms"></div>
+                    <h2 v-html="content.ourPrograms.title"></h2>
+                    <div class="section-text" v-html="content.ourPrograms.body"></div>
                         
                         <v-container grid-list-xl>
                             <v-layout row wrap>

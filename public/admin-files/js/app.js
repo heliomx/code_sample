@@ -55549,6 +55549,11 @@ function removeItem(key) {
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -62200,7 +62205,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n#homeContent section {\n  margin: 60px 0;\n  padding: 30px 0;\n  border-bottom: 2px solid #d0d0d0;\n}\n#homeContent section .actions {\n    text-align: right;\n    margin-top: 20px;\n}\n#homeContent section:last-of-type {\n    border-bottom: none;\n}\n#homeContent section:not(:first-child) {\n    margin-top: 20px;\n}\n#homeContent section h4 {\n    margin-top: 20px;\n}\n#homeContent section .list__tile img {\n    margin-right: 20px;\n    width: 200px;\n}\n#homeContent section .list__tile__content {\n    flex-direction: row;\n    justify-content: flex-start;\n    align-items: center;\n}\n#homeContent .half {\n  width: 50%;\n}\n#homeContent .list {\n  padding: 0;\n}\n#homeContent .separator {\n  border-bottom: 1px solid #f0f0f0;\n}\n#homeContent .bigline {\n  height: 142px;\n}\n#homeContent .bigline .list__tile {\n    height: 142px;\n}\n#homeContent .programs .list__tile__action {\n  flex-direction: row;\n}\n", ""]);
+exports.push([module.i, "\n#homeContent .one-line .editr--content {\n  min-height: 47px;\n}\n#homeContent section {\n  margin: 60px 0;\n  padding: 30px 0;\n  border-bottom: 2px solid #d0d0d0;\n}\n#homeContent section .actions {\n    text-align: right;\n    margin-top: 20px;\n}\n#homeContent section:last-of-type {\n    border-bottom: none;\n}\n#homeContent section:not(:first-child) {\n    margin-top: 20px;\n}\n#homeContent section h4 {\n    margin-top: 20px;\n}\n#homeContent section .list__tile img {\n    margin-right: 20px;\n    width: 200px;\n}\n#homeContent section .list__tile__content {\n    flex-direction: row;\n    justify-content: flex-start;\n    align-items: center;\n}\n#homeContent .half {\n  width: 50%;\n}\n#homeContent .list {\n  padding: 0;\n}\n#homeContent .separator {\n  border-bottom: 1px solid #f0f0f0;\n}\n#homeContent .bigline {\n  height: 142px;\n}\n#homeContent .bigline .list__tile {\n    height: 142px;\n}\n#homeContent .programs .list__tile__action {\n  flex-direction: row;\n}\n", ""]);
 
 // exports
 
@@ -65265,13 +65270,28 @@ var render = function() {
                   [
                     _c("h2", [_vm._v("Bem-vindo")]),
                     _vm._v(" "),
+                    _c("h4", [_vm._v("Título")]),
+                    _vm._v(" "),
+                    _c("wysiwyg", {
+                      staticClass: "one-line",
+                      model: {
+                        value: _vm.content.welcome.title,
+                        callback: function($$v) {
+                          _vm.$set(_vm.content.welcome, "title", $$v)
+                        },
+                        expression: "content.welcome.title"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("h4", [_vm._v("Conteúdo")]),
+                    _vm._v(" "),
                     _c("wysiwyg", {
                       model: {
-                        value: _vm.content.welcome,
+                        value: _vm.content.welcome.body,
                         callback: function($$v) {
-                          _vm.$set(_vm.content, "welcome", $$v)
+                          _vm.$set(_vm.content.welcome, "body", $$v)
                         },
-                        expression: "content.welcome"
+                        expression: "content.welcome.body"
                       }
                     })
                   ],
@@ -65284,15 +65304,28 @@ var render = function() {
                   [
                     _c("h2", [_vm._v("Nossos programas")]),
                     _vm._v(" "),
+                    _c("h4", [_vm._v("Título")]),
+                    _vm._v(" "),
+                    _c("wysiwyg", {
+                      staticClass: "one-line",
+                      model: {
+                        value: _vm.content.ourPrograms.title,
+                        callback: function($$v) {
+                          _vm.$set(_vm.content.ourPrograms, "title", $$v)
+                        },
+                        expression: "content.ourPrograms.title"
+                      }
+                    }),
+                    _vm._v(" "),
                     _c("h4", [_vm._v("Texto de abertura")]),
                     _vm._v(" "),
                     _c("wysiwyg", {
                       model: {
-                        value: _vm.content.ourPrograms,
+                        value: _vm.content.ourPrograms.body,
                         callback: function($$v) {
-                          _vm.$set(_vm.content, "ourPrograms", $$v)
+                          _vm.$set(_vm.content.ourPrograms, "body", $$v)
                         },
-                        expression: "content.ourPrograms"
+                        expression: "content.ourPrograms.body"
                       }
                     }),
                     _vm._v(" "),

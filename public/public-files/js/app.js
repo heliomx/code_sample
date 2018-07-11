@@ -38070,14 +38070,13 @@ var render = function() {
               _c(
                 "div",
                 [
-                  _c("h2", [
-                    _vm._v("Bem-vindo à "),
-                    _c("strong", [_vm._v("Rádio Estúdio Brasil")])
-                  ]),
+                  _c("h2", {
+                    domProps: { innerHTML: _vm._s(_vm.content.welcome.title) }
+                  }),
                   _vm._v(" "),
                   _c("div", {
                     staticClass: "section-text",
-                    domProps: { innerHTML: _vm._s(_vm.content.welcome) }
+                    domProps: { innerHTML: _vm._s(_vm.content.welcome.body) }
                   }),
                   _vm._v(" "),
                   _c(
@@ -38097,14 +38096,17 @@ var render = function() {
               _c(
                 "div",
                 [
-                  _c("h2", [
-                    _vm._v("Nossos "),
-                    _c("strong", [_vm._v("Programas")])
-                  ]),
+                  _c("h2", {
+                    domProps: {
+                      innerHTML: _vm._s(_vm.content.ourPrograms.title)
+                    }
+                  }),
                   _vm._v(" "),
                   _c("div", {
                     staticClass: "section-text",
-                    domProps: { innerHTML: _vm._s(_vm.content.ourPrograms) }
+                    domProps: {
+                      innerHTML: _vm._s(_vm.content.ourPrograms.body)
+                    }
                   }),
                   _vm._v(" "),
                   _c(
