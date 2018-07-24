@@ -125,12 +125,12 @@
 		<section>
 			<h2>Conheça também</h2>
 			<v-list three-line>
-				<draggable v-model="content.seeAlso">
+				<draggable v-model="content.seeAlso.slides">
 					
 						<v-list-tile 
 							class="separator bigline"
 							v-if="slide != null"
-							v-for="(slide) in content.seeAlso"
+							v-for="(slide) in content.seeAlso.slides"
 							:key="slide.id"
 							avatar
 						>

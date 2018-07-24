@@ -72,9 +72,9 @@
             </section>
             <section class="content-area advertisement">
                 <div>
-                    <h2>Conheça também</h2>
+                    <h2 v-html="content.seeAlso.title"></h2>
                     <carousel 
-                        v-if="content.seeAlso.length > 0"
+                        v-if="content.seeAlso.slides.length > 0"
                         :perPage="1" 
                         :paginationEnabled="false" 
                         :navigationEnabled="true" 
