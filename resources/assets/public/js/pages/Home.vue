@@ -81,7 +81,7 @@
                         navigationNextLabel="&#10217;" 
                         navigationPrevLabel="&#10216;"
                     >
-                        <slide v-for="slide in content.seeAlso" :key="slide.id">
+                        <slide v-for="slide in content.seeAlso.slides" :key="slide.id">
                             <a :href="slide.link" :title="slide.title" target="_blank">
                                 <img :src="slide.img">
                             </a>

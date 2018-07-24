@@ -38213,7 +38213,7 @@ var render = function() {
                             navigationPrevLabel: "&#10216;"
                           }
                         },
-                        _vm._l(_vm.content.seeAlso, function(slide) {
+                        _vm._l(_vm.content.seeAlso.slides, function(slide) {
                           return _c("slide", { key: slide.id }, [
                             _c(
                               "a",
