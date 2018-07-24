@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Client;
+
 use App\User;
 use App\Http\Resources\Client as ClientResource;
 use Illuminate\Http\Request;

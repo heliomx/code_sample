@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterFormRequest;
 use App\User;
+use App\Mail\ForgotPassword;
+use Illuminate\Support\Facades\Mail;
 use App\Client;
 use Auth;
 
@@ -94,6 +96,51 @@ class AuthController extends Controller
                 'data' => $user
             ]);
     }
+
+    public function forgotPassword(Request $request)
+    {
+        $user = User::whereEmail($request->email)->first();
+        $r = [ "success" => false ];
+        if ($user)
+        {
+            $user->forgot_pwd_token = str_random();
+            $user->save();
+            Mail::to($user->email)->send(new ForgotPassword($user));
+            $r = [ "success" => true ];
+        }
+
+        return response()->json($r);
+    }
+
+    public function userByToken(Request $request) 
+    {
+        $user = User::whereForgotPwdToken($request->input('pwd_token'))->first();
+        $r = [ "success" => false ];
+
+        if ($user)
+        {
+            $r['success'] = true;
+            $r['data'] = $user;
+        }
+
+        return response()->json($r);
+    }
+
+    public function updateForgottenPassword(Request $request)
+    {
+        $user = User::whereForgotPwdToken($request->input('pwd_token'))->first();
+        $r = [ "success" => false ];
+        if ($user)
+        {
+            $user->forgot_pwd_token = '';
+            $user->password = bcrypt($request->password);
+            $user->save();
+            $r = [ "success" => true ];
+        }
+
+        return response()->json($r);
+    }
+
     public function refresh()
     {
         return response([

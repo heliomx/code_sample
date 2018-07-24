@@ -20,6 +20,8 @@ import Dashboard from './pages/Dashboard.vue';
 import Register from './pages/Register.vue';
 import Login from './pages/Login.vue';
 import Layout from './pages/Layout.vue';
+import NewPassword from './pages/NewPassword.vue';
+
 // Clients
     import ListClients from './pages/clients/ListClients';
     import CreateEditClient from './pages/clients/CreateEditClient';
@@ -82,6 +84,11 @@ const router = new VueRouter({
             meta: {
                 auth: false
             }
+        },
+        {
+            path: '/trocarSenha',
+            name: 'newPassword',
+            component: NewPassword
         },
         {
             mode: 'abstract',

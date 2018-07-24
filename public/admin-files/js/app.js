@@ -41394,6 +41394,35 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -41415,13 +41444,39 @@ module.exports = {
         return !!v || 'Senha é obrigatória';
       }],
       valid: true,
-      loading: false
+      validPwd: true,
+      loading: false,
+      recoverUI: false
     };
   },
 
   methods: {
-    login: function login() {
+    recoverPwd: function recoverPwd() {
       var _this = this;
+
+      this.loading = true;
+      var app = this;
+      if (this.$refs.formPwd.validate()) {
+        this.$http.post('forgotPassword', {
+          email: app.email
+        }).then(function (r) {
+          if (r.data.success) {
+            _this.$refs.messageDialog.show('Recuperação de senha', 'Um e-mail com as instru\xE7\xF5es de recupera\xE7\xE3o de senha foi enviado para ' + _this.email + '. Verifique sua caixa de e-mail.');
+            _this.loading = false;
+            _this.recoverUI = false;
+          } else {
+            _this.$refs.messageDialog.show('Recuperação de senha', 'Ocorreu um erro ao tentar recuperar sua senha. \n                    Verifique se o e-mail foi preenchido corretamente e \n                    tente novamente. Caso o problema persista \n                    ligue para(61) 3532-6993.');
+            _this.loading = false;
+          }
+        }, function (r) {
+          _this.$refs.messageDialog.show('Recuperação de senha', 'Ocorreu um erro ao tentar recuperar sua senha. \n                    Verifique se o e-mail foi preenchido corretamente e \n                    tente novamente. Caso o problema persista \n                    ligue para(61) 3532-6993.');
+          _this.loading = false;
+        });
+      }
+      return false;
+    },
+    login: function login() {
+      var _this2 = this;
 
       this.loading = true;
       var app = this;
@@ -41432,16 +41487,16 @@ module.exports = {
             password: app.password
           },
           success: function success(r) {
-            return _this.loading = false;
+            return _this2.loading = false;
           },
           error: function error(r) {
             if (r.response.data.status && r.response.data.error == 'invalid.credentials') {
-              _this.$refs.messageDialog.show('Usuário ou senha inválidos', 'Verifique o preenchimento do e-mail e senha e tente novamente.');
+              _this2.$refs.messageDialog.show('Usuário ou senha inválidos', 'Verifique o preenchimento do e-mail e senha e tente novamente.');
             } else {
-              _this.$refs.messageDialog.show('Erro', 'Não foi possível efetuar o login. Verifique sua conexão e tente novamente.');
+              _this2.$refs.messageDialog.show('Erro', 'Não foi possível efetuar o login. Verifique sua conexão e tente novamente.');
             }
 
-            _this.loading = false;
+            _this2.loading = false;
           },
           rememberMe: true,
           redirect: '/dashboard',
@@ -56385,16 +56440,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_Register_vue__ = __webpack_require__(230);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_Login_vue__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_Layout_vue__ = __webpack_require__(236);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_clients_ListClients__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_clients_CreateEditClient__ = __webpack_require__(246);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_programs_ListPrograms__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_programs_ListDownloads__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_programs_CreateEditProgram__ = __webpack_require__(262);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_programs_UploadPrograms__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_content_HomeContent__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_content_WhoWeAreContent__ = __webpack_require__(305);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_contacts_EditContact__ = __webpack_require__(309);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_contacts_ListContacts__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_NewPassword_vue__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_clients_ListClients__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_clients_CreateEditClient__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_programs_ListPrograms__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_programs_ListDownloads__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_programs_CreateEditProgram__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_programs_UploadPrograms__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_content_HomeContent__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_content_WhoWeAreContent__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_contacts_EditContact__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_contacts_ListContacts__ = __webpack_require__(313);
 
 
 
@@ -56411,6 +56467,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 // Admin Pages
+
+
 
 
 
@@ -56476,6 +56534,10 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
             auth: false
         }
     }, {
+        path: '/trocarSenha',
+        name: 'newPassword',
+        component: __WEBPACK_IMPORTED_MODULE_16__pages_NewPassword_vue__["a" /* default */]
+    }, {
         mode: 'abstract',
         path: '',
         component: __WEBPACK_IMPORTED_MODULE_15__pages_Layout_vue__["a" /* default */],
@@ -56489,56 +56551,56 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
         }, {
             path: '/cadastro',
             name: 'clientForm',
-            component: __WEBPACK_IMPORTED_MODULE_17__pages_clients_CreateEditClient__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_18__pages_clients_CreateEditClient__["a" /* default */]
         },
 
         // Clients
         {
             path: '/clientes',
             name: 'clients',
-            component: __WEBPACK_IMPORTED_MODULE_16__pages_clients_ListClients__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_17__pages_clients_ListClients__["a" /* default */]
         }, {
             path: 'clientes/cadastrar',
             name: 'createClient',
-            component: __WEBPACK_IMPORTED_MODULE_17__pages_clients_CreateEditClient__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_18__pages_clients_CreateEditClient__["a" /* default */]
         }, {
             path: 'clientes/:id',
             name: 'editClient',
-            component: __WEBPACK_IMPORTED_MODULE_17__pages_clients_CreateEditClient__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_18__pages_clients_CreateEditClient__["a" /* default */]
         },
 
         // Programs
         {
             path: '/programas',
             name: 'programs',
-            component: __WEBPACK_IMPORTED_MODULE_18__pages_programs_ListPrograms__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_19__pages_programs_ListPrograms__["a" /* default */]
         }, {
             path: 'programas/downloads',
             name: 'downloadPrograms',
-            component: __WEBPACK_IMPORTED_MODULE_19__pages_programs_ListDownloads__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_20__pages_programs_ListDownloads__["a" /* default */]
         }, {
             path: 'programas/cadastrar',
             name: 'createProgram',
-            component: __WEBPACK_IMPORTED_MODULE_20__pages_programs_CreateEditProgram__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_21__pages_programs_CreateEditProgram__["a" /* default */]
         }, {
             path: 'programas/enviar',
             name: 'uploadPrograms',
-            component: __WEBPACK_IMPORTED_MODULE_21__pages_programs_UploadPrograms__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_22__pages_programs_UploadPrograms__["a" /* default */]
         }, {
             path: 'programas/:id',
             name: 'editProgram',
-            component: __WEBPACK_IMPORTED_MODULE_20__pages_programs_CreateEditProgram__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_21__pages_programs_CreateEditProgram__["a" /* default */]
         },
 
         // Content
         {
             path: 'conteudo/home',
             name: 'homeContent',
-            component: __WEBPACK_IMPORTED_MODULE_22__pages_content_HomeContent__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_23__pages_content_HomeContent__["a" /* default */]
         }, {
             path: 'conteudo/quemsomos',
             name: 'whoWeAreContent',
-            component: __WEBPACK_IMPORTED_MODULE_23__pages_content_WhoWeAreContent__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_24__pages_content_WhoWeAreContent__["a" /* default */]
         }, {
             path: '/registro',
             name: 'register',
@@ -56549,11 +56611,11 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
         {
             path: '/faleconosco',
             name: 'listContacts',
-            component: __WEBPACK_IMPORTED_MODULE_25__pages_contacts_ListContacts__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_26__pages_contacts_ListContacts__["a" /* default */]
         }, {
             path: 'faleconosco/:id',
             name: 'editContact',
-            component: __WEBPACK_IMPORTED_MODULE_24__pages_contacts_EditContact__["a" /* default */]
+            component: __WEBPACK_IMPORTED_MODULE_25__pages_contacts_EditContact__["a" /* default */]
         }]
     }]
 });
@@ -57240,111 +57302,142 @@ var render = function() {
             { attrs: { fluid: "", "fill-height": "" } },
             [
               _c(
-                "v-layout",
-                { attrs: { "align-center": "", "justify-center": "" } },
+                "transition",
+                { attrs: { name: "fade", mode: "out-in" } },
                 [
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "", sm10: "", md6: "" } },
-                    [
-                      _c(
-                        "v-form",
+                  !_vm.recoverUI
+                    ? _c(
+                        "v-layout",
                         {
-                          ref: "form",
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.login($event)
-                            }
-                          },
-                          model: {
-                            value: _vm.valid,
-                            callback: function($$v) {
-                              _vm.valid = $$v
-                            },
-                            expression: "valid"
-                          }
+                          key: 1,
+                          attrs: { "align-center": "", "justify-center": "" }
                         },
                         [
                           _c(
-                            "v-card",
-                            { staticClass: "elevation-12" },
+                            "v-flex",
+                            { attrs: { xs12: "", sm10: "", md6: "" } },
                             [
                               _c(
-                                "v-toolbar",
-                                { attrs: { dark: "", color: "primary" } },
-                                [
-                                  _c("v-toolbar-title", [
-                                    _vm._v("Administração")
-                                  ])
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-card-text",
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      rules: _vm.emailRules,
-                                      "prepend-icon": "person",
-                                      label: "E-mail",
-                                      placeholder: "nome@exemplo.com.br",
-                                      name: "email",
-                                      type: "email",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.email,
-                                      callback: function($$v) {
-                                        _vm.email = $$v
-                                      },
-                                      expression: "email"
+                                "v-form",
+                                {
+                                  ref: "form",
+                                  on: {
+                                    submit: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.login($event)
                                     }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      rules: _vm.passwordRules,
-                                      "prepend-icon": "lock",
-                                      label: "Senha",
-                                      id: "password",
-                                      type: "password",
-                                      name: "password",
-                                      required: ""
+                                  },
+                                  model: {
+                                    value: _vm.valid,
+                                    callback: function($$v) {
+                                      _vm.valid = $$v
                                     },
-                                    model: {
-                                      value: _vm.password,
-                                      callback: function($$v) {
-                                        _vm.password = $$v
-                                      },
-                                      expression: "password"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-card-actions",
+                                    expression: "valid"
+                                  }
+                                },
                                 [
-                                  _c("v-spacer"),
-                                  _vm._v(" "),
                                   _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        type: "submit",
-                                        loading: _vm.loading,
-                                        disabled: !_vm.valid || _vm.loading,
-                                        color: "primary"
-                                      }
-                                    },
+                                    "v-card",
+                                    { staticClass: "elevation-12" },
                                     [
-                                      _vm._v(
-                                        "\n                    Acessar\n                "
+                                      _c(
+                                        "v-toolbar",
+                                        {
+                                          attrs: { dark: "", color: "primary" }
+                                        },
+                                        [
+                                          _c("v-toolbar-title", [
+                                            _vm._v("Login Administração")
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              rules: _vm.emailRules,
+                                              "prepend-icon": "person",
+                                              label: "E-mail",
+                                              placeholder:
+                                                "nome@exemplo.com.br",
+                                              name: "email",
+                                              type: "email",
+                                              required: ""
+                                            },
+                                            model: {
+                                              value: _vm.email,
+                                              callback: function($$v) {
+                                                _vm.email = $$v
+                                              },
+                                              expression: "email"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              rules: _vm.passwordRules,
+                                              "prepend-icon": "lock",
+                                              label: "Senha",
+                                              id: "password",
+                                              type: "password",
+                                              name: "password",
+                                              required: ""
+                                            },
+                                            model: {
+                                              value: _vm.password,
+                                              callback: function($$v) {
+                                                _vm.password = $$v
+                                              },
+                                              expression: "password"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-card-actions",
+                                        [
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: { flat: "", small: "" },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.recoverUI = true
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Esqueci a senha")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-spacer"),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
+                                                type: "submit",
+                                                loading: _vm.loading,
+                                                disabled:
+                                                  !_vm.valid || _vm.loading,
+                                                color: "primary"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                      Acessar\n                  "
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
                                       )
-                                    ]
+                                    ],
+                                    1
                                   )
                                 ],
                                 1
@@ -57355,9 +57448,139 @@ var render = function() {
                         ],
                         1
                       )
-                    ],
-                    1
-                  )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.recoverUI
+                    ? _c(
+                        "v-layout",
+                        {
+                          key: 2,
+                          attrs: { "align-center": "", "justify-center": "" }
+                        },
+                        [
+                          _c(
+                            "v-flex",
+                            { attrs: { xs12: "", sm10: "", md6: "" } },
+                            [
+                              _c(
+                                "v-form",
+                                {
+                                  ref: "formPwd",
+                                  on: {
+                                    submit: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.recoverPwd($event)
+                                    }
+                                  },
+                                  model: {
+                                    value: _vm.validPwd,
+                                    callback: function($$v) {
+                                      _vm.validPwd = $$v
+                                    },
+                                    expression: "validPwd"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "v-card",
+                                    { staticClass: "elevation-12" },
+                                    [
+                                      _c(
+                                        "v-toolbar",
+                                        {
+                                          attrs: { dark: "", color: "primary" }
+                                        },
+                                        [
+                                          _c("v-toolbar-title", [
+                                            _vm._v("Recuperar senha")
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              rules: _vm.emailRules,
+                                              "prepend-icon": "person",
+                                              label: "E-mail",
+                                              placeholder:
+                                                "nome@exemplo.com.br",
+                                              name: "email",
+                                              type: "email",
+                                              required: ""
+                                            },
+                                            model: {
+                                              value: _vm.email,
+                                              callback: function($$v) {
+                                                _vm.email = $$v
+                                              },
+                                              expression: "email"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("p", [
+                                            _vm._v(
+                                              "Um link com instruções de recuperação de senha será enviado para o email cadastrado no nosso sistema."
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-card-actions",
+                                        [
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: { flat: "", small: "" },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.recoverUI = false
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Cancelar")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-spacer"),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
+                                                type: "submit",
+                                                loading: _vm.loading,
+                                                disabled:
+                                                  !_vm.valid || _vm.loading,
+                                                color: "primary"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                      Recuperar senha\n                  "
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ],
                 1
               )
@@ -66225,6 +66448,419 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-5572d4e0", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
+
+/***/ }),
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_NewPassword_vue__ = __webpack_require__(353);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f4920f24_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_NewPassword_vue__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(1);
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(354)
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_NewPassword_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f4920f24_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_NewPassword_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f4920f24_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_NewPassword_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/admin/js/pages/NewPassword.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f4920f24", Component.options)
+  } else {
+    hotAPI.reload("data-v-f4920f24", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 353 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_MessageDialog2_vue__ = __webpack_require__(10);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    components: {
+        MessageDialog: __WEBPACK_IMPORTED_MODULE_0__components_MessageDialog2_vue__["a" /* default */]
+    },
+    data: function data() {
+        return {
+            user: {},
+            valid: true,
+            password: '',
+            loading: false,
+            passwordRules: [function (v) {
+                return !!v || 'Senha é obrigatória';
+            }]
+        };
+    },
+    created: function created() {
+        this.fetchData();
+    },
+
+
+    methods: {
+        fetchData: function fetchData() {
+            var _this = this;
+
+            this.token = this.$route.query.token;
+            this.$http.post('userByToken', { pwd_token: this.token }).then(function (r) {
+                if (r.data.success) {
+                    _this.user = r.data.data;
+                } else {
+                    _this.$refs.messageDialog.show('Recuperação de senha', 'Ocorreu um erro processando sua solicita\xE7\xE3o. Reinicie o processo de recupera\xE7\xE3o de senha.', function () {
+                        _this.$router.push('/');
+                    });
+                }
+            });
+        },
+        send: function send() {
+            var _this2 = this;
+
+            this.loading = true;
+            this.$http.post('updatePassword', { pwd_token: this.token, password: this.password }).then(function (r) {
+                if (r.data.success) {
+                    _this2.$refs.messageDialog.show('Recuperação de senha', 'Sua senha foi alterada com sucesso. Voc\xEA pode efetuar o login com a nova senha.', function () {
+                        _this2.$router.push('/');
+                    });
+                } else {
+                    _this2.$refs.messageDialog.show('Recuperação de senha', 'Ocorreu um erro processando sua solicita\xE7\xE3o. Reinicie o processo de recupera\xE7\xE3o de senha.', function () {
+                        _this2.$router.push('/');
+                    });
+                }
+            }, function (error) {
+                _this2.loading = false;
+                _this2.$refs.messageDialog.show('Recuperação de senha', 'Ocorreu um erro processando sua solicita\xE7\xE3o. Reinicie o processo de recupera\xE7\xE3o de senha.', function () {
+                    _this2.$router.push('/');
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 354 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(355);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(4).default
+var update = add("22c40afa", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NewPassword.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NewPassword.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 355 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 356 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    { attrs: { id: "inspire" } },
+    [
+      _c(
+        "v-content",
+        [
+          _c(
+            "v-container",
+            { attrs: { fluid: "", "fill-height": "" } },
+            [
+              _c(
+                "v-layout",
+                { key: 2, attrs: { "align-center": "", "justify-center": "" } },
+                [
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "", sm10: "", md6: "" } },
+                    [
+                      _c(
+                        "v-form",
+                        {
+                          ref: "formPwd",
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.send($event)
+                            }
+                          },
+                          model: {
+                            value: _vm.valid,
+                            callback: function($$v) {
+                              _vm.valid = $$v
+                            },
+                            expression: "valid"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card",
+                            { staticClass: "elevation-12" },
+                            [
+                              _c(
+                                "v-toolbar",
+                                { attrs: { dark: "", color: "primary" } },
+                                [
+                                  _c("v-toolbar-title", [
+                                    _vm._v("Recuperar senha")
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-text",
+                                [
+                                  _c("p", [
+                                    _vm._v("Olá " + _vm._s(_vm.user.name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [_vm._v("Digite sua nova senha:")]),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      rules: _vm.passwordRules,
+                                      "prepend-icon": "lock",
+                                      label: "Senha",
+                                      id: "password",
+                                      type: "password",
+                                      name: "password",
+                                      required: ""
+                                    },
+                                    model: {
+                                      value: _vm.password,
+                                      callback: function($$v) {
+                                        _vm.password = $$v
+                                      },
+                                      expression: "password"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        type: "submit",
+                                        loading: _vm.loading,
+                                        disabled: !_vm.valid || _vm.loading,
+                                        color: "primary"
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                      Recuperar senha\n                  "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-footer", { attrs: { app: "", color: "secondary" } }, [
+        _c("div", [
+          _vm._v("\n          Em caso de dúvidas com o seu acesso ligue "),
+          _c("strong", [_vm._v("(61) 3532-6993")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("message-dialog", { ref: "messageDialog" })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f4920f24", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 

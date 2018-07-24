@@ -20,31 +20,60 @@
       
         <v-container fluid fill-height>
           
-          <v-layout align-center justify-center>
-            <v-flex xs12 sm10 md6>
-              <v-form v-model="valid" ref="form" @submit.prevent="login">
-              <v-card class="elevation-12">   
-                <v-toolbar dark color="primary">
-                  <v-toolbar-title>Administração</v-toolbar-title>
-                </v-toolbar>
-                <v-card-text>
-                    <v-text-field :rules="emailRules" prepend-icon="person" v-model="email" label="E-mail" placeholder="nome@exemplo.com.br" name="email" type="email" required></v-text-field>
-                    <v-text-field :rules="passwordRules" prepend-icon="lock" v-model="password" label="Senha" id="password" type="password" name="password" required></v-text-field>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn 
-                    type="submit" 
-                    :loading="loading"
-      				      :disabled="!valid || loading" 
-                    color="primary">
-                      Acessar
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-              </v-form>
-            </v-flex>
-          </v-layout>
+          <transition name="fade" mode="out-in">
+            <v-layout v-if="!recoverUI" align-center justify-center :key="1">
+              <v-flex xs12 sm10 md6>
+                <v-form v-model="valid" ref="form" @submit.prevent="login">
+                <v-card class="elevation-12">   
+                  <v-toolbar dark color="primary">
+                    <v-toolbar-title>Login Administração</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text>
+                      <v-text-field :rules="emailRules" prepend-icon="person" v-model="email" label="E-mail" placeholder="nome@exemplo.com.br" name="email" type="email" required></v-text-field>
+                      <v-text-field :rules="passwordRules" prepend-icon="lock" v-model="password" label="Senha" id="password" type="password" name="password" required></v-text-field>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn flat small @click="recoverUI = true">Esqueci a senha</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn 
+                      type="submit" 
+                      :loading="loading"
+                      :disabled="!valid || loading" 
+                      color="primary">
+                        Acessar
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+                </v-form>
+              </v-flex>
+            </v-layout>
+            <v-layout v-if="recoverUI" align-center justify-center :key="2">
+              <v-flex xs12 sm10 md6>
+                <v-form v-model="validPwd" ref="formPwd" @submit.prevent="recoverPwd">
+                  <v-card class="elevation-12">   
+                  <v-toolbar dark color="primary">
+                    <v-toolbar-title>Recuperar senha</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text>
+                      <v-text-field :rules="emailRules" prepend-icon="person" v-model="email" label="E-mail" placeholder="nome@exemplo.com.br" name="email" type="email" required></v-text-field>
+                      <p>Um link com instruções de recuperação de senha será enviado para o email cadastrado no nosso sistema.</p>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn flat small @click="recoverUI = false">Cancelar</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn 
+                      type="submit" 
+                      :loading="loading"
+                      :disabled="!valid || loading" 
+                      color="primary">
+                        Recuperar senha
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+                </v-form>
+              </v-flex>
+            </v-layout>
+          </transition>
           
         </v-container>
       
@@ -77,10 +106,52 @@
           v => !!v || 'Senha é obrigatória',
         ],
         valid: true,
-        loading: false
+        validPwd: true,
+        loading: false,
+        recoverUI: false
       }
     },
     methods: {
+      recoverPwd(){
+        this.loading = true;
+        var app = this;
+        if (this.$refs.formPwd.validate()) {
+          this.$http.post('forgotPassword', {
+            email: app.email
+          }).then( (r) => {
+              if (r.data.success)
+              {
+                this.$refs.messageDialog.show(
+                    'Recuperação de senha',
+                    `Um e-mail com as instruções de recuperação de senha foi enviado para ${this.email}. Verifique sua caixa de e-mail.`
+                  );
+                this.loading = false;
+                this.recoverUI = false;
+              } else {
+                this.$refs.messageDialog.show(
+                    'Recuperação de senha',
+                    `Ocorreu um erro ao tentar recuperar sua senha. 
+                      Verifique se o e-mail foi preenchido corretamente e 
+                      tente novamente. Caso o problema persista 
+                      ligue para(61) 3532-6993.`
+                  );
+                this.loading = false;
+              }
+            },
+            (r) => {
+              this.$refs.messageDialog.show(
+                    'Recuperação de senha',
+                    `Ocorreu um erro ao tentar recuperar sua senha. 
+                      Verifique se o e-mail foi preenchido corretamente e 
+                      tente novamente. Caso o problema persista 
+                      ligue para(61) 3532-6993.`
+                  );
+                this.loading = false;
+            }
+          );
+        }   
+        return false;   
+      },
       login(){
         this.loading = true;
         var app = this;

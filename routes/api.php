@@ -30,6 +30,11 @@ Route::group(['middleware' => 'jwt.refresh'], function(){
   Route::get('auth/refresh', 'AuthController@refresh');
 });
 
+// Users
+Route::post('forgotPassword', 'AuthController@forgotPassword');
+Route::post('updatePassword', 'AuthController@updateForgottenPassword');
+Route::post('userByToken', 'AuthController@userByToken');
+
 
 // Clients
 Route::get('clients', 'Api\ClientController@index');
