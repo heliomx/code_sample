@@ -214,7 +214,7 @@ export default {
                 tel_mobile: "",
                 tel_mobile_carrier: "",
                 site: "",
-                status: "I",
+                status: "A",
                 programs: []
             };
         },
@@ -232,14 +232,23 @@ export default {
             this.form.programs = programs;
             
             this.$http.post("clients", this.form).then(r => {
-                this.loading = false;
+                
                 this.$refs.messageDialog.show(
                     'Cadastro',
                     `O seu cadastro foi enviado com sucesso. Sua solicitação de programação 
                     será avaliada pela nossa equipe. Em breve entraremos em contato.`,
                     () => this.$router.push('/')
                 )
-            });
+            })
+            .catch( err => {
+                this.$refs.messageDialog.show(
+                    'Erro',
+                    `Ocorreu um erro tentando registrar o seu cadastro. Tente novamente mais tarde. Caso o problema persista, entre em contato com a nossa equipe.`,
+                )
+            })
+            .then( () => {
+                this.loading = false;
+            })
         }, 
 
         updateProgram(program)
