@@ -37257,10 +37257,13 @@ module.exports = {
             this.loading = true;
 
             this.$http.post('contact', this.form).then(function (r) {
-                _this.loading = false;
                 _this.$refs.messageDialog.show('Fale conosco', 'Sua mensagem foi enviada. Em breve entraremos em contato.', function () {
                     return _this.$router.push('/');
                 });
+            }).catch(function (err) {
+                _this.$refs.messageDialog.show('Erro', 'Ocorreu um erro processando sua solicita\xE7\xE3o. Tente novamente mais tarde.');
+            }).then(function () {
+                _this.loading = false;
             });
         }
     }

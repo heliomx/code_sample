@@ -257,7 +257,7 @@ export default {
                 tel_mobile: "",
                 tel_mobile_carrier: "",
                 site: "",
-                status: "",
+                status: "A",
                 programs: []
             };
         },

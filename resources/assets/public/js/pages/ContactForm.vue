@@ -91,12 +91,19 @@ export default {
             
             this.$http.post(`contact`, this.form)
                 .then( r => {
-                    this.loading = false;
                     this.$refs.messageDialog.show(
                         'Fale conosco',
                         `Sua mensagem foi enviada. Em breve entraremos em contato.`,
                         () => this.$router.push('/')
                     )
+                }).catch( err => {
+                    this.$refs.messageDialog.show(
+                        'Erro',
+                        `Ocorreu um erro processando sua solicitação. Tente novamente mais tarde.`
+                    )
+                })
+                .then( () => {
+                    this.loading = false;
                 });
         }
     }

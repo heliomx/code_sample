@@ -59,7 +59,7 @@ class Package extends Model
         Log::info($directories);
         
         $dir_pattern = '/(.+?)_(\d+)$/';
-        $file_pattern = '/(.+?)_(\d+)_(\d+)_(\d+)_(\d+)\.(.+)$/';
+        $file_pattern = '/(.+?)_(\d+(?:-\d+)?)_(\d+)_(\d+)_(\d+)\.(.+)$/';
         
         $errors = [];
 
