@@ -18,6 +18,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->name = $request->name;
         $user->password = bcrypt($request->password);
+        $user->role = 'A';
         $user->save();
         return response([
             'status' => 'success',
@@ -88,6 +89,46 @@ class AuthController extends Controller
             ], 200);
     }
 
+    public function indexUser(Request $request)
+    {
+
+        if (strlen($request->input('q')) > 0) {
+            $query = User::where(function ($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->input('q') . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->input('q') . '%');
+            })->whereRole('A');
+            
+            $count = User::whereRole('A')->where('name', 'LIKE', '%' . $request->input('q') . '%')
+            ->orWhere('email', 'LIKE', '%' . $request->input('q') . '%')
+            ->count();
+        } else {
+            $count = User::whereRole('A')->count();
+            $query = User::whereRole('A');
+        }
+
+        $query->limit($request->input('rowsPerPage'))
+            ->offset($request->input('rowsPerPage') * ($request->input('page') - 1));
+        
+        if ($request->has('sortBy')) {
+            $query->orderBy($request->input('sortBy'), $request->input('descending') == 'true' ? 'DESC' : 'ASC');
+        }
+
+        
+        
+        $data = $query->get();
+
+        return response()->json( [ 'items' => $data, 'total' => $count, 'sql' => $query->toSql() ] );
+    }
+
+    public function show(Request $request, $id)
+    {
+        $user = User::find($id);
+        return response([
+                'status' => 'success',
+                'data' => $user
+            ]);
+    }
+
     public function user(Request $request)
     {
         $user = User::find(Auth::user()->id);
@@ -95,6 +136,24 @@ class AuthController extends Controller
                 'status' => 'success',
                 'data' => $user
             ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->email = $request->email;
+        $user->name = $request->name;
+        if (!empty($request->password))
+        {
+            $user->password = bcrypt($request->password);
+        }
+            
+        $user->save();
+
+        return response([
+            'status' => 'success',
+            'data' => $user
+        ], 200);
     }
 
     public function forgotPassword(Request $request)

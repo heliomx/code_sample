@@ -47,7 +47,7 @@ class ClientController extends Controller
         
         $data = ClientResource::collection($query->get());
 
-        return response()->json( [ 'items' => $data, 'total' => $count, 'sql' => $query->toSql() ] );
+        return response()->json( [ 'items' => $data, 'total' => $count ] );
     }
 
     /**

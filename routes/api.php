@@ -19,12 +19,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('auth/register', 'AuthController@register');
-
 Route::post('auth/login', 'AuthController@login');
+
+// Protected Calls
 Route::group(['middleware' => 'jwt.auth'], function(){
+  // Auth
   Route::get('auth/user', 'AuthController@user');
   Route::post('auth/logout', 'AuthController@logout');
+
+
+  // Users
+  Route::get('users', 'AuthController@indexUser');
+  Route::get('users/{id}', 'AuthController@show');
+  Route::post('users', 'AuthController@register');
+  Route::post('users/{id}', 'AuthController@update');
+
+
 });
 Route::group(['middleware' => 'jwt.refresh'], function(){
   Route::get('auth/refresh', 'AuthController@refresh');
@@ -67,3 +77,4 @@ Route::get('contacts', 'Api\ContactController@index');
 Route::get('contacts/{id}', 'Api\ContactController@show');
 Route::post('contacts', 'Api\ContactController@store');
 Route::post('contacts/{id}', 'Api\ContactController@update');
+

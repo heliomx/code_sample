@@ -40,6 +40,10 @@ import NewPassword from './pages/NewPassword.vue';
     import EditContact from './pages/contacts/EditContact';
     import ListContacts from './pages/contacts/ListContacts';
 
+// Users
+    import CreateEditUser from './pages/users/CreateEditUser';
+    import ListUsers from './pages/users/ListUsers';
+
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -186,6 +190,29 @@ const router = new VueRouter({
                     name: 'editContact',
                     component: EditContact
                 },
+
+                // Users
+                {
+                    path: '/usuarios',
+                    name: 'listUsers',
+                    component: ListUsers
+                },
+
+                {
+                    path: '/usuarios/cadastrar',
+                    name: 'createUser',
+                    component: CreateEditUser
+                },
+
+                {
+                    path: '/usuarios/:id',
+                    name: 'editUser',
+                    component: CreateEditUser
+                },
+
+                
+
+
 
             ]
         }

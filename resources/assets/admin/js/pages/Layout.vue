@@ -177,6 +177,24 @@ export default {
                 link: "/faleconosco",
                 roles: [ 'A' ]
             },
+            {
+                icon: "keyboard_arrow_up",
+                "icon-alt": "keyboard_arrow_down",
+                text: "Usuários",
+                roles: ['A'],
+                children: [{
+                        icon: "group",
+                        text: "Listar",
+                        link: "/usuarios"
+                    },
+                    {
+                        icon: "add",
+                        text: "Cadastrar",
+                        link: "/usuarios/cadastrar",
+                    },
+
+                ]
+            },
         ]
     }),
     props: {
