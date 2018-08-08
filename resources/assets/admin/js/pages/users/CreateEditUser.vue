@@ -185,7 +185,7 @@ export default {
                     info: 'Usuário atualizado com sucesso'
                 }  : 
                 {
-                    url: 'users/',
+                    url: 'users',
                     title: 'Novo Usuário',
                     info: 'Usuário criado com sucesso'
                 };
