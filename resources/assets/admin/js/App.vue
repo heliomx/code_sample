@@ -52,8 +52,15 @@ export default {
     }
 
     .line-actions {
+        opacity: 0;
         width:1%;
         white-space: nowrap;
+        transition: opacity 0.3s ease;
+    }
+
+    tr:hover .line-actions {
+        opacity: 1;
+        
     }
     
     .fade-enter {

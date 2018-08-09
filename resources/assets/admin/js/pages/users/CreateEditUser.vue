@@ -10,7 +10,7 @@
             </v-flex>
             <v-flex xs3>
                 <v-btn @click="showConfirmDelete">
-                    Remover usuário
+                    Remover usuário 2
                     <v-icon>delete</v-icon>
                 </v-btn>
             </v-flex>
@@ -73,9 +73,9 @@
     </transition>
 
     <confirm-dialog 
+        ref="confirmDialog"
         title="Remover?"
         :body="`Deseja remover o usuário ${form.name}?`"
-        :visible="confirmDeletion"
         confirmLabel="Apagar"
         cancelLabel="Cancelar"
         @confirm="deleteUser"
@@ -123,7 +123,6 @@ export default {
                 ]
             },
 
-            confirmDeletion: false,
             editing: false,
             form: this.blankForm(),
         }
@@ -153,9 +152,12 @@ export default {
                 this.form = this.blankForm();
             }
         },
+
         showConfirmDelete() {
-            this.confirmDeletion = true;
+            debugger;
+            this.$refs.confirmDialog.show();
         },
+
         blankForm() {
             return {
                 name: '',
@@ -170,7 +172,7 @@ export default {
                         'Apagado',
                         `O usuário ${this.form.name} foi apagado com sucesso`,
                         () => {
-                            this.$router.go();
+                            this.$router.push('/usuarios');
                         }
                     );
                 });

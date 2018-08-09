@@ -18,11 +18,7 @@
             </search-box>
             <v-data-table :headers="headers" :items="items" :pagination.sync="pagination" :total-items="totalItems" :loading="loading" class="elevation-1">
                 <template slot="items" slot-scope="props">
-                    <td class="line-actions">
-                        <v-btn @click="showConfirmDelete( props.item )" flat small>
-                            <v-icon>delete</v-icon>
-                        </v-btn>
-                    </td>
+                    
                     <td>
                         <router-link :to="{ name: 'editUser', params: { id: props.item.id }}">
                             {{ props.item.name }}
@@ -30,6 +26,11 @@
                     </td>
                     <td>
                         {{ props.item.email }}
+                    </td>
+                    <td class="line-actions">
+                        <v-btn @click="showConfirmDelete( props.item )" flat small>
+                            <v-icon>delete</v-icon>
+                        </v-btn>
                     </td>
                 </template>
                 <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -73,11 +74,7 @@ export default {
   data() {
     return {
       headers: [
-        {
-          text: "",
-          align: "left",
-          sortable: false
-        },
+        
         {
           text: "Nome do usuário",
           align: "left",
@@ -87,6 +84,11 @@ export default {
         {
           text: "E-mail",
           value: "email"
+        },
+        {
+          text: "",
+          align: "left",
+          sortable: false
         }
       ],
       search: "",

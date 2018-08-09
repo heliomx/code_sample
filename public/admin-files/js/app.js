@@ -6352,7 +6352,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 }]
             },
 
-            confirmDeletion: false,
             editing: false,
             form: this.blankForm()
         };
@@ -6383,7 +6382,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             }
         },
         showConfirmDelete: function showConfirmDelete() {
-            this.confirmDeletion = true;
+            debugger;
+            this.$refs.confirmDialog.show();
         },
         blankForm: function blankForm() {
             return {
@@ -6396,7 +6396,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
             this.$http.delete('users/' + this.form.id).then(function (r) {
                 _this2.$refs.messageDialog.show('Apagado', 'O usu\xE1rio ' + _this2.form.name + ' foi apagado com sucesso', function () {
-                    _this2.$router.go();
+                    _this2.$router.push('/usuarios');
                 });
             });
         },
@@ -6493,6 +6493,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
 
 
 
@@ -6511,16 +6512,16 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
     return {
       headers: [{
-        text: "",
-        align: "left",
-        sortable: false
-      }, {
         text: "Nome do usuário",
         align: "left",
         value: "name"
       }, {
         text: "E-mail",
         value: "email"
+      }, {
+        text: "",
+        align: "left",
+        sortable: false
       }],
       search: "",
       pagination: {
@@ -6691,7 +6692,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.form-margin {\n  margin-right: 10vw;\n  margin-bottom: 40px;\n}\n.btn__content .icon {\n  display: inline-flex;\n}\n.picture-input-btn {\n  padding: 10px 20px;\n}\n.page-actions {\n  margin-top: 40px;\n  background-color: #d2eae8;\n  padding: 10px 20px;\n  border-top: 1px solid #8db7b3;\n  text-align: right;\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  left: 0;\n  z-index: 2;\n}\n.actions {\n  text-align: right;\n  margin-top: 20px;\n}\n.line-actions {\n  width: 1%;\n  white-space: nowrap;\n}\n.fade-enter {\n  opacity: 0;\n}\n.fade-enter-active {\n  transition: opacity 0.3s ease;\n}\n.fade-leave-active {\n  transition: opacity 0.3s ease;\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.form-margin {\n  margin-right: 10vw;\n  margin-bottom: 40px;\n}\n.btn__content .icon {\n  display: inline-flex;\n}\n.picture-input-btn {\n  padding: 10px 20px;\n}\n.page-actions {\n  margin-top: 40px;\n  background-color: #d2eae8;\n  padding: 10px 20px;\n  border-top: 1px solid #8db7b3;\n  text-align: right;\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  left: 0;\n  z-index: 2;\n}\n.actions {\n  text-align: right;\n  margin-top: 20px;\n}\n.line-actions {\n  opacity: 0;\n  width: 1%;\n  white-space: nowrap;\n  transition: opacity 0.3s ease;\n}\ntr:hover .line-actions {\n  opacity: 1;\n}\n.fade-enter {\n  opacity: 0;\n}\n.fade-enter-active {\n  transition: opacity 0.3s ease;\n}\n.fade-leave-active {\n  transition: opacity 0.3s ease;\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -29847,27 +29848,6 @@ var render = function() {
                             return [
                               _c(
                                 "td",
-                                { staticClass: "line-actions" },
-                                [
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      attrs: { flat: "", small: "" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showConfirmDelete(props.item)
-                                        }
-                                      }
-                                    },
-                                    [_c("v-icon", [_vm._v("delete")])],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
                                 [
                                   _c(
                                     "router-link",
@@ -29897,7 +29877,28 @@ var render = function() {
                                     _vm._s(props.item.email) +
                                     "\n                    "
                                 )
-                              ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "line-actions" },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { flat: "", small: "" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.showConfirmDelete(props.item)
+                                        }
+                                      }
+                                    },
+                                    [_c("v-icon", [_vm._v("delete")])],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
                             ]
                           }
                         }
@@ -32210,7 +32211,7 @@ var render = function() {
                               { on: { click: _vm.showConfirmDelete } },
                               [
                                 _vm._v(
-                                  "\n                    Remover usuário\n                    "
+                                  "\n                    Remover usuário 2\n                    "
                                 ),
                                 _c("v-icon", [_vm._v("delete")])
                               ],
@@ -32433,10 +32434,10 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("confirm-dialog", {
+        ref: "confirmDialog",
         attrs: {
           title: "Remover?",
           body: "Deseja remover o usuário " + _vm.form.name + "?",
-          visible: _vm.confirmDeletion,
           confirmLabel: "Apagar",
           cancelLabel: "Cancelar"
         },
