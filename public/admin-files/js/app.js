@@ -32211,7 +32211,7 @@ var render = function() {
                               { on: { click: _vm.showConfirmDelete } },
                               [
                                 _vm._v(
-                                  "\n                    Remover usuário 2\n                    "
+                                  "\n                    Remover usuário\n                    "
                                 ),
                                 _c("v-icon", [_vm._v("delete")])
                               ],

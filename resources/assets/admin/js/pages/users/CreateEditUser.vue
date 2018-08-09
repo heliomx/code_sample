@@ -10,7 +10,7 @@
             </v-flex>
             <v-flex xs3>
                 <v-btn @click="showConfirmDelete">
-                    Remover usuário 2
+                    Remover usuário
                     <v-icon>delete</v-icon>
                 </v-btn>
             </v-flex>
