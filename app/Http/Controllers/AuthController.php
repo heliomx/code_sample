@@ -129,6 +129,14 @@ class AuthController extends Controller
             ]);
     }
 
+    public function destroy(Request $request, $id)
+    {
+        $user = User::destroy($id);
+        return response([
+            'status' => 'success'
+        ]);
+    }
+
     public function user(Request $request)
     {
         $user = User::find(Auth::user()->id);

@@ -3,7 +3,7 @@
     <transition name="fade" mode="out-in">
     <div v-if="!$global.loading">
 
-        <h1 v-if="!editing" class="headline">Cadastrar Novo Usuário</h1>
+        <h1 v-if="!editing" class="headline">Cadastrar Novo Usuário Administrador</h1>
         <v-layout row wrap v-if="editing">
             <v-flex xs9>
                 <h2 class="headline">Editando {{ form.name }}</h2>
@@ -170,7 +170,7 @@ export default {
                         'Apagado',
                         `O usuário ${this.form.name} foi apagado com sucesso`,
                         () => {
-                            this.$router.push('/usuarios');
+                            this.$router.go();
                         }
                     );
                 });

@@ -3,15 +3,18 @@
   <v-container v-if="!$global.loading" fluid >
     
     <h1 class="headline">Lista de clientes
-      <v-spacer></v-spacer>
+      </h1>
+      <search-box>
       <v-text-field
         v-model.lazy="search"
+        box
         append-icon="search"
         label="Buscar por nome da rádio, cidade ou UF"
         single-line
         hide-details
         debounce="500"
-      ></v-text-field></h1>
+      ></v-text-field>
+    </search-box>
     <v-data-table
       :headers="headers"
       :items="items"
@@ -48,102 +51,111 @@
         Sua busca "{{ search }}" não teve nenhum resultado.
       </v-alert>
     </v-data-table>
+    <div class="actions">
+      <v-btn @click="addNew" color="primary" fab small dark>
+        <v-icon>add</v-icon>
+      </v-btn>
+    </div>
   </v-container>
 </transition>
 </template>
 
 <script>
-import dict from '../../filters/DictFilter';
-import {telephone} from '../../filters/NumberFormatFilter';
-import debounce from '../../lib/Debounce';
-
+import dict from "../../filters/DictFilter";
+import { telephone } from "../../filters/NumberFormatFilter";
+import debounce from "../../lib/Debounce";
+import SearchBox from "../../components/SearchBox";
 
 export default {
-    filters: {
-      dict,
-      telephone
-    },
-    data() {
-        return {
-            headers: [
-                {
-                  text: 'Nome da rádio',
-                  align: 'left',
-                  value: 'radio_name'
-                },
+  components: {
+    SearchBox
+  },
 
-                {
-                  text: 'Tipo da rádio',
-                  value: 'radio_type'
-                },
-
-                {
-                  text: 'Assinaturas',
-                  value: 'qt_signatures',
-                  sorteable: false
-                },
-                {
-                  text: 'Cidade',
-                  value: 'address_city'
-                },
-                {
-                  text: 'UF',
-                  value: 'address_uf'
-                },
-                {
-                  text: 'Telefones',
-                  value: 'tel',
-                  sorteable: false,
-                },
-                {
-                  text: 'Status',
-                  value: 'status'
-                }
-            ],
-            search:'',
-            pagination: { rowsPerPage: 10 },
-            items: [],
-            totalItems: 0,
-            loading: true,
-            debounceSearch: debounce( () => {
-              this.pagination.page = 1;
-              this.fetchData();
-              //this.pagination.totalItems = 0;
-            }, 500)
-        }
-    },
-    watch: {
-      search(){
-        this.debounceSearch();
-      },
-      pagination: {
-        handler () {
-          this.fetchData();
-            
+  filters: {
+    dict,
+    telephone
+  },
+  data() {
+    return {
+      headers: [
+        {
+          text: "Nome da rádio",
+          align: "left",
+          value: "radio_name"
         },
-        deep: true
-      }
+
+        {
+          text: "Tipo da rádio",
+          value: "radio_type"
+        },
+
+        {
+          text: "Assinaturas",
+          value: "qt_signatures",
+          sorteable: false
+        },
+        {
+          text: "Cidade",
+          value: "address_city"
+        },
+        {
+          text: "UF",
+          value: "address_uf"
+        },
+        {
+          text: "Telefones",
+          value: "tel",
+          sortable: false
+        },
+        {
+          text: "Status",
+          value: "status"
+        }
+      ],
+      search: "",
+      pagination: { rowsPerPage: 10 },
+      items: [],
+      totalItems: 0,
+      loading: true,
+      debounceSearch: debounce(() => {
+        this.pagination.page = 1;
+        this.fetchData();
+        //this.pagination.totalItems = 0;
+      }, 500)
+    };
+  },
+  watch: {
+    search() {
+      this.debounceSearch();
     },
-    methods: {
-      fetchData()
-      {
-        this.loading = true;
-        //this.pagination.q = this.search;
-        let params = { q: this.search };
-        Object.assign(params, this.pagination);
-        this.$http.get('clients', {params: params})
-          .then(response => {
-            this.items = response.data.items;
-            this.totalItems = response.data.total;
-            this.loading = false;
-          });
-      }
+    pagination: {
+      handler() {
+        this.fetchData();
+      },
+      deep: true
+    }
+  },
+  methods: {
+    fetchData() {
+      this.loading = true;
+      //this.pagination.q = this.search;
+      let params = { q: this.search };
+      Object.assign(params, this.pagination);
+      this.$http.get("clients", { params: params }).then(response => {
+        this.items = response.data.items;
+        this.totalItems = response.data.total;
+        this.loading = false;
+      });
+    },
+    addNew() {
+      this.$router.push("clientes/cadastrar");
+    }
   }
-}
+};
 </script>
 
 <style>
-  small {
-    color: #d0d0d0;
-  }
+small {
+  color: #d0d0d0;
+}
 </style>

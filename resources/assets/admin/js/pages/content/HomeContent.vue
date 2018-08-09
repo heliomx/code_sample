@@ -344,10 +344,7 @@ export default {
 
 	section {
 		margin: 60px 0;
-		.actions {
-			text-align: right;
-			margin-top: 20px;
-		}
+		
 		padding: 30px 0;
 		border-bottom: 2px solid #d0d0d0;
 

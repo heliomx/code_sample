@@ -45,6 +45,16 @@ export default {
         left: 0;
         z-index: 2;
     }
+
+    .actions {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    .line-actions {
+        width:1%;
+        white-space: nowrap;
+    }
     
     .fade-enter {
         opacity: 0;

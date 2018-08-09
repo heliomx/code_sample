@@ -18,7 +18,12 @@
 
 <script>
 export default {
-    props: ['title', 'body', 'visible', 'confirmLabel', 'cancelLabel'],
+    props: ['title', 'body', 'confirmLabel', 'cancelLabel'],
+    data(){
+        return {
+            visible: false
+        }
+    },
     methods: {
         dispatchConfirm(){
             this.visible = false;
@@ -27,6 +32,9 @@ export default {
         dispatchCancel(){
             this.visible = false;
             this.$emit('cancel');
+        },
+        show() {
+            this.visible = true;
         }
     }
 }

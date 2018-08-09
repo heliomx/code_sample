@@ -33,6 +33,7 @@ Route::group(['middleware' => 'jwt.auth'], function(){
   Route::get('users/{id}', 'AuthController@show');
   Route::post('users', 'AuthController@register');
   Route::post('users/{id}', 'AuthController@update');
+  Route::delete('users/{id}', 'AuthController@destroy');
 
 
 });
