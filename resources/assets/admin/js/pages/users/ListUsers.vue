@@ -117,6 +117,7 @@ export default {
   },
   methods: {
     fetchData() {
+
       this.loading = true;
       //this.pagination.q = this.search;
       let params = {
@@ -139,8 +140,10 @@ export default {
     },
     deleteUser() {
       console.log(this.deletedUser);
+      this.$global.loading = true;
       this.$http.delete(`users/${this.deletedUser.id}`).then(r => {
         console.log(this.$refs.messageDialog);
+        this.$global.loading = false;
         this.$refs.messageDialog.show(
           "Apagado",
           `O usuário ${this.deletedUser.name} foi apagado com sucesso`,

@@ -6576,8 +6576,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       var _this3 = this;
 
       console.log(this.deletedUser);
+      this.$global.loading = true;
       this.$http.delete("users/" + this.deletedUser.id).then(function (r) {
         console.log(_this3.$refs.messageDialog);
+        _this3.$global.loading = false;
         _this3.$refs.messageDialog.show("Apagado", "O usu\xE1rio " + _this3.deletedUser.name + " foi apagado com sucesso", function () {
           _this3.fetchData();
         });
