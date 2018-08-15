@@ -15,6 +15,8 @@ function dictionary(lang) {
             A: 'Rádio AM',
             F: 'Rádio FM',
             W: 'Rádio Web',
+            T: 'TV CNPJ',
+            V: 'TV Web'
         },
 
         ProgramType: {

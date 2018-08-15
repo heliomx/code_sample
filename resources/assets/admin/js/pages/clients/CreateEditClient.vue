@@ -177,6 +177,14 @@ export default {
                 {
                     text: "Rádio Convencional FM com CNPJ",
                     value: "F"
+                },
+                {
+                    text: "TV Convencional com CNPJ",
+                    value: "T"
+                },
+                {
+                    text: "TV Web",
+                    value: "V"
                 }
             ],
             statusList: [{

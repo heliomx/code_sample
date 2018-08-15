@@ -4291,6 +4291,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }, {
                 text: "Rádio Convencional FM com CNPJ",
                 value: "F"
+            }, {
+                text: "TV Convencional com CNPJ",
+                value: "T"
+            }, {
+                text: "TV Web",
+                value: "V"
             }],
             statusList: [{
                 text: "Ativo",
@@ -67058,7 +67064,9 @@ function dictionary(lang) {
         RadioType: {
             A: 'Rádio AM',
             F: 'Rádio FM',
-            W: 'Rádio Web'
+            W: 'Rádio Web',
+            T: 'TV CNPJ',
+            V: 'TV Web'
         },
 
         ProgramType: {
