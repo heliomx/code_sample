@@ -39,7 +39,7 @@
                             <v-subheader>Senha</v-subheader>
                         </v-flex>
                         <v-flex xs5 v-if="editing">
-                            <v-text-field :rules="validationRules.passwordOptional" v-model="form.password">
+                            <v-text-field type="password" :rules="validationRules.passwordOptional" v-model="form.password">
                             </v-text-field>
                         </v-flex>
 

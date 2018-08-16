@@ -5145,6 +5145,7 @@ var render = function() {
                                   [
                                     _c("v-text-field", {
                                       attrs: {
+                                        type: "password",
                                         required: "",
                                         rules: _vm.validationRules.required,
                                         label: "Senha"

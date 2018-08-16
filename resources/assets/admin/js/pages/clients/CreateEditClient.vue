@@ -30,7 +30,7 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs4>
-                        <v-text-field v-model="form.user.password" :rules="validationRules.password" label="Senha">
+                        <v-text-field v-model="form.user.password" type="password" :rules="validationRules.password" label="Senha">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs9>

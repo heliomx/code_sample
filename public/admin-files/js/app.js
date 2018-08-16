@@ -31185,6 +31185,7 @@ var render = function() {
                               [
                                 _c("v-text-field", {
                                   attrs: {
+                                    type: "password",
                                     rules: _vm.validationRules.password,
                                     label: "Senha"
                                   },
@@ -32331,6 +32332,7 @@ var render = function() {
                                       [
                                         _c("v-text-field", {
                                           attrs: {
+                                            type: "password",
                                             rules:
                                               _vm.validationRules
                                                 .passwordOptional
