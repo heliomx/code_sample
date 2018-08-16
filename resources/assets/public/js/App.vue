@@ -25,16 +25,16 @@
                         <router-link to="/">Home</router-link>
                     </li>
                     <li>
-                        <router-link to="quemsomos">Quem somos</router-link>
+                        <router-link to="/quemsomos">Quem somos</router-link>
                     </li>
                     <li>
-                        <router-link to="programas">Programas Gratuitos</router-link>
+                        <router-link to="/programas">Programas Gratuitos</router-link>
                     </li>
                     <li>
-                        <router-link to="cadastro">Cadastre-se</router-link>
+                        <router-link to="/cadastro">Cadastre-se</router-link>
                     </li>
                     <li>
-                        <router-link to="faleconosco">Fale Conosco</router-link>
+                        <router-link to="/faleconosco">Fale Conosco</router-link>
                     </li>
                     <li>
                         <a href="http://tvestudiobrasil.com/" target="_blank">TV Estúdio Brasil</a>

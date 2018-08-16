@@ -24,6 +24,7 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
+        <td>{{ props.item.id }}</td>
         <td>
           <router-link 
           :to="{ name: 'editClient', params: { id: props.item.id }}">
@@ -31,12 +32,8 @@
           </router-link>
         </td>
         <td>{{ props.item.radio_type | dict('RadioType')}}</td>
-        <td>
-          {{ props.item.qt_signatures }} <br>
-          <small>
-            Ativas: {{ props.item.qt_signatures_active }} / 
-            Não ativas: {{ props.item.qt_signatures_not_active }}
-          </small>
+        <td :alt="props.item.qt_signatures_active">
+          {{ props.item.qt_signatures_active }}/{{ props.item.qt_signatures }} <br>
         </td>
         <td>{{ props.item.address_city }}</td>
         <td>{{ props.item.address_uf }}</td>
@@ -46,6 +43,7 @@
           {{ props.item.tel_mobile | telephone }}
         </td>
         <td>{{ props.item.status | dict('ClientStatus')}}</td>
+        <td>{{ props.item.created_at.date | dateformat('DD/MM/YYYY HH:MM:ss') }}</td>
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="warning">
         Sua busca "{{ search }}" não teve nenhum resultado.
@@ -65,6 +63,8 @@ import dict from "../../filters/DictFilter";
 import { telephone } from "../../filters/NumberFormatFilter";
 import debounce from "../../lib/Debounce";
 import SearchBox from "../../components/SearchBox";
+import dateformat from '../../filters/DateFormatFilter';
+
 
 export default {
   components: {
@@ -73,11 +73,17 @@ export default {
 
   filters: {
     dict,
-    telephone
+    telephone,
+    dateformat
   },
   data() {
     return {
       headers: [
+        {
+          text: "id",
+          align: "left",
+          value: "id"
+        },
         {
           text: "Nome da rádio",
           align: "left",
@@ -110,10 +116,14 @@ export default {
         {
           text: "Status",
           value: "status"
+        },
+        {
+          text: "Criação",
+          value: "created_at"
         }
       ],
       search: "",
-      pagination: { rowsPerPage: 10 },
+      pagination: { rowsPerPage: 50 },
       items: [],
       totalItems: 0,
       loading: true,

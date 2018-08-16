@@ -4488,6 +4488,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filters_NumberFormatFilter__ = __webpack_require__("./resources/assets/admin/js/filters/NumberFormatFilter.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_Debounce__ = __webpack_require__("./resources/assets/admin/js/lib/Debounce.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchBox__ = __webpack_require__("./resources/assets/admin/js/components/SearchBox.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_DateFormatFilter__ = __webpack_require__("./resources/assets/admin/js/filters/DateFormatFilter.js");
 //
 //
 //
@@ -4548,8 +4549,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-//
-//
+
 
 
 
@@ -4563,13 +4563,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   filters: {
     dict: __WEBPACK_IMPORTED_MODULE_0__filters_DictFilter__["a" /* default */],
-    telephone: __WEBPACK_IMPORTED_MODULE_1__filters_NumberFormatFilter__["a" /* telephone */]
+    telephone: __WEBPACK_IMPORTED_MODULE_1__filters_NumberFormatFilter__["a" /* telephone */],
+    dateformat: __WEBPACK_IMPORTED_MODULE_4__filters_DateFormatFilter__["a" /* default */]
   },
   data: function data() {
     var _this = this;
 
     return {
       headers: [{
+        text: "id",
+        align: "left",
+        value: "id"
+      }, {
         text: "Nome da rádio",
         align: "left",
         value: "radio_name"
@@ -4593,9 +4598,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       }, {
         text: "Status",
         value: "status"
+      }, {
+        text: "Criação",
+        value: "created_at"
       }],
       search: "",
-      pagination: { rowsPerPage: 10 },
+      pagination: { rowsPerPage: 50 },
       items: [],
       totalItems: 0,
       loading: true,
@@ -32022,6 +32030,8 @@ var render = function() {
                       key: "items",
                       fn: function(props) {
                         return [
+                          _c("td", [_vm._v(_vm._s(props.item.id))]),
+                          _vm._v(" "),
                           _c(
                             "td",
                             [
@@ -32058,24 +32068,20 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\n          " +
-                                _vm._s(props.item.qt_signatures) +
-                                " "
-                            ),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("small", [
+                          _c(
+                            "td",
+                            { attrs: { alt: props.item.qt_signatures_active } },
+                            [
                               _vm._v(
-                                "\n            Ativas: " +
+                                "\n          " +
                                   _vm._s(props.item.qt_signatures_active) +
-                                  " / \n            Não ativas: " +
-                                  _vm._s(props.item.qt_signatures_not_active) +
-                                  "\n          "
-                              )
-                            ])
-                          ]),
+                                  "/" +
+                                  _vm._s(props.item.qt_signatures) +
+                                  " "
+                              ),
+                              _c("br")
+                            ]
+                          ),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(props.item.address_city))]),
                           _vm._v(" "),
@@ -32105,6 +32111,17 @@ var render = function() {
                                 _vm._f("dict")(
                                   props.item.status,
                                   "ClientStatus"
+                                )
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("dateformat")(
+                                  props.item.created_at.date,
+                                  "DD/MM/YYYY HH:MM:ss"
                                 )
                               )
                             )
@@ -67039,9 +67056,10 @@ var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
 
 
-/* harmony default export */ __webpack_exports__["a"] = (function (value) {
+/* harmony default export */ __webpack_exports__["a"] = (function (value, format) {
     if (value) {
-        return __WEBPACK_IMPORTED_MODULE_0_moment___default()(String(value)).format('DD/MM/YYYY');
+        format = format ? format : 'DD/MM/YYYY';
+        return __WEBPACK_IMPORTED_MODULE_0_moment___default()(String(value)).format(format);
     }
 });
 

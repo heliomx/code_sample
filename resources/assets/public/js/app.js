@@ -5,6 +5,9 @@ import VueAxios from 'vue-axios';
 import App from './App.vue';
 import VueLocalStorage from 'vue-localstorage'
 import { SharedData } from './shared';
+import VueScrollTo from 'vue-scrollto';
+
+Vue.use(VueScrollTo);
 
 //Vuetify
 import Vuetify from 'vuetify';
@@ -40,6 +43,11 @@ const router = new VueRouter({
         {
             path: '/',
             name: 'home',
+            component: Home
+        },
+        {
+            path: '/programas',
+            name: 'programs',
             component: Home
         },
         {

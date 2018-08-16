@@ -38,7 +38,7 @@
                     
                 </div>   
             </section>
-            <section class="content-area programs">
+            <section ref="programs" class="content-area programs">
                 <div>
                     <h2 v-html="content.ourPrograms.title"></h2>
                     <div class="section-text" v-html="content.ourPrograms.body"></div>
@@ -98,6 +98,7 @@
 
 <script>
 import { Carousel, Slide } from 'vue-carousel';
+
 
 export default {
     components: {
@@ -159,10 +160,26 @@ export default {
                             window._ref = this;
 						})
 				});
-		},
+        },
+        
+        verifyPath() {
+            if(this.$global.loading == false && this.$route.name == 'programs')
+            {
+                setTimeout( () => this.$scrollTo(this.$refs.programs), 1000);
+            }
+        }
     },
     created() {
         this.fetchData();
+        this.verifyPath();
+    },
+    watch: {
+        // call again the method if the route changes
+        $route: "verifyPath",
+
+        '$global.loading'(){
+            this.verifyPath();
+        }
     }
 }
 </script>
