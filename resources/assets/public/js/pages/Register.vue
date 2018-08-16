@@ -243,8 +243,7 @@ export default {
                 
                 this.$refs.messageDialog.show(
                     'Cadastro',
-                    `O seu cadastro foi enviado com sucesso. Sua solicitação de programação 
-                    será avaliada pela nossa equipe. Em breve entraremos em contato.`,
+                    `O seu cadastro foi enviado com sucesso. Entre na nossa página www.radioestudiobrasil.com.br/admin e acesse a Área Restrita com os dados cadastrados.`,
                     () => this.$router.push('/')
                 )
             })
