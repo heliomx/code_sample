@@ -67,7 +67,8 @@ class ProgramController extends Controller
         }
         else 
         {
-            
+            $file = ProgramFile::find($id);
+            return Storage::drive('packages')->download($file->file_name);
         }
     }
 
