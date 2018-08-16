@@ -36,8 +36,12 @@ class ClientController extends Controller
             $count = Client::count();
         }
 
-        $query->limit($request->input('rowsPerPage'))
-            ->offset($request->input('rowsPerPage') * ($request->input('page') - 1));
+        if ($request->input('rowsPerPage') != -1)
+        {
+            $query->limit($request->input('rowsPerPage'))
+                ->offset($request->input('rowsPerPage') * ($request->input('page') - 1));    
+        }
+        
         
         if ($request->has('sortBy')) {
             $query->orderBy($request->input('sortBy'), $request->input('descending') == 'true' ? 'DESC' : 'ASC');
