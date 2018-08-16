@@ -3338,13 +3338,13 @@ module.exports = {
                 text: "Rádio Web",
                 value: "W"
             }, {
-                text: "Rádio Convencional AM com CNPJ",
+                text: "Rádio Convencional AM",
                 value: "A"
             }, {
-                text: "Rádio Convencional FM com CNPJ",
+                text: "Rádio Convencional FM",
                 value: "F"
             }, {
-                text: "TV Convencional com CNPJ",
+                text: "TV Convencional",
                 value: "T"
             }, {
                 text: "TV Web",

@@ -36,7 +36,7 @@
         <td :alt="props.item.qt_signatures_active">
           {{ props.item.qt_signatures_active }}/{{ props.item.qt_signatures }} <br>
         </td>
-        <td>{{ props.item.address_city }}</td>
+        <td class="small">{{ props.item.address_city }}</td>
         <td>{{ props.item.address_uf }}</td>
         <td class="small">
           <div class="nowrap">{{ props.item.tel | telephone }}</div>

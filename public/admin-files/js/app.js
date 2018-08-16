@@ -4286,13 +4286,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 text: "Rádio Web",
                 value: "W"
             }, {
-                text: "Rádio Convencional AM com CNPJ",
+                text: "Rádio Convencional AM",
                 value: "A"
             }, {
-                text: "Rádio Convencional FM com CNPJ",
+                text: "Rádio Convencional FM",
                 value: "F"
             }, {
-                text: "TV Convencional com CNPJ",
+                text: "TV Convencional",
                 value: "T"
             }, {
                 text: "TV Web",
@@ -32090,7 +32090,9 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(props.item.address_city))]),
+                          _c("td", { staticClass: "small" }, [
+                            _vm._v(_vm._s(props.item.address_city))
+                          ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(props.item.address_uf))]),
                           _vm._v(" "),
