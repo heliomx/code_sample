@@ -59,8 +59,16 @@ class ProgramController extends Controller
 
     public function download(Request $request, $id)
     {
-        $file = ProgramFile::find($id);
-        return Storage::drive('packages')->download($file->file_name);
+        $user = Auth::user();
+        if ($user->role == User::ROLE_ADMIN)
+        {
+            $file = ProgramFile::find($id);
+            return Storage::drive('packages')->download($file->file_name);
+        }
+        else 
+        {
+            
+        }
     }
 
     /**

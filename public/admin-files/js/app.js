@@ -4578,12 +4578,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         align: "left",
         value: "radio_name"
       }, {
+        text: "E-mail",
+        align: "left",
+        value: "user.email",
+        sortable: false
+      }, {
         text: "Tipo da rádio",
         value: "radio_type"
       }, {
         text: "Assinaturas",
         value: "qt_signatures",
-        sorteable: false
+        sortable: false
       }, {
         text: "Cidade",
         value: "address_city"
@@ -4597,9 +4602,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       }, {
         text: "Status",
         value: "status"
-      }, {
-        text: "Criação",
-        value: "created_at"
       }],
       search: "",
       pagination: { rowsPerPage: 50 },
@@ -31991,7 +31993,7 @@ var render = function() {
                     attrs: {
                       box: "",
                       "append-icon": "search",
-                      label: "Buscar por nome da rádio, cidade ou UF",
+                      label: "Buscar por nome da rádio, e-mail, cidade ou UF",
                       "single-line": "",
                       "hide-details": "",
                       debounce: "500"
@@ -32058,6 +32060,10 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
+                          _c("td", { staticClass: "small" }, [
+                            _vm._v(_vm._s(props.item.user.email))
+                          ]),
+                          _vm._v(" "),
                           _c("td", [
                             _vm._v(
                               _vm._s(
@@ -32104,23 +32110,12 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("td", [
+                          _c("td", { staticClass: "small" }, [
                             _vm._v(
                               _vm._s(
                                 _vm._f("dict")(
                                   props.item.status,
                                   "ClientStatus"
-                                )
-                              )
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "small" }, [
-                            _vm._v(
-                              _vm._s(
-                                _vm._f("dateformat")(
-                                  props.item.created_at.date,
-                                  "DD/MM/YYYY HH:MM:ss"
                                 )
                               )
                             )

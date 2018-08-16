@@ -9,7 +9,7 @@
         v-model.lazy="search"
         box
         append-icon="search"
-        label="Buscar por nome da rádio, cidade ou UF"
+        label="Buscar por nome da rádio, e-mail, cidade ou UF"
         single-line
         hide-details
         debounce="500"
@@ -31,6 +31,7 @@
             {{ props.item.radio_name }}
           </router-link>
         </td>
+        <td class="small">{{ props.item.user.email }}</td>
         <td>{{ props.item.radio_type | dict('RadioType')}}</td>
         <td :alt="props.item.qt_signatures_active">
           {{ props.item.qt_signatures_active }}/{{ props.item.qt_signatures }} <br>
@@ -41,8 +42,7 @@
           <div class="nowrap">{{ props.item.tel | telephone }}</div>
           <div class="nowrap">{{ props.item.tel_mobile | telephone }}</div>
         </td>
-        <td>{{ props.item.status | dict('ClientStatus')}}</td>
-        <td class="small">{{ props.item.created_at.date | dateformat('DD/MM/YYYY HH:MM:ss') }}</td>
+        <td class="small">{{ props.item.status | dict('ClientStatus')}}</td>
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="warning">
         Sua busca "{{ search }}" não teve nenhum resultado.
@@ -88,6 +88,12 @@ export default {
           align: "left",
           value: "radio_name"
         },
+        {
+          text: "E-mail",
+          align: "left",
+          value: "user.email",
+          sortable: false
+        },
 
         {
           text: "Tipo da rádio",
@@ -97,7 +103,7 @@ export default {
         {
           text: "Assinaturas",
           value: "qt_signatures",
-          sorteable: false
+          sortable: false
         },
         {
           text: "Cidade",
@@ -115,10 +121,6 @@ export default {
         {
           text: "Status",
           value: "status"
-        },
-        {
-          text: "Criação",
-          value: "created_at"
         }
       ],
       search: "",
