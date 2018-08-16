@@ -24,7 +24,7 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.id }}</td>
+        <td class="small">{{ props.item.id }}</td>
         <td>
           <router-link 
           :to="{ name: 'editClient', params: { id: props.item.id }}">
@@ -37,13 +37,12 @@
         </td>
         <td>{{ props.item.address_city }}</td>
         <td>{{ props.item.address_uf }}</td>
-        <td>
-          {{ props.item.tel | telephone }} 
-          <br v-if="!!props.item.tel && !!props.item.tel_mobile">
-          {{ props.item.tel_mobile | telephone }}
+        <td class="small">
+          <div class="nowrap">{{ props.item.tel | telephone }}</div>
+          <div class="nowrap">{{ props.item.tel_mobile | telephone }}</div>
         </td>
         <td>{{ props.item.status | dict('ClientStatus')}}</td>
-        <td>{{ props.item.created_at.date | dateformat('DD/MM/YYYY HH:MM:ss') }}</td>
+        <td class="small">{{ props.item.created_at.date | dateformat('DD/MM/YYYY HH:MM:ss') }}</td>
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="warning">
         Sua busca "{{ search }}" não teve nenhum resultado.
@@ -164,8 +163,14 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 small {
   color: #d0d0d0;
+}
+.small {
+  font-size: 11px;
+}
+.nowrap {
+  white-space: nowrap;
 }
 </style>
