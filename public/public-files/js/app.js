@@ -3428,7 +3428,7 @@ module.exports = {
         },
         updateProgram: function updateProgram(program) {
             if (program.checked) {
-                __WEBPACK_IMPORTED_MODULE_2_vue___default.a.set(program, 'pivot', { active: false, status: 'D' });
+                __WEBPACK_IMPORTED_MODULE_2_vue___default.a.set(program, 'pivot', { active: true, status: 'A' });
             } else {
                 __WEBPACK_IMPORTED_MODULE_2_vue___default.a.delete(program, 'pivot');
             }
