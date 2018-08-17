@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Auth;
 use App\User;
+use App\Download;
 use App\Client;
 use App\Program;
 use App\ProgramFile;
@@ -23,6 +24,7 @@ class ProgramController extends Controller
         if($request->has('downloads') && $request->input('downloads'))
         {
             $user = Auth::user();
+            
             if ($user->role == User::ROLE_ADMIN)
             {
                 $programs = Program::with(['files' => function ($query) {
@@ -59,19 +61,37 @@ class ProgramController extends Controller
 
     public function download(Request $request, $id)
     {
-        // $user = Auth::user();
-        // if ($user->role == User::ROLE_ADMIN)
-        // {
-        //     $file = ProgramFile::find($id);
-        //     return Storage::drive('packages')->download($file->file_name);
-        // }
-        // else 
-        // {
-        //     $file = ProgramFile::find($id);
-        //     return Storage::drive('packages')->download($file->file_name);
-        // }
-        $file = ProgramFile::find($id);
-        return Storage::drive('packages')->download($file->file_name);
+        $user = Auth::user();
+        if ($user)
+        {
+            if ($user->role == User::ROLE_ADMIN)
+            {
+                $file = ProgramFile::find($id);
+                return Storage::drive('packages')->download($file->file_name);
+            }
+            else 
+            {
+                $client = Client::find($user->client_id);
+                $file = ProgramFile::find($id);
+                $program = $client->programs()->whereStatus('A')->find($file->program_id);
+                if ($program)
+                {
+                    Download::create([
+                        'program_file_id' => $id,
+                        'client_id'  => $client->id
+                    ]);
+    
+                    return Storage::drive('packages')->download($file->file_name);
+                } else {
+                    abort(401, 'Não autorizado');
+                }
+                
+            }
+        } else {
+            abort(401, 'Não autorizado');
+        }
+        
+        
     }
 
     /**

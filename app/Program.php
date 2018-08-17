@@ -25,6 +25,10 @@ class Program extends Model
         return $this->signatures()->whereStatus('A')->count();
     }
 
+    public function downloads() {
+        return $this->hasManyThrough('App\Download', 'App\ProgramFile');
+    }
+
     public function files(){
         return $this->hasMany('App\ProgramFile');
     }

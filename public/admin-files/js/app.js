@@ -30386,7 +30386,11 @@ var render = function() {
                                   {
                                     attrs: {
                                       target: "_blank",
-                                      href: "/api/programs/downloads/" + file.id
+                                      href:
+                                        "/api/programs/downloads/" +
+                                        file.id +
+                                        "?token=" +
+                                        _vm.$auth.token()
                                     }
                                   },
                                   [

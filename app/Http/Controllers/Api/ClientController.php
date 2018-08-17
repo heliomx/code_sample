@@ -167,12 +167,14 @@ class ClientController extends Controller
             $client->user->save();
 
             $programs = $request->input('programs');
-            $client->programs()->detach();
             for ($k = 0; $k < count($programs); $k++ )
             {
-                $client->programs()->attach( 
-                    [ $programs[$k]['program_id'] => [ "status" => $programs[$k]['status'] ]] 
-                );
+                if (!$client->programs->contains($programs[$k]['program_id']))
+                {
+                    $client->programs()->attach( 
+                        [ $programs[$k]['program_id'] => [ "status" => $programs[$k]['status'] ]] 
+                    );
+                }
             }
             $client->save();
             $r = new ClientResource(Client::with('user', 'programs')->find($client->id));

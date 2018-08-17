@@ -13,7 +13,7 @@
                             <ul>
                                 <li v-for="file in program.files" :key="file.id">
                                     <small>{{ file.air_on | dateformat}}</small><br>
-                                    <a target="_blank" :href="'/api/programs/downloads/' + file.id">Programa {{ file.program_number }}</a>
+                                    <a target="_blank" :href="'/api/programs/downloads/' + file.id + '?token=' + $auth.token()">Programa {{ file.program_number }}</a>
                                     
                                 </li>
                             </ul>  
