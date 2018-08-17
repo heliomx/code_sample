@@ -172,7 +172,7 @@ class AuthController extends Controller
         {
             $user->forgot_pwd_token = str_random();
             $user->save();
-            Mail::to($user->email)->send(new ForgotPassword($user));
+            Mail::to($user)->send(new ForgotPassword($user));
             $r = [ "success" => true ];
         }
 
