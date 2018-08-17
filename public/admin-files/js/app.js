@@ -32818,7 +32818,7 @@ var render = function() {
                                                 type: "submit",
                                                 loading: _vm.loading,
                                                 disabled:
-                                                  !_vm.valid || _vm.loading,
+                                                  !_vm.validPwd || _vm.loading,
                                                 color: "primary"
                                               }
                                             },

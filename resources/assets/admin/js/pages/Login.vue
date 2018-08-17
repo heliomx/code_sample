@@ -64,7 +64,7 @@
                     <v-btn 
                       type="submit" 
                       :loading="loading"
-                      :disabled="!valid || loading" 
+                      :disabled="!validPwd || loading" 
                       color="primary">
                         Recuperar senha
                     </v-btn>
