@@ -33,6 +33,7 @@ class ForgotPassword extends Mailable
     public function build()
     {
         return $this->from(['email' => 'sistema@radioestudiobrasil.com.br', 'name' => 'Radio Estúdio Brasil'])
+            ->replyTo('contato@radioestudiobrasil.com.br', 'Radio Estúdio Brasil')
             ->subject('Recuperar senha')
             ->view('mail.forgotpwd');
     }
