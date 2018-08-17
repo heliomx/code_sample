@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Client;
-
+use Auth;
 use App\User;
 use App\Http\Resources\Client as ClientResource;
 use Illuminate\Http\Request;
@@ -94,6 +94,7 @@ class ClientController extends Controller
                 'tel_mobile'   => $request->input('tel_mobile'),
                 'site' => $request->input('site'),
                 'status' => $request->input('status', Client::STATUS_ACTIVE),
+                'annotations' => $request->input('annotations'),
             ]);
 
             $programs = $request->input('programs');
@@ -112,7 +113,16 @@ class ClientController extends Controller
    
     public function show(Request $request, $id)
     {
-        return new ClientResource(Client::with('user', 'programs')->find($id));
+        $user = Auth::user();
+        if($user->role == User::ROLE_ADMIN || ($user->role != User::ROLE_ADMIN && $id == $user->client_id))
+        {
+            $client = Client::with('user', 'programs')->find($id);
+            $data = new ClientResource($client, $user->role == User::ROLE_ADMIN);
+            return $data;
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
+        
     }
 
     /**
@@ -142,6 +152,7 @@ class ClientController extends Controller
                 'tel_mobile'   => $request->input('tel_mobile'),
                 'site' => $request->input('site'),
                 'status' => $request->input('status', Client::STATUS_ACTIVE),
+                'annotations' => $request->input('annotations'),
             ]);
            
             $client->user->fill([

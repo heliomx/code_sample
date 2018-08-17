@@ -13,7 +13,7 @@ class Client extends Model
     protected $fillable = [
         'user_id', 'updated_at', 'created_at', 'radio_type', 'radio_name', 'cpf',
         'cnpj', 'address','address_cep','address_complement','address_city',
-        'address_uf', 'tel', 'tel_mobile','site', 'status'
+        'address_uf', 'tel', 'tel_mobile','site', 'status', 'annotations'
     ];
 
     protected $appends = ['qt_signatures', 'qt_signatures_active', 'qt_signatures_not_active'];

@@ -106,7 +106,15 @@
                     <v-flex xs10>
                         <small v-if="!valid">* Verifique o preenchimento de todos os campos obrigatórios antes de enviar o formulário</small>
                     </v-flex>
-                    
+                    <v-flex xs12 v-if="$auth.check('A')">
+                        
+                        <v-text-field
+                        v-model="form.annotations"    
+                        box
+                        label="Anotações"
+                        multi-line
+                        ></v-text-field>
+                    </v-flex>
                 </v-layout>
                 
             </v-container>
@@ -149,6 +157,7 @@ import Vue from "vue";
 import MessageDialog from '../../components/MessageDialog.vue';
 import { EventBus } from '../../event-bus';
 import { validaCPF, validaCNPJ, required, email } from '../../lib/ValidationFunctions';
+
 
 export default {
     components: {
@@ -248,24 +257,25 @@ export default {
         blankForm() {
             return {
                 user: {
-                    name: "",
-                    password: ""
+                    name: '',
+                    password: ''
                 },
-                radio_type: "",
-                radio_name: "",
-                business_category: "",
-                cpf: "",
-                cnpj: "",
-                address: "",
-                address_city: "",
-                address_uf: "",
-                address_cep: "",
-                address_complement: "",
-                tel: "",
-                tel_mobile: "",
-                tel_mobile_carrier: "",
-                site: "",
+                radio_type: '',
+                radio_name: '',
+                business_category: '',
+                cpf: '',
+                cnpj: '',
+                address: '',
+                address_city: '',
+                address_uf: '',
+                address_cep: '',
+                address_complement: '',
+                tel: '',
+                tel_mobile: '',
+                tel_mobile_carrier: '',
+                site: '',
                 status: "A",
+                annotations: '',
                 programs: []
             };
         },

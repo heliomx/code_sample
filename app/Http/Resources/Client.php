@@ -6,6 +6,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class Client extends JsonResource
 {
+
+    protected $complete = false;
+    
+    public function __construct($resource, $complete = false)
+    {
+        $this->complete = $complete;
+        parent::__construct($resource);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -36,6 +45,7 @@ class Client extends JsonResource
             'qt_signatures_not_active'     => $this->qt_signatures_not_active,
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
+            'annotations'       => $this->when($this->complete, $this->annotations)
         ];
     }
 }

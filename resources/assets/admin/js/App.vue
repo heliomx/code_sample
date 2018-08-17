@@ -20,6 +20,13 @@ export default {
 </script>
 
 <style lang="scss">
+// Global CSS and Variables
+@import '../sass/app.scss';
+
+    * {
+        font-family: $title-font;
+    }
+
     .form-margin {
         margin-right: 10vw;
         margin-bottom: 40px;

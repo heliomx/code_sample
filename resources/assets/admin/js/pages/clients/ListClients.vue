@@ -30,8 +30,9 @@
           :to="{ name: 'editClient', params: { id: props.item.id }}">
             {{ props.item.radio_name }}
           </router-link>
+          <div class="small nowrap">{{ props.item.user.email }}</div>
+          
         </td>
-        <td class="small">{{ props.item.user.email }}</td>
         <td>{{ props.item.radio_type | dict('RadioType')}}</td>
         <td :alt="props.item.qt_signatures_active">
           {{ props.item.qt_signatures_active }}/{{ props.item.qt_signatures }} <br>
@@ -88,13 +89,6 @@ export default {
           align: "left",
           value: "radio_name"
         },
-        {
-          text: "E-mail",
-          align: "left",
-          value: "user.email",
-          sortable: false
-        },
-
         {
           text: "Tipo da rádio",
           value: "radio_type"

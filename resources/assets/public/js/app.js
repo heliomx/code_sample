@@ -12,7 +12,6 @@ Vue.use(VueScrollTo);
 //Vuetify
 import Vuetify from 'vuetify';
 import colors from 'vuetify/es5/util/colors';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'vuetify/dist/vuetify.min.css';
 
 import '../sass/app.scss';
