@@ -73,7 +73,13 @@
                                 <div class="programs-area">
                                     <v-flex xs12>
                                         <v-layout row wrap>
-                                            <v-flex xs4 v-for="program in programsList" :key="program.id">
+                                            <v-flex 
+                                                v-if="(program.id == 22 && ['T', 'V'].indexOf(form.radio_type) >= 0) || 
+                                                (program.id != 22 && ['F', 'A', 'W'].indexOf(form.radio_type) >= 0)" 
+                                                xs4 
+                                                v-for="program in programsList" 
+                                                :key="program.id"
+                                                >
                                                 <v-checkbox @change="updateProgram(program)" v-model="program.checked">
                                                     <div slot="label">
                                                         {{ program.name }}
@@ -230,7 +236,10 @@ export default {
             this.loading = true;
             let programs = this.programsList
                 .filter((elm, i, arr) => {
-                    return elm.checked;
+                    return elm.checked && (
+                        (elm.id == 22 && ['T', 'V'].indexOf(this.form.radio_type) >= 0) || 
+                        (elm.id != 22 && ['F', 'A', 'W'].indexOf(this.form.radio_type) >= 0)
+                    );
                 })
                 .map((elm, i, arr) => {
 

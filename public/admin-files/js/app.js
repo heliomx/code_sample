@@ -4266,6 +4266,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4393,7 +4399,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var _this3 = this;
 
             var programs = this.programsList.filter(function (elm, i, arr) {
-                return elm.checked;
+                return elm.checked && (elm.id == 22 && ['T', 'V'].indexOf(_this3.form.radio_type) >= 0 || elm.id != 22 && ['F', 'A', 'W'].indexOf(_this3.form.radio_type) >= 0);
             }).map(function (elm, i, arr) {
                 return { program_id: elm.id, status: elm.pivot.status };
             });
@@ -6758,7 +6764,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.input-group label {\n  overflow: visible !important;\n}\n.activation-board {\n  height: 50px;\n}\n.programs-area .input-group label {\n  font-size: 13px !important;\n}\n.programs-area .input-group__details {\n  display: none !important;\n}\n.programs-area .switch.input-group--dirty label {\n  color: #6f84fc !important;\n}\n.programs-area .switch label {\n  color: rgba(116, 116, 116, 0.54) !important;\n  font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.input-group label {\n  overflow: visible !important;\n}\n.activation-board {\n  height: 50px;\n}\n.programs-area {\n  width: 100%;\n}\n.programs-area .input-group label {\n    font-size: 13px !important;\n}\n.programs-area .input-group__details {\n    display: none !important;\n}\n.programs-area .switch.input-group--dirty label {\n    color: #6f84fc !important;\n}\n.programs-area .switch label {\n    color: rgba(116, 116, 116, 0.54) !important;\n    font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -31502,103 +31508,121 @@ var render = function() {
                                       _vm._l(_vm.programsList, function(
                                         program
                                       ) {
-                                        return _c(
-                                          "v-flex",
-                                          {
-                                            key: program.id,
-                                            attrs: { xs4: "" }
-                                          },
-                                          [
-                                            _c(
-                                              "v-checkbox",
+                                        return (program.id == 22 &&
+                                          ["T", "V"].indexOf(
+                                            _vm.form.radio_type
+                                          ) >= 0) ||
+                                          (program.id != 22 &&
+                                            ["F", "A", "W"].indexOf(
+                                              _vm.form.radio_type
+                                            ) >= 0)
+                                          ? _c(
+                                              "v-flex",
                                               {
-                                                on: {
-                                                  change: function($event) {
-                                                    _vm.updateProgram(program)
-                                                  }
-                                                },
-                                                model: {
-                                                  value: program.checked,
-                                                  callback: function($$v) {
-                                                    _vm.$set(
-                                                      program,
-                                                      "checked",
-                                                      $$v
-                                                    )
-                                                  },
-                                                  expression: "program.checked"
-                                                }
+                                                key: program.id,
+                                                attrs: { xs4: "" }
                                               },
                                               [
                                                 _c(
-                                                  "div",
+                                                  "v-checkbox",
                                                   {
-                                                    attrs: { slot: "label" },
-                                                    slot: "label"
+                                                    on: {
+                                                      change: function($event) {
+                                                        _vm.updateProgram(
+                                                          program
+                                                        )
+                                                      }
+                                                    },
+                                                    model: {
+                                                      value: program.checked,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          program,
+                                                          "checked",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "program.checked"
+                                                    }
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      "\n                                            " +
-                                                        _vm._s(program.name) +
-                                                        "\n                                        "
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        attrs: {
+                                                          slot: "label"
+                                                        },
+                                                        slot: "label"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                                            " +
+                                                            _vm._s(
+                                                              program.name
+                                                            ) +
+                                                            "\n                                        "
+                                                        )
+                                                      ]
                                                     )
                                                   ]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _vm.$auth.check("A")
-                                              ? _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "activation-board"
-                                                  },
-                                                  [
-                                                    program.pivot
-                                                      ? _c(
-                                                          "div",
-                                                          [
-                                                            _c("v-switch", {
-                                                              attrs: {
-                                                                label: "Ativo"
-                                                              },
-                                                              on: {
-                                                                change: function(
-                                                                  $event
-                                                                ) {
-                                                                  _vm.updatePivot(
-                                                                    program.pivot
-                                                                  )
-                                                                }
-                                                              },
-                                                              model: {
-                                                                value:
-                                                                  program.pivot
-                                                                    .active,
-                                                                callback: function(
-                                                                  $$v
-                                                                ) {
-                                                                  _vm.$set(
-                                                                    program.pivot,
-                                                                    "active",
-                                                                    $$v
-                                                                  )
-                                                                },
-                                                                expression:
-                                                                  "program.pivot.active"
-                                                              }
-                                                            })
-                                                          ],
-                                                          1
-                                                        )
-                                                      : _vm._e()
-                                                  ]
-                                                )
-                                              : _vm._e()
-                                          ],
-                                          1
-                                        )
+                                                ),
+                                                _vm._v(" "),
+                                                _vm.$auth.check("A")
+                                                  ? _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "activation-board"
+                                                      },
+                                                      [
+                                                        program.pivot
+                                                          ? _c(
+                                                              "div",
+                                                              [
+                                                                _c("v-switch", {
+                                                                  attrs: {
+                                                                    label:
+                                                                      "Ativo"
+                                                                  },
+                                                                  on: {
+                                                                    change: function(
+                                                                      $event
+                                                                    ) {
+                                                                      _vm.updatePivot(
+                                                                        program.pivot
+                                                                      )
+                                                                    }
+                                                                  },
+                                                                  model: {
+                                                                    value:
+                                                                      program
+                                                                        .pivot
+                                                                        .active,
+                                                                    callback: function(
+                                                                      $$v
+                                                                    ) {
+                                                                      _vm.$set(
+                                                                        program.pivot,
+                                                                        "active",
+                                                                        $$v
+                                                                      )
+                                                                    },
+                                                                    expression:
+                                                                      "program.pivot.active"
+                                                                  }
+                                                                })
+                                                              ],
+                                                              1
+                                                            )
+                                                          : _vm._e()
+                                                      ]
+                                                    )
+                                                  : _vm._e()
+                                              ],
+                                              1
+                                            )
+                                          : _vm._e()
                                       })
                                     )
                                   ],

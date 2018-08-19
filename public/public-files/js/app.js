@@ -3309,6 +3309,12 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3426,7 +3432,7 @@ module.exports = {
 
             this.loading = true;
             var programs = this.programsList.filter(function (elm, i, arr) {
-                return elm.checked;
+                return elm.checked && (elm.id == 22 && ['T', 'V'].indexOf(_this2.form.radio_type) >= 0 || elm.id != 22 && ['F', 'A', 'W'].indexOf(_this2.form.radio_type) >= 0);
             }).map(function (elm, i, arr) {
 
                 return { program_id: elm.id, status: elm.pivot.status };
@@ -3632,7 +3638,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -5349,60 +5355,74 @@ var render = function() {
                                           _vm._l(_vm.programsList, function(
                                             program
                                           ) {
-                                            return _c(
-                                              "v-flex",
-                                              {
-                                                key: program.id,
-                                                attrs: { xs4: "" }
-                                              },
-                                              [
-                                                _c(
-                                                  "v-checkbox",
+                                            return (program.id == 22 &&
+                                              ["T", "V"].indexOf(
+                                                _vm.form.radio_type
+                                              ) >= 0) ||
+                                              (program.id != 22 &&
+                                                ["F", "A", "W"].indexOf(
+                                                  _vm.form.radio_type
+                                                ) >= 0)
+                                              ? _c(
+                                                  "v-flex",
                                                   {
-                                                    on: {
-                                                      change: function($event) {
-                                                        _vm.updateProgram(
-                                                          program
-                                                        )
-                                                      }
-                                                    },
-                                                    model: {
-                                                      value: program.checked,
-                                                      callback: function($$v) {
-                                                        _vm.$set(
-                                                          program,
-                                                          "checked",
-                                                          $$v
-                                                        )
-                                                      },
-                                                      expression:
-                                                        "program.checked"
-                                                    }
+                                                    key: program.id,
+                                                    attrs: { xs4: "" }
                                                   },
                                                   [
                                                     _c(
-                                                      "div",
+                                                      "v-checkbox",
                                                       {
-                                                        attrs: {
-                                                          slot: "label"
+                                                        on: {
+                                                          change: function(
+                                                            $event
+                                                          ) {
+                                                            _vm.updateProgram(
+                                                              program
+                                                            )
+                                                          }
                                                         },
-                                                        slot: "label"
+                                                        model: {
+                                                          value:
+                                                            program.checked,
+                                                          callback: function(
+                                                            $$v
+                                                          ) {
+                                                            _vm.$set(
+                                                              program,
+                                                              "checked",
+                                                              $$v
+                                                            )
+                                                          },
+                                                          expression:
+                                                            "program.checked"
+                                                        }
                                                       },
                                                       [
-                                                        _vm._v(
-                                                          "\n                                                    " +
-                                                            _vm._s(
-                                                              program.name
-                                                            ) +
-                                                            "\n                                                "
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            attrs: {
+                                                              slot: "label"
+                                                            },
+                                                            slot: "label"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                                                    " +
+                                                                _vm._s(
+                                                                  program.name
+                                                                ) +
+                                                                "\n                                                "
+                                                            )
+                                                          ]
                                                         )
                                                       ]
                                                     )
-                                                  ]
+                                                  ],
+                                                  1
                                                 )
-                                              ],
-                                              1
-                                            )
+                                              : _vm._e()
                                           })
                                         )
                                       ],
