@@ -4395,13 +4395,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var programs = this.programsList.filter(function (elm, i, arr) {
                 return elm.checked;
             }).map(function (elm, i, arr) {
-
                 return { program_id: elm.id, status: elm.pivot.status };
             });
 
             this.form.programs = programs;
+            console.log('aqui', this.form.programs);
             if (this.editing) {
                 this.$http.patch('clients/' + this.form.id, this.form).then(function (r) {
+
                     _this3.message.visible = true;
                     _this3.message.title = 'Alteração';
                     _this3.message.info = 'O cliente ' + _this3.form.radio_name + ' foi alterado com sucesso';
@@ -4429,11 +4430,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
         },
         updatePivot: function updatePivot(pivot) {
-            pivot.status = pivot.active ? 'A' : 'D';
+            __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(pivot, 'status', pivot.active ? 'A' : 'D');
         },
         updateProgram: function updateProgram(program) {
             if (program.checked) {
-                __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(program, 'pivot', { active: false, status: 'A' });
+                __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(program, 'pivot', { active: true, status: 'A' });
             } else {
                 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.delete(program, 'pivot');
             }

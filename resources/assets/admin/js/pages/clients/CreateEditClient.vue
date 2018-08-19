@@ -285,13 +285,14 @@ export default {
                     return elm.checked;
                 })
                 .map((elm, i, arr) => {
-
                     return {program_id: elm.id, status: elm.pivot.status};
                 });
 
             this.form.programs = programs;
+            console.log('aqui', this.form.programs);
             if (this.editing) {
                 this.$http.patch(`clients/${this.form.id}`, this.form).then(r => {
+                    
                     this.message.visible = true;
                     this.message.title = 'Alteração';
                     this.message.info = `O cliente ${this.form.radio_name} foi alterado com sucesso`;
@@ -320,13 +321,13 @@ export default {
         }, 
         updatePivot(pivot)
         {
-            pivot.status = pivot.active ? 'A' : 'D';
+            Vue.set(pivot, 'status', pivot.active ? 'A' : 'D');
         },
         updateProgram(program)
         {
             if (program.checked)
             {
-                Vue.set(program, 'pivot', {active: false, status:'A'})
+                Vue.set(program, 'pivot', {active: true, status:'A'})
             } else {
                 Vue.delete(program, 'pivot');
             }

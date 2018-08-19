@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Client;
+use Log;
 use Auth;
 use App\User;
 use App\Http\Resources\Client as ClientResource;
@@ -166,7 +167,9 @@ class ClientController extends Controller
             }
             $client->user->save();
 
-            $client->programs()->sync($request->input('programs'));
+            $client->programs()->detach();
+            $client->programs()->attach($request->input('programs'));
+
             $client->save();
             $r = new ClientResource(Client::with('user', 'programs')->find($client->id));
             DB::commit();
