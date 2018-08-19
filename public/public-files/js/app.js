@@ -3369,6 +3369,13 @@ module.exports = {
             validationRules: {
                 tel: [function (v) {
                     return !!_this.form.tel || !!_this.form.tel_mobile || 'Preencha pelo menos um telefone';
+                }, function (v) {
+                    return !v || v.length >= 10 || 'Preencha o número corretamente';
+                }],
+                tel_mobile: [function (v) {
+                    return !!_this.form.tel || !!_this.form.tel_mobile || 'Preencha pelo menos um telefone';
+                }, function (v) {
+                    return !v || v.length >= 11 || 'Preencha o número corretamente';
                 }],
                 cpf: [function (v) {
                     return !!_this.form.cpf || !!_this.form.cnpj || 'Preencha um CPF ou CNPJ';

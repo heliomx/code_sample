@@ -174,6 +174,11 @@ export default {
             {
                 tel: [
                     v => (!!this.form.tel || !!this.form.tel_mobile) || 'Preencha pelo menos um telefone',
+                    v => (!v || v.length >= 10) || 'Preencha o número corretamente',
+                ],
+                tel_mobile: [
+                    v => (!!this.form.tel || !!this.form.tel_mobile) || 'Preencha pelo menos um telefone',
+                    v => (!v || v.length >= 11) || 'Preencha o número corretamente',
                 ],
                 cpf: [
                     v => (!!this.form.cpf || !!this.form.cnpj) || 'Preencha um CPF ou CNPJ',

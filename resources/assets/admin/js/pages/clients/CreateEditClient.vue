@@ -74,7 +74,7 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs4>
-                        <v-text-field v-model="form.tel_mobile" mask="(##) #####-####" @change="refreshValidation" :rules="validationRules.tel"  label="Telefone Celular">
+                        <v-text-field v-model="form.tel_mobile" mask="(##) #####-####" @change="refreshValidation" :rules="validationRules.tel_mobile"  label="Telefone Celular">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs6>
@@ -220,6 +220,11 @@ export default {
             {
                 tel: [
                     v => (!!this.form.tel || !!this.form.tel_mobile) || 'Preencha pelo menos um telefone',
+                    v => (!v || v.length >= 10) || 'Preencha o número corretamente',
+                ],
+                tel_mobile: [
+                    v => (!!this.form.tel || !!this.form.tel_mobile) || 'Preencha pelo menos um telefone',
+                    v => (!v || v.length >= 11) || 'Preencha o número corretamente',
                 ],
                 cpf: [
                     v => (!!this.form.cpf || !!this.form.cnpj) || 'Preencha um CPF ou CNPJ',
