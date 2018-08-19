@@ -290,6 +290,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.programs-area 
+{
+    width: 100%;
+}
 </style>
