@@ -326,7 +326,7 @@ export default {
         {
             if (program.checked)
             {
-                Vue.set(program, 'pivot', {active: true, status:'A'})
+                Vue.set(program, 'pivot', {active: false, status:'A'})
             } else {
                 Vue.delete(program, 'pivot');
             }

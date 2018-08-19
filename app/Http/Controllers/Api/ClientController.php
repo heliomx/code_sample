@@ -166,16 +166,7 @@ class ClientController extends Controller
             }
             $client->user->save();
 
-            $programs = $request->input('programs');
-            for ($k = 0; $k < count($programs); $k++ )
-            {
-                if (!$client->programs->contains($programs[$k]['program_id']))
-                {
-                    $client->programs()->attach( 
-                        [ $programs[$k]['program_id'] => [ "status" => $programs[$k]['status'] ]] 
-                    );
-                }
-            }
+            $client->programs()->sync($request->input('programs'));
             $client->save();
             $r = new ClientResource(Client::with('user', 'programs')->find($client->id));
             DB::commit();

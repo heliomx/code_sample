@@ -4433,7 +4433,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         },
         updateProgram: function updateProgram(program) {
             if (program.checked) {
-                __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(program, 'pivot', { active: true, status: 'A' });
+                __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(program, 'pivot', { active: false, status: 'A' });
             } else {
                 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.delete(program, 'pivot');
             }
