@@ -40,8 +40,8 @@
                                     </v-text-field>
                                 </v-flex>
                                 <v-flex xs2>
-                                    <v-text-field v-model="form.address_uf" :rules="validationRules.required" required label="UF">
-                                    </v-text-field>
+                                    <v-select :items="ufs" :rules="validationRules.required" label="UF" required v-model="form.address_uf" >
+                                    </v-select>
                                 </v-flex>
                                 <v-flex xs4>
                                     <v-text-field v-model="form.address_cep" mask="##.###-###" label="CEP">
@@ -118,6 +118,7 @@
 <script>
 import { validaCPF, validaCNPJ, required, email } from '../../../admin/js/lib/ValidationFunctions';
 import MessageDialog from '../../../admin/js/components/MessageDialog2';
+import { ufList } from '../../../admin/js/lib/UfList';
 
 import Vue from "vue";
 
@@ -138,6 +139,7 @@ export default {
             loading: false,
             confirmDeletion: false,
             editing: false,
+            ufs: ufList(),
             radioList: [{
                     text: "Rádio Web",
                     value: "W"

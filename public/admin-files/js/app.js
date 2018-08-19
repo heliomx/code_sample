@@ -4112,6 +4112,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_MessageDialog_vue__ = __webpack_require__("./resources/assets/admin/js/components/MessageDialog.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event_bus__ = __webpack_require__("./resources/assets/admin/js/event-bus.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__ = __webpack_require__("./resources/assets/admin/js/lib/ValidationFunctions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_UfList__ = __webpack_require__("./resources/assets/admin/js/lib/UfList.js");
 //
 //
 //
@@ -4272,6 +4273,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+
 
 
 
@@ -4296,6 +4298,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             valid: true,
             confirmDeletion: false,
             editing: false,
+            ufs: Object(__WEBPACK_IMPORTED_MODULE_4__lib_UfList__["a" /* ufList */])(),
             radioList: [{
                 text: "Rádio Web",
                 value: "W"
@@ -31350,11 +31353,12 @@ var render = function() {
                               "v-flex",
                               { attrs: { xs2: "" } },
                               [
-                                _c("v-text-field", {
+                                _c("v-select", {
                                   attrs: {
+                                    items: _vm.ufs,
                                     rules: _vm.validationRules.required,
-                                    required: "",
-                                    label: "UF"
+                                    label: "UF",
+                                    required: ""
                                   },
                                   model: {
                                     value: _vm.form.address_uf,
@@ -69672,6 +69676,17 @@ function debounce(func, wait, immediate) {
         patch: patch
     };
 });
+
+/***/ }),
+
+/***/ "./resources/assets/admin/js/lib/UfList.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = ufList;
+function ufList() {
+    return ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
+}
 
 /***/ }),
 

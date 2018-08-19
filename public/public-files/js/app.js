@@ -3196,8 +3196,9 @@ module.exports = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__admin_js_lib_ValidationFunctions__ = __webpack_require__("./resources/assets/admin/js/lib/ValidationFunctions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__admin_js_components_MessageDialog2__ = __webpack_require__("./resources/assets/admin/js/components/MessageDialog2.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin_js_lib_UfList__ = __webpack_require__("./resources/assets/admin/js/lib/UfList.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue__);
 //
 //
 //
@@ -3315,6 +3316,7 @@ module.exports = {
 //
 //
 //
+
 
 
 
@@ -3340,6 +3342,7 @@ module.exports = {
             loading: false,
             confirmDeletion: false,
             editing: false,
+            ufs: Object(__WEBPACK_IMPORTED_MODULE_2__admin_js_lib_UfList__["a" /* ufList */])(),
             radioList: [{
                 text: "Rádio Web",
                 value: "W"
@@ -3453,9 +3456,9 @@ module.exports = {
         },
         updateProgram: function updateProgram(program) {
             if (program.checked) {
-                __WEBPACK_IMPORTED_MODULE_2_vue___default.a.set(program, 'pivot', { active: true, status: 'A' });
+                __WEBPACK_IMPORTED_MODULE_3_vue___default.a.set(program, 'pivot', { active: true, status: 'A' });
             } else {
-                __WEBPACK_IMPORTED_MODULE_2_vue___default.a.delete(program, 'pivot');
+                __WEBPACK_IMPORTED_MODULE_3_vue___default.a.delete(program, 'pivot');
             }
         },
         fetchData: function fetchData() {
@@ -5194,11 +5197,12 @@ var render = function() {
                                   "v-flex",
                                   { attrs: { xs2: "" } },
                                   [
-                                    _c("v-text-field", {
+                                    _c("v-select", {
                                       attrs: {
+                                        items: _vm.ufs,
                                         rules: _vm.validationRules.required,
-                                        required: "",
-                                        label: "UF"
+                                        label: "UF",
+                                        required: ""
                                       },
                                       model: {
                                         value: _vm.form.address_uf,
@@ -41604,6 +41608,17 @@ if (false) {(function () {
 
 /* harmony default export */ __webpack_exports__["a"] = (Component.exports);
 
+
+/***/ }),
+
+/***/ "./resources/assets/admin/js/lib/UfList.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = ufList;
+function ufList() {
+    return ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
+}
 
 /***/ }),
 

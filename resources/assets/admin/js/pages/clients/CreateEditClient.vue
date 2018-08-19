@@ -54,8 +54,8 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs2>
-                        <v-text-field v-model="form.address_uf" :rules="validationRules.required" required label="UF">
-                        </v-text-field>
+                        <v-select :items="ufs" :rules="validationRules.required" label="UF" required v-model="form.address_uf" >
+                        </v-select>
                     </v-flex>
                     <v-flex xs4>
                         <v-text-field v-model="form.address_cep" mask="##.###-###" label="CEP">
@@ -163,7 +163,7 @@ import Vue from "vue";
 import MessageDialog from '../../components/MessageDialog.vue';
 import { EventBus } from '../../event-bus';
 import { validaCPF, validaCNPJ, required, email } from '../../lib/ValidationFunctions';
-
+import { ufList } from '../../lib/UfList';
 
 export default {
     components: {
@@ -181,6 +181,7 @@ export default {
             valid: true,
             confirmDeletion: false,
             editing: false,
+            ufs: ufList(),
             radioList: [{
                     text: "Rádio Web",
                     value: "W"
