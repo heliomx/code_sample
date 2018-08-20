@@ -74,13 +74,18 @@ class ProgramController extends Controller
                 $client = Client::find($user->client_id);
                 $file = ProgramFile::find($id);
                 $program = $client->programs()->whereStatus('A')->find($file->program_id);
+                $download = Download::whereProgramFileId($id)->whereClientId($client->id)->first();
+                
                 if ($program)
                 {
-                    Download::create([
-                        'program_file_id' => $id,
-                        'client_id'  => $client->id
-                    ]);
-    
+                    if (empty($download))
+                    {
+                        Download::create([
+                            'program_file_id' => $id,
+                            'client_id'  => $client->id
+                        ]);
+                    }
+                    
                     return Storage::drive('packages')->download($file->file_name);
                 } else {
                     abort(401, 'Não autorizado');

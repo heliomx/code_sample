@@ -3,22 +3,22 @@
     <div v-if="!$global.loading" style="margin-top: 40px">
         <v-container fluid grid-list-lg="true">
             <v-layout row wrap>
-                <v-flex xs3>
+                <v-flex xs12 md3>
                     <h2 class="text-xs-center">Dashboard</h2>
                 </v-flex>
-                <v-flex xs3>
+                <v-flex xs4 md3>
                     <v-card>
                         <div class="d-card">
                             <div class="ico"><v-icon>contacts</v-icon></div>
                             <div class="data">
                                 <div class="title">Clientes</div>
                                 <div class="value">{{ stats.activeClients }}</div>
-                                <div class="description">ativos</div>
+                                <div class="description">Ativos</div>
                             </div>
                         </div>
                     </v-card>
                 </v-flex>
-                <v-flex xs3>
+                <v-flex xs4 md3>
                     <v-card>
                         <div class="d-card">
                             <div class="ico"><v-icon>edit</v-icon></div>
@@ -30,7 +30,7 @@
                         </div>
                     </v-card>
                 </v-flex>
-                <v-flex xs3>
+                <v-flex xs4 md3>
                     <v-card>
                         <div class="d-card">
                             <div class="ico"><v-icon>get_app</v-icon></div>
@@ -42,7 +42,7 @@
                         </div>
                     </v-card>
                 </v-flex>
-                <v-flex xs4>
+                <v-flex md4 xs12>
                     <v-card>
                         <div class="d-card">
                             <div class="data">
@@ -66,7 +66,7 @@
 
                 </v-flex>
 
-                <v-flex xs8>
+                <v-flex xs12 md8>
                     <v-card>
                         <div class="d-card">
                             <div class="data">

@@ -32260,7 +32260,7 @@ var render = function() {
                   "v-layout",
                   { attrs: { row: "", wrap: "" } },
                   [
-                    _c("v-flex", { attrs: { xs3: "" } }, [
+                    _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
                       _c("h2", { staticClass: "text-xs-center" }, [
                         _vm._v("Dashboard")
                       ])
@@ -32268,7 +32268,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-flex",
-                      { attrs: { xs3: "" } },
+                      { attrs: { xs4: "", md3: "" } },
                       [
                         _c("v-card", [
                           _c("div", { staticClass: "d-card" }, [
@@ -32289,7 +32289,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "description" }, [
-                                _vm._v("ativos")
+                                _vm._v("Ativos")
                               ])
                             ])
                           ])
@@ -32300,7 +32300,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-flex",
-                      { attrs: { xs3: "" } },
+                      { attrs: { xs4: "", md3: "" } },
                       [
                         _c("v-card", [
                           _c("div", { staticClass: "d-card" }, [
@@ -32332,7 +32332,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-flex",
-                      { attrs: { xs3: "" } },
+                      { attrs: { xs4: "", md3: "" } },
                       [
                         _c("v-card", [
                           _c("div", { staticClass: "d-card" }, [
@@ -32364,7 +32364,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-flex",
-                      { attrs: { xs4: "" } },
+                      { attrs: { md4: "", xs12: "" } },
                       [
                         _c("v-card", [
                           _c("div", { staticClass: "d-card" }, [
@@ -32425,7 +32425,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "v-flex",
-                      { attrs: { xs8: "" } },
+                      { attrs: { xs12: "", md8: "" } },
                       [
                         _c("v-card", [
                           _c("div", { staticClass: "d-card" }, [
