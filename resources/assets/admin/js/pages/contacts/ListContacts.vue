@@ -6,6 +6,7 @@
     <v-data-table
       :headers="headers"
       :items="items"
+      :rows-per-page-text="'Itens por página:'"
       hide-actions
       class="elevation-1"
     >

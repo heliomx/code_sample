@@ -1,11 +1,15 @@
 <template>
-    <v-app>
+    <div style="width:100%">
         <h1 class="headline">Bem vindo, {{ firstName }} :)</h1>
-    </v-app>
+        <dashboard-ui v-if="$auth.check('A')"></dashboard-ui>
+    </div>
 </template>
 
 <script>
+import DashboardUi from '../components/dashboard/DashboardUi';
+
 export default {
+  components: { DashboardUi },
   data(){
       return {
           firstName: ''

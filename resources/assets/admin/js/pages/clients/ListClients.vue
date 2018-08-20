@@ -18,8 +18,10 @@
     <v-data-table
       :headers="headers"
       :items="items"
+      :rows-per-page-text="'Itens por página:'"
       :pagination.sync="pagination"
       :total-items="totalItems"
+      
       :loading="loading"
       class="elevation-1"
     >

@@ -35,6 +35,9 @@ Route::group(['middleware' => 'jwt.auth'], function(){
   Route::post('users/{id}', 'AuthController@update');
   Route::delete('users/{id}', 'AuthController@destroy');
 
+  // Dashboard
+  Route::get('dashboard', 'Api\DashboardController@general');
+
 
 });
 Route::group(['middleware' => 'jwt.refresh'], function(){

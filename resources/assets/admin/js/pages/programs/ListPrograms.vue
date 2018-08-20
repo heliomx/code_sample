@@ -7,6 +7,7 @@
       :headers="headers"
       :items="items"
       hide-actions
+      :rows-per-page-text="'Itens por página:'"
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">

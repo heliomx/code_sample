@@ -97,6 +97,12 @@ export default {
         drawer: null,
         items: [
             {
+                icon: "insert_chart_outlined",
+                text: "Dashboard",
+                link: "/dashboard",
+                roles: [ 'A' ]
+            },
+            {
                 icon: "contacts",
                 text: "Alterar cadastro",
                 link: "/cadastro",
@@ -172,7 +178,7 @@ export default {
                 ]
             },
             {
-                icon: "keyboard_arrow_up",
+                icon: "perm_phone_msg",
                 text: "Fale Conosco",
                 link: "/faleconosco",
                 roles: [ 'A' ]

@@ -13,6 +13,7 @@
                   label="Buscar por nome ou email do usuário" 
                   single-line 
                   hide-details 
+                  :rows-per-page-text="'Itens por página:'"
                   debounce="500">
                 </v-text-field>
             </search-box>
