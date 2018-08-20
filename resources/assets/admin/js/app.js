@@ -209,11 +209,6 @@ const router = new VueRouter({
                     name: 'editUser',
                     component: CreateEditUser
                 },
-
-                
-
-
-
             ]
         }
     ]

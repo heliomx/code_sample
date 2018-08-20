@@ -3602,10 +3602,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
         return {
+            loading: false,
             paginationUF: {
                 rowsPerPage: 5
             },
@@ -3650,10 +3652,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     methods: {
         fetchData: function fetchData() {
+            this.$global.loading = true;
+            this.updateData();
+        },
+        updateData: function updateData() {
             var _this = this;
 
-            this.$global.loading = true;
+            this.loading = true;
             this.$http.get('dashboard').then(function (r) {
+                _this.loading = false;
                 _this.stats = r.data;
                 _this.$global.loading = false;
             });
@@ -6074,6 +6081,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 
     methods: {
+        download: function download(file) {
+            window.open('/api/programs/downloads/' + file.id + '?token=' + this.$auth.token(), '_blank');
+        },
         fetchData: function fetchData() {
             var _this = this;
 
@@ -30605,13 +30615,12 @@ var render = function() {
                                 _c(
                                   "a",
                                   {
-                                    attrs: {
-                                      target: "_blank",
-                                      href:
-                                        "/api/programs/downloads/" +
-                                        file.id +
-                                        "?token=" +
-                                        _vm.$auth.token()
+                                    attrs: { target: "_blank", href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        _vm.download(file)
+                                      }
                                     }
                                   },
                                   [
@@ -32260,11 +32269,28 @@ var render = function() {
                   "v-layout",
                   { attrs: { row: "", wrap: "" } },
                   [
-                    _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
-                      _c("h2", { staticClass: "text-xs-center" }, [
-                        _vm._v("Dashboard")
-                      ])
-                    ]),
+                    _c(
+                      "v-flex",
+                      {
+                        staticClass: "text-xs-center",
+                        attrs: { xs12: "", md3: "" }
+                      },
+                      [
+                        _c("h2", { staticClass: "text-xs-center" }, [
+                          _vm._v("Dashboard")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { loading: _vm.loading, small: "" },
+                            on: { click: _vm.updateData }
+                          },
+                          [_vm._v("Atualizar")]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c(
                       "v-flex",

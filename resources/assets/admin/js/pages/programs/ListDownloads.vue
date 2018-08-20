@@ -13,7 +13,7 @@
                             <ul>
                                 <li v-for="file in program.files" :key="file.id">
                                     <small>{{ file.air_on | dateformat}}</small><br>
-                                    <a target="_blank" :href="'/api/programs/downloads/' + file.id + '?token=' + $auth.token()">Programa {{ file.program_number }}</a>
+                                    <a target="_blank" href="#" @click.prevent="download(file)" >Programa {{ file.program_number }}</a>
                                     
                                 </li>
                             </ul>  
@@ -53,6 +53,10 @@ export default {
     },
 
     methods: {
+        download(file)
+        {
+            window.open('/api/programs/downloads/' + file.id + '?token=' + this.$auth.token(), '_blank');
+        },
         fetchData()
         {
             this.$global.loading = true;
