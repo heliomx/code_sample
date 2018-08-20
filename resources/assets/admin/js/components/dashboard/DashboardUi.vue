@@ -3,8 +3,9 @@
     <div v-if="!$global.loading" style="margin-top: 40px">
         <v-container fluid grid-list-lg="true">
             <v-layout row wrap>
-                <v-flex xs12 md3>
+                <v-flex xs12 md3 class="text-xs-center">
                     <h2 class="text-xs-center">Dashboard</h2>
+                    <v-btn :loading="loading" small @click="updateData">Atualizar</v-btn>
                 </v-flex>
                 <v-flex xs4 md3>
                     <v-card>
@@ -105,6 +106,7 @@
 export default {
     data() {
         return {
+            loading: false,
             paginationUF: {
                 rowsPerPage: 5
             },
@@ -155,11 +157,17 @@ export default {
     methods: {
         fetchData() {
             this.$global.loading = true;
+            this.updateData();
+        },
+        updateData()
+        {
+            this.loading = true;
             this.$http.get('dashboard')
-                .then(r => {
-                    this.stats = r.data;
-                    this.$global.loading = false;
-                });
+            .then(r => {
+                this.loading = false;
+                this.stats = r.data;
+                this.$global.loading = false;
+            });
         }
     },
     created() {
