@@ -7,9 +7,6 @@
                     <a href="mailto:contato@radioestudiobrasil.com.br">contato@radioestudiobrasil.com.br</a> 
                     | (61) 3532-6993
                 </v-flex>
-                <v-flex sm4>
-                    <div class="text-xs-center">Rádio Estúdio Brasil - Sempre com você</div>
-                </v-flex> 
                 <v-spacer></v-spacer>
                     <a href="/admin">ÁREA RESTRITA</a>&nbsp;|&nbsp;<router-link to="/cadastro">CADASTRE-SE</router-link>
                 
@@ -18,6 +15,7 @@
     </div>
     <div id="player-container">
         <iframe id="player" src="http://centova2.euroti.com.br:2199/player/topo-2.php?sv=23.235.255.26&pt=8101&bg=048d01&txt=FFFFFF&tit=Radio Estudio Brasil Stream&user=radioest&logo=http://www.radioestudiobrasil.com.br/img/logo-sm.png&tp=Rádio Estúdio Brasil - Sempre com você" frameborder="0" width="100%" height="69" scrolling="no"></iframe>
+        <div class="text-xs-center">Rádio Estúdio Brasil<br>Não existe distância, nós chegamos lá.</div>
     </div>
     <div class="header">
         <div class="bg"></div>
@@ -88,11 +86,18 @@ footer {
     z-index: 9;
     width: 285px;
     top: 38px;
-    right: -10px;
+    right: -15px;
     border-radius: 0px 0px 10px 10px;
     background: #048d01;
     padding: 5px;
     box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
+    height:124px;
+
+    div {
+        color: #b0e4af;
+        font-size: 12px;
+        text-align: center;
+    }
 }
 
 .header-info {
