@@ -113,13 +113,56 @@
                         <small v-if="!valid">* Verifique o preenchimento de todos os campos obrigatórios antes de enviar o formulário</small>
                     </v-flex>
                     <v-flex xs12 v-if="$auth.check('A')">
+                        <v-expansion-panel
+                            expand
+                            v-model="panel"
+                            >
+                            <v-expansion-panel-content
+                                
+                                :key="1"
+                            >
+                                <div slot="header">Anotações</div>
+                                <v-card>
+                                <v-card-text>
+                                    <v-text-field
+                                        v-model="form.annotations"    
+                                        box
+                                        
+                                        multi-line
+                                        ></v-text-field>
+                                </v-card-text>
+                                </v-card>
+                            </v-expansion-panel-content>
+                            <v-expansion-panel-content
+                                
+                                :key="2"
+                            >
+                                <div slot="header">Histórico de downloads</div>
+                                <v-card>
+                                <v-card-text>
+                                    <v-data-table 
+                                    :headers="headersHistory" 
+                                    :items="downloadHistory" 
+                                    :pagination.sync="paginationHistory" 
+                                    :rows-per-page-text='"Itens por página:"'
+                                    :disable-initial-sort="true">
+                                        <template slot="items" slot-scope="props">
+                                            <td class="text-xs-left">
+                                                <router-link :to="{ name: 'editProgram', params: { id: props.item.id }}">
+                                                    {{ props.item.name }}
+                                                </router-link>
+                                            </td>
+                                            <td>{{ props.item.qt_signatures }} / {{ props.item.signatures_count }}</td>
+                                            <td>{{ props.item.files_count }}</td>
+                                            <td>{{ props.item.downloads_count }}</td>
+                                        </template>
+                                    </v-data-table>
+                                </v-card-text>
+                                </v-card>
+                            </v-expansion-panel-content>
+                            </v-expansion-panel>
                         
-                        <v-text-field
-                        v-model="form.annotations"    
-                        box
-                        label="Anotações"
-                        multi-line
-                        ></v-text-field>
+                        
                     </v-flex>
                 </v-layout>
                 
@@ -171,6 +214,9 @@ export default {
     },
     data() {
         return {
+            panel:[true, false],
+            loadingHistory: false,
+            downloadHistory: [],
             message: {
                 visible: false,
                 title: '',
@@ -385,11 +431,25 @@ export default {
                     this.form = this.blankForm();
                 }
             });
+        },
+        loadDownloadHistory(){
+            this.loadingHistory = true;
+            this.$http.get('clients/' + this.$route.params.id + '/download-history')
+                .then( r => {
+                    this.downloadHistory = r.data;
+                    this.loadingHistory = false;
+                });
         }
     },
     watch: {
         // call again the method if the route changes
-        $route: "fetchData"
+        $route: "fetchData",
+        panel(){
+            if (this.panel[1])
+            {
+                this.loadDownloadHistory();
+            }
+        }
     },
     created() {
         

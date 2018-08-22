@@ -3,16 +3,21 @@
     <div class="header-info">
         <div class="header-content">
             <v-layout row fluid>
-                <v-flex xs12 sm6>
+                <v-flex xs12 sm4>
                     <a href="mailto:contato@radioestudiobrasil.com.br">contato@radioestudiobrasil.com.br</a> 
                     | (61) 3532-6993
                 </v-flex>
+                <v-flex sm4>
+                    <div class="text-xs-center">Rádio Estúdio Brasil - Sempre com você</div>
+                </v-flex> 
                 <v-spacer></v-spacer>
-                
                     <a href="/admin">ÁREA RESTRITA</a>&nbsp;|&nbsp;<router-link to="/cadastro">CADASTRE-SE</router-link>
                 
             </v-layout>
         </div>
+    </div>
+    <div id="player-container">
+        <iframe id="player" src="http://centova2.euroti.com.br:2199/player/topo-2.php?sv=23.235.255.26&pt=8101&bg=048d01&txt=FFFFFF&tit=Radio Estudio Brasil Stream&user=radioest&logo=http://www.radioestudiobrasil.com.br/img/logo-sm.png&tp=Rádio Estúdio Brasil - Sempre com você" frameborder="0" width="100%" height="69" scrolling="no"></iframe>
     </div>
     <div class="header">
         <div class="bg"></div>
@@ -51,7 +56,9 @@
             </transition>
         </v-container>
     </v-content>
-    <v-footer app color="#c0c0c0">
+    
+    <v-footer :fixed="false" app color="#c0c0c0">
+        
         <div>
             Radio Estúdio Brasil - <a href="mailto:contato@radioestudiobrasil.com.br">contato@radioestudiobrasil.com.br</a> 
                     | (61) 3532-6993
@@ -68,15 +75,36 @@
     font-family: $title-font;
 }
 
+body {
+    margin-top: 30px;
+}
+
+footer {
+    position: relative !important;
+}
+
+#player-container{
+    position: fixed;
+    z-index: 9;
+    width: 285px;
+    top: 38px;
+    right: -10px;
+    border-radius: 0px 0px 10px 10px;
+    background: #048d01;
+    padding: 5px;
+    box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
+}
+
 .header-info {
     background-color: $primary-light;
-    
+    top: 0px;
     color: #fff;
     font-size: 12px;
     -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
     -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
     box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
-    position: relative;
+    width:100%;
+    position:fixed;
 
     a {
         color: #fff;

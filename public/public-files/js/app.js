@@ -3558,7 +3558,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.clear-fix:before, .clear-fix:after {\n  content: \"\";\n  display: table;\n}\n.clear-fix:after {\n  clear: both;\n}\n.container {\n  padding: 0;\n}\n.content-area > div {\n  width: 1000px;\n  margin: 0 auto;\n  background-color: #fff;\n  height: 100%;\n}\nbody {\n  color: #504f4f;\n  font-family: \"Titillium Web\";\n}\n.btn__content {\n  font-family: \"Titillium Web\";\n}\n.btn--large {\n  font-size: 20px;\n}\nsection.content-area > div {\n  padding: 50px 30px;\n}\nsection h2 {\n  color: #504f4f;\n  font-size: 35px;\n  line-height: 31px;\n  font-family: \"Titillium Web\";\n  font-weight: 300;\n  margin-bottom: 20px;\n}\nsection h2 strong {\n    font-weight: 700;\n    display: block;\n    margin-left: 63px;\n}\n* {\n  font-family: \"Titillium Web\";\n}\n.header-info {\n  background-color: #4f9257;\n  color: #fff;\n  font-size: 12px;\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  z-index: 10;\n}\n.header-info a {\n    color: #fff;\n}\n.header {\n  background-color: #2d870c;\n  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005b03+0,2d870c+17,2d870c+83,005b03+100 */\n  background: -moz-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* FF3.6-15 */\n  background: -webkit-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* Chrome10-25,Safari5.1-6 */\n  background: linear-gradient(to right, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005b03', endColorstr='#005b03',GradientType=1 );\n  /* IE6-9 */\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  padding-top: 20px;\n}\n.header .bg {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background-image: url(\"/img/transmission.png\");\n    top: 0;\n    left: 0;\n    z-index: 1;\n    background-position: 825px;\n    opacity: 0.2;\n}\n.header a {\n    color: #fff;\n    display: inline-block;\n    padding: 10px;\n    text-decoration: none;\n    transition: 0.5s;\n}\n.header a:hover {\n      background-color: #4f9257;\n      transition: 0.5s;\n}\n.header nav {\n    display: flex;\n    flex-basis: 100%;\n    flex-direction: row-reverse;\n}\n.header nav ul {\n      list-style-type: none;\n}\n.header nav ul li {\n        float: left;\n}\n.header .header-content {\n    padding: 0;\n    position: relative;\n    z-index: 2;\n}\n.header-content {\n  max-width: 1000px;\n  display: flex;\n  flex-wrap: wrap;\n  padding: 10px 0;\n  margin: 0 auto;\n}\nfooter div {\n  width: 1000px;\n  margin: 0 auto;\n  padding: 0 10px;\n  font-size: 12px;\n}\n.btn-area {\n  text-align: right;\n  margin-top: 40px;\n}\n.fade-enter {\n  opacity: 0;\n}\n.fade-enter-active {\n  transition: opacity 0.3s ease;\n}\n.fade-leave-active {\n  transition: opacity 0.3s ease;\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.clear-fix:before, .clear-fix:after {\n  content: \"\";\n  display: table;\n}\n.clear-fix:after {\n  clear: both;\n}\n.container {\n  padding: 0;\n}\n.content-area > div {\n  width: 1000px;\n  margin: 0 auto;\n  background-color: #fff;\n  height: 100%;\n}\nbody {\n  color: #504f4f;\n  font-family: \"Titillium Web\";\n}\n.btn__content {\n  font-family: \"Titillium Web\";\n}\n.btn--large {\n  font-size: 20px;\n}\nsection.content-area > div {\n  padding: 50px 30px;\n}\nsection h2 {\n  color: #504f4f;\n  font-size: 35px;\n  line-height: 31px;\n  font-family: \"Titillium Web\";\n  font-weight: 300;\n  margin-bottom: 20px;\n}\nsection h2 strong {\n    font-weight: 700;\n    display: block;\n    margin-left: 63px;\n}\n* {\n  font-family: \"Titillium Web\";\n}\nbody {\n  margin-top: 30px;\n}\nfooter {\n  position: relative !important;\n}\n#player-container {\n  position: fixed;\n  z-index: 9;\n  width: 285px;\n  top: 38px;\n  right: -10px;\n  border-radius: 0px 0px 10px 10px;\n  background: #048d01;\n  padding: 5px;\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n}\n.header-info {\n  background-color: #4f9257;\n  top: 0px;\n  color: #fff;\n  font-size: 12px;\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  width: 100%;\n  position: fixed;\n  z-index: 10;\n}\n.header-info a {\n    color: #fff;\n}\n.header {\n  background-color: #2d870c;\n  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#005b03+0,2d870c+17,2d870c+83,005b03+100 */\n  background: -moz-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* FF3.6-15 */\n  background: -webkit-linear-gradient(left, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* Chrome10-25,Safari5.1-6 */\n  background: linear-gradient(to right, #005b03 0%, #2d870c 17%, #2d870c 83%, #005b03 100%);\n  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005b03', endColorstr='#005b03',GradientType=1 );\n  /* IE6-9 */\n  -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);\n  position: relative;\n  padding-top: 20px;\n}\n.header .bg {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background-image: url(\"/img/transmission.png\");\n    top: 0;\n    left: 0;\n    z-index: 1;\n    background-position: 825px;\n    opacity: 0.2;\n}\n.header a {\n    color: #fff;\n    display: inline-block;\n    padding: 10px;\n    text-decoration: none;\n    transition: 0.5s;\n}\n.header a:hover {\n      background-color: #4f9257;\n      transition: 0.5s;\n}\n.header nav {\n    display: flex;\n    flex-basis: 100%;\n    flex-direction: row-reverse;\n}\n.header nav ul {\n      list-style-type: none;\n}\n.header nav ul li {\n        float: left;\n}\n.header .header-content {\n    padding: 0;\n    position: relative;\n    z-index: 2;\n}\n.header-content {\n  max-width: 1000px;\n  display: flex;\n  flex-wrap: wrap;\n  padding: 10px 0;\n  margin: 0 auto;\n}\nfooter div {\n  width: 1000px;\n  margin: 0 auto;\n  padding: 0 10px;\n  font-size: 12px;\n}\n.btn-area {\n  text-align: right;\n  margin-top: 40px;\n}\n.fade-enter {\n  opacity: 0;\n}\n.fade-enter-active {\n  transition: opacity 0.3s ease;\n}\n.fade-leave-active {\n  transition: opacity 0.3s ease;\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -5793,7 +5793,7 @@ var render = function() {
               "v-layout",
               { attrs: { row: "", fluid: "" } },
               [
-                _c("v-flex", { attrs: { xs12: "", sm6: "" } }, [
+                _c("v-flex", { attrs: { xs12: "", sm4: "" } }, [
                   _c(
                     "a",
                     {
@@ -5806,6 +5806,12 @@ var render = function() {
                   _vm._v(
                     " \n                    | (61) 3532-6993\n                "
                   )
+                ]),
+                _vm._v(" "),
+                _c("v-flex", { attrs: { sm4: "" } }, [
+                  _c("div", { staticClass: "text-xs-center" }, [
+                    _vm._v("Rádio Estúdio Brasil - Sempre com você")
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("v-spacer"),
@@ -5823,6 +5829,20 @@ var render = function() {
           ],
           1
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "player-container" } }, [
+        _c("iframe", {
+          attrs: {
+            id: "player",
+            src:
+              "http://centova2.euroti.com.br:2199/player/topo-2.php?sv=23.235.255.26&pt=8101&bg=048d01&txt=FFFFFF&tit=Radio Estudio Brasil Stream&user=radioest&logo=http://www.radioestudiobrasil.com.br/img/logo-sm.png&tp=Rádio Estúdio Brasil - Sempre com você",
+            frameborder: "0",
+            width: "100%",
+            height: "69",
+            scrolling: "no"
+          }
+        })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "header" }, [
@@ -5916,7 +5936,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-footer", { attrs: { app: "", color: "#c0c0c0" } }, [
+      _c("v-footer", { attrs: { fixed: false, app: "", color: "#c0c0c0" } }, [
         _c("div", [
           _vm._v("\n            Radio Estúdio Brasil - "),
           _c(

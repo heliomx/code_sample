@@ -4461,6 +4461,49 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4476,6 +4519,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         var _this = this;
 
         return {
+            panel: [true, false],
+            loadingHistory: false,
+            downloadHistory: [],
             message: {
                 visible: false,
                 title: '',
@@ -4680,11 +4726,25 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     _this4.form = _this4.blankForm();
                 }
             });
+        },
+        loadDownloadHistory: function loadDownloadHistory() {
+            var _this5 = this;
+
+            this.loadingHistory = true;
+            this.$http.get('clients/' + this.$route.params.id + '/download-history').then(function (r) {
+                _this5.downloadHistory = r.data;
+                _this5.loadingHistory = false;
+            });
         }
     },
     watch: {
         // call again the method if the route changes
-        $route: "fetchData"
+        $route: "fetchData",
+        panel: function panel() {
+            if (this.panel[1]) {
+                this.loadDownloadHistory();
+            }
+        }
     },
     created: function created() {
 
@@ -31871,20 +31931,199 @@ var render = function() {
                                   "v-flex",
                                   { attrs: { xs12: "" } },
                                   [
-                                    _c("v-text-field", {
-                                      attrs: {
-                                        box: "",
-                                        label: "Anotações",
-                                        "multi-line": ""
+                                    _c(
+                                      "v-expansion-panel",
+                                      {
+                                        attrs: { expand: "" },
+                                        model: {
+                                          value: _vm.panel,
+                                          callback: function($$v) {
+                                            _vm.panel = $$v
+                                          },
+                                          expression: "panel"
+                                        }
                                       },
-                                      model: {
-                                        value: _vm.form.annotations,
-                                        callback: function($$v) {
-                                          _vm.$set(_vm.form, "annotations", $$v)
-                                        },
-                                        expression: "form.annotations"
-                                      }
-                                    })
+                                      [
+                                        _c(
+                                          "v-expansion-panel-content",
+                                          { key: 1 },
+                                          [
+                                            _c(
+                                              "div",
+                                              {
+                                                attrs: { slot: "header" },
+                                                slot: "header"
+                                              },
+                                              [_vm._v("Anotações")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-card",
+                                              [
+                                                _c(
+                                                  "v-card-text",
+                                                  [
+                                                    _c("v-text-field", {
+                                                      attrs: {
+                                                        box: "",
+                                                        "multi-line": ""
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.form.annotations,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.form,
+                                                            "annotations",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "form.annotations"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-expansion-panel-content",
+                                          { key: 2 },
+                                          [
+                                            _c(
+                                              "div",
+                                              {
+                                                attrs: { slot: "header" },
+                                                slot: "header"
+                                              },
+                                              [_vm._v("Histórico de downloads")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-card",
+                                              [
+                                                _c(
+                                                  "v-card-text",
+                                                  [
+                                                    _c("v-data-table", {
+                                                      attrs: {
+                                                        headers:
+                                                          _vm.headersHistory,
+                                                        items:
+                                                          _vm.downloadHistory,
+                                                        pagination:
+                                                          _vm.paginationHistory,
+                                                        "rows-per-page-text":
+                                                          "Itens por página:",
+                                                        "disable-initial-sort": true
+                                                      },
+                                                      on: {
+                                                        "update:pagination": function(
+                                                          $event
+                                                        ) {
+                                                          _vm.paginationHistory = $event
+                                                        }
+                                                      },
+                                                      scopedSlots: _vm._u([
+                                                        {
+                                                          key: "items",
+                                                          fn: function(props) {
+                                                            return [
+                                                              _c(
+                                                                "td",
+                                                                {
+                                                                  staticClass:
+                                                                    "text-xs-left"
+                                                                },
+                                                                [
+                                                                  _c(
+                                                                    "router-link",
+                                                                    {
+                                                                      attrs: {
+                                                                        to: {
+                                                                          name:
+                                                                            "editProgram",
+                                                                          params: {
+                                                                            id:
+                                                                              props
+                                                                                .item
+                                                                                .id
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        "\n                                                    " +
+                                                                          _vm._s(
+                                                                            props
+                                                                              .item
+                                                                              .name
+                                                                          ) +
+                                                                          "\n                                                "
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                ],
+                                                                1
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _c("td", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    props.item
+                                                                      .qt_signatures
+                                                                  ) +
+                                                                    " / " +
+                                                                    _vm._s(
+                                                                      props.item
+                                                                        .signatures_count
+                                                                    )
+                                                                )
+                                                              ]),
+                                                              _vm._v(" "),
+                                                              _c("td", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    props.item
+                                                                      .files_count
+                                                                  )
+                                                                )
+                                                              ]),
+                                                              _vm._v(" "),
+                                                              _c("td", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    props.item
+                                                                      .downloads_count
+                                                                  )
+                                                                )
+                                                              ])
+                                                            ]
+                                                          }
+                                                        }
+                                                      ])
+                                                    })
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
                                   ],
                                   1
                                 )
