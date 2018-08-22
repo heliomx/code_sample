@@ -68236,7 +68236,7 @@ function required(v, message) {
 
 function email(v, message) {
     message = !message ? 'Formato de e-mail errado.' : message;
-    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || message
+    return (/^\w+([.-]\w+)*@\w+([.-]\w+)*\.\w{2,3}$/.test(v) || message
     );
 }
 
