@@ -3347,13 +3347,13 @@ module.exports = {
                 text: "Rádio Web",
                 value: "W"
             }, {
-                text: "Rádio Convencional AM",
+                text: "Rádio AM",
                 value: "A"
             }, {
-                text: "Rádio Convencional FM",
+                text: "Rádio FM",
                 value: "F"
             }, {
-                text: "TV Convencional",
+                text: "TV",
                 value: "T"
             }, {
                 text: "TV Web",
@@ -5110,7 +5110,7 @@ var render = function() {
                                       attrs: {
                                         items: _vm.radioList,
                                         rules: _vm.validationRules.required,
-                                        label: "Tipo de rádio",
+                                        label: "Tipo de cadastro",
                                         required: "",
                                         "single-line": ""
                                       },
@@ -5813,7 +5813,7 @@ var render = function() {
                 _c("a", { attrs: { href: "/admin" } }, [
                   _vm._v("ÁREA RESTRITA")
                 ]),
-                _vm._v(" | "),
+                _vm._v("      |      "),
                 _c("router-link", { attrs: { to: "/cadastro" } }, [
                   _vm._v("CADASTRE-SE")
                 ])
@@ -5897,20 +5897,7 @@ var render = function() {
                   ])
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href: "http://tvestudiobrasil.com/",
-                      target: "_blank"
-                    }
-                  },
-                  [_vm._v("TV Estúdio Brasil")]
-                )
-              ])
+              )
             ])
           ])
         ])

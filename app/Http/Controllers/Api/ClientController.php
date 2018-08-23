@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Client;
+use App\Download;
 use Log;
 use Auth;
 use App\User;
@@ -58,7 +59,7 @@ class ClientController extends Controller
         
         $data = ClientResource::collection($query->get());
 
-        return response()->json( [ 'items' => $data, 'total' => $count, 'sql' => $query->toSql() ] );
+        return response()->json( [ 'items' => $data, 'total' => $count  ] );
     }
 
     /**
@@ -109,6 +110,19 @@ class ClientController extends Controller
         }
         
         return $r;
+    }
+
+    public function downloadHistory(Request $request, $id)
+    {
+        $data = Download::with('programFile')
+            ->whereClientId($id)
+            ->limit($request->input('rowsPerPage'))
+            ->offset($request->input('rowsPerPage') * ($request->input('page') - 1))
+            ->get();
+        $count = Download::with('programFile')
+            ->whereClientId($id)->count();
+            
+        return [ 'items' => $data, 'total' => $count ];
     }
 
    

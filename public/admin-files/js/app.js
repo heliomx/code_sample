@@ -4301,6 +4301,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event_bus__ = __webpack_require__("./resources/assets/admin/js/event-bus.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__ = __webpack_require__("./resources/assets/admin/js/lib/ValidationFunctions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_UfList__ = __webpack_require__("./resources/assets/admin/js/lib/UfList.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__filters_DateFormatFilter__ = __webpack_require__("./resources/assets/admin/js/filters/DateFormatFilter.js");
 //
 //
 //
@@ -4498,12 +4499,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -4512,6 +4508,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
+    filters: {
+        dateformat: __WEBPACK_IMPORTED_MODULE_5__filters_DateFormatFilter__["a" /* default */]
+    },
     components: {
         MessageDialog: __WEBPACK_IMPORTED_MODULE_1__components_MessageDialog_vue__["a" /* default */]
     },
@@ -4521,7 +4520,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         return {
             panel: [true, false],
             loadingHistory: false,
+            paginationHistory: { rowsPerPage: 5 },
             downloadHistory: [],
+            totalHistoryItems: 0,
+            headersHistory: [{
+                text: "Nome do arquivo",
+                align: "left",
+                value: "program_file.file_name",
+                sortable: false
+            }, {
+                text: "Data",
+                value: "download_at"
+            }],
             message: {
                 visible: false,
                 title: '',
@@ -4537,13 +4547,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 text: "Rádio Web",
                 value: "W"
             }, {
-                text: "Rádio Convencional AM",
+                text: "Rádio AM",
                 value: "A"
             }, {
-                text: "Rádio Convencional FM",
+                text: "Rádio FM",
                 value: "F"
             }, {
-                text: "TV Convencional",
+                text: "TV",
                 value: "T"
             }, {
                 text: "TV Web",
@@ -4694,6 +4704,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             this.$global.loading = true;
             var clientId = void 0;
+            this.loadDownloadHistory();
             if (this.$route.name == 'clientForm' || this.$route.name == 'editClient') {
                 this.editing = true;
                 this.clientEdit = this.$route.name == 'clientForm';
@@ -4731,8 +4742,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var _this5 = this;
 
             this.loadingHistory = true;
-            this.$http.get('clients/' + this.$route.params.id + '/download-history').then(function (r) {
-                _this5.downloadHistory = r.data;
+            this.$http.get('clients/' + this.$route.params.id + '/download-history', { params: this.paginationHistory
+            }).then(function (r) {
+                _this5.downloadHistory = r.data.items;
+                _this5.totalHistoryItems = r.data.total;
                 _this5.loadingHistory = false;
             });
         }
@@ -4740,11 +4753,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     watch: {
         // call again the method if the route changes
         $route: "fetchData",
-        panel: function panel() {
-            if (this.panel[1]) {
+        paginationHistory: {
+            handler: function handler() {
                 this.loadDownloadHistory();
-            }
+            },
+
+            deep: true
         }
+
     },
     created: function created() {
 
@@ -31517,7 +31533,7 @@ var render = function() {
                                   attrs: {
                                     items: _vm.radioList,
                                     rules: _vm.validationRules.required,
-                                    label: "Tipo de rádio",
+                                    label: "Tipo de cadastro",
                                     required: "",
                                     "single-line": ""
                                   },
@@ -32015,12 +32031,13 @@ var render = function() {
                                                   [
                                                     _c("v-data-table", {
                                                       attrs: {
-                                                        headers:
-                                                          _vm.headersHistory,
                                                         items:
                                                           _vm.downloadHistory,
+                                                        "hide-headers": true,
                                                         pagination:
                                                           _vm.paginationHistory,
+                                                        "total-items":
+                                                          _vm.totalHistoryItems,
                                                         "rows-per-page-text":
                                                           "Itens por página:",
                                                         "disable-initial-sort": true
@@ -32037,64 +32054,16 @@ var render = function() {
                                                           key: "items",
                                                           fn: function(props) {
                                                             return [
-                                                              _c(
-                                                                "td",
-                                                                {
-                                                                  staticClass:
-                                                                    "text-xs-left"
-                                                                },
-                                                                [
-                                                                  _c(
-                                                                    "router-link",
-                                                                    {
-                                                                      attrs: {
-                                                                        to: {
-                                                                          name:
-                                                                            "editProgram",
-                                                                          params: {
-                                                                            id:
-                                                                              props
-                                                                                .item
-                                                                                .id
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    [
-                                                                      _vm._v(
-                                                                        "\n                                                    " +
-                                                                          _vm._s(
-                                                                            props
-                                                                              .item
-                                                                              .name
-                                                                          ) +
-                                                                          "\n                                                "
-                                                                      )
-                                                                    ]
-                                                                  )
-                                                                ],
-                                                                1
-                                                              ),
-                                                              _vm._v(" "),
                                                               _c("td", [
                                                                 _vm._v(
                                                                   _vm._s(
-                                                                    props.item
-                                                                      .qt_signatures
-                                                                  ) +
-                                                                    " / " +
-                                                                    _vm._s(
+                                                                    _vm._f(
+                                                                      "dateformat "
+                                                                    )(
                                                                       props.item
-                                                                        .signatures_count
+                                                                        .download_date,
+                                                                      "DD/MM/YYYY - HH:mm:ss"
                                                                     )
-                                                                )
-                                                              ]),
-                                                              _vm._v(" "),
-                                                              _c("td", [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    props.item
-                                                                      .files_count
                                                                   )
                                                                 )
                                                               ]),
@@ -32103,7 +32072,8 @@ var render = function() {
                                                                 _vm._v(
                                                                   _vm._s(
                                                                     props.item
-                                                                      .downloads_count
+                                                                      .program_file
+                                                                      .file_name
                                                                   )
                                                                 )
                                                               ])

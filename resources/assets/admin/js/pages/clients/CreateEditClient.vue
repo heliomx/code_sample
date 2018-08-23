@@ -34,7 +34,7 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex xs9>
-                        <v-select :items="radioList" :rules="validationRules.required" label="Tipo de rádio" required v-model="form.radio_type" single-line>
+                        <v-select :items="radioList" :rules="validationRules.required" label="Tipo de cadastro" required v-model="form.radio_type" single-line>
                         </v-select>
                     </v-flex>
                     <v-flex xs3 v-if="$auth.check('A')">
@@ -127,7 +127,6 @@
                                     <v-text-field
                                         v-model="form.annotations"    
                                         box
-                                        
                                         multi-line
                                         ></v-text-field>
                                 </v-card-text>
@@ -141,20 +140,15 @@
                                 <v-card>
                                 <v-card-text>
                                     <v-data-table 
-                                    :headers="headersHistory" 
                                     :items="downloadHistory" 
+                                    :hide-headers='true'
                                     :pagination.sync="paginationHistory" 
+                                    :total-items="totalHistoryItems"
                                     :rows-per-page-text='"Itens por página:"'
                                     :disable-initial-sort="true">
                                         <template slot="items" slot-scope="props">
-                                            <td class="text-xs-left">
-                                                <router-link :to="{ name: 'editProgram', params: { id: props.item.id }}">
-                                                    {{ props.item.name }}
-                                                </router-link>
-                                            </td>
-                                            <td>{{ props.item.qt_signatures }} / {{ props.item.signatures_count }}</td>
-                                            <td>{{ props.item.files_count }}</td>
-                                            <td>{{ props.item.downloads_count }}</td>
+                                            <td>{{ props.item.download_date | dateformat ('DD/MM/YYYY - HH:mm:ss')}}</td>
+                                            <td>{{ props.item.program_file.file_name }}</td>
                                         </template>
                                     </v-data-table>
                                 </v-card-text>
@@ -207,8 +201,12 @@ import MessageDialog from '../../components/MessageDialog.vue';
 import { EventBus } from '../../event-bus';
 import { validaCPF, validaCNPJ, required, email } from '../../lib/ValidationFunctions';
 import { ufList } from '../../lib/UfList';
+import dateformat from '../../filters/DateFormatFilter';
 
 export default {
+    filters: {
+        dateformat
+    },
     components: {
         MessageDialog
     },
@@ -216,7 +214,21 @@ export default {
         return {
             panel:[true, false],
             loadingHistory: false,
+            paginationHistory: { rowsPerPage: 5 },
             downloadHistory: [],
+            totalHistoryItems: 0,
+            headersHistory: [
+                {
+                    text: "Nome do arquivo",
+                    align: "left",
+                    value: "program_file.file_name",
+                    sortable: false
+                },
+                {
+                    text: "Data",
+                    value: "download_at"
+                },
+            ],
             message: {
                 visible: false,
                 title: '',
@@ -233,15 +245,15 @@ export default {
                     value: "W"
                 },
                 {
-                    text: "Rádio Convencional AM",
+                    text: "Rádio AM",
                     value: "A"
                 },
                 {
-                    text: "Rádio Convencional FM",
+                    text: "Rádio FM",
                     value: "F"
                 },
                 {
-                    text: "TV Convencional",
+                    text: "TV",
                     value: "T"
                 },
                 {
@@ -396,6 +408,7 @@ export default {
         fetchData() {
             this.$global.loading = true;
             let clientId;
+            this.loadDownloadHistory();
             if (this.$route.name == 'clientForm' || this.$route.name == 'editClient')
             {
                 this.editing = true;
@@ -434,9 +447,11 @@ export default {
         },
         loadDownloadHistory(){
             this.loadingHistory = true;
-            this.$http.get('clients/' + this.$route.params.id + '/download-history')
+            this.$http.get('clients/' + this.$route.params.id + '/download-history', { params: this.paginationHistory
+             })
                 .then( r => {
-                    this.downloadHistory = r.data;
+                    this.downloadHistory = r.data.items;
+                    this.totalHistoryItems = r.data.total;
                     this.loadingHistory = false;
                 });
         }
@@ -444,12 +459,13 @@ export default {
     watch: {
         // call again the method if the route changes
         $route: "fetchData",
-        panel(){
-            if (this.panel[1])
-            {
+        paginationHistory: {
+            handler() {
                 this.loadDownloadHistory();
-            }
+            },
+            deep: true
         }
+        
     },
     created() {
         

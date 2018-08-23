@@ -24,7 +24,7 @@
                                     </v-text-field>
                                 </v-flex>
                                 <v-flex xs9>
-                                    <v-select :items="radioList" :rules="validationRules.required" label="Tipo de rádio" required v-model="form.radio_type" single-line>
+                                    <v-select :items="radioList" :rules="validationRules.required" label="Tipo de cadastro" required v-model="form.radio_type" single-line>
                                     </v-select>
                                 </v-flex>
                                 <v-flex xs4>
@@ -145,15 +145,15 @@ export default {
                     value: "W"
                 },
                 {
-                    text: "Rádio Convencional AM",
+                    text: "Rádio AM",
                     value: "A"
                 },
                 {
-                    text: "Rádio Convencional FM",
+                    text: "Rádio FM",
                     value: "F"
                 },
                 {
-                    text: "TV Convencional",
+                    text: "TV",
                     value: "T"
                 },
                 {

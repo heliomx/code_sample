@@ -53,6 +53,7 @@ Route::post('userByToken', 'AuthController@userByToken');
 // Clients
 Route::get('clients', 'Api\ClientController@index');
 Route::get('clients/{id}', 'Api\ClientController@show');
+Route::get('clients/{id}/download-history', 'Api\ClientController@downloadHistory');
 Route::patch('clients/{id}', 'Api\ClientController@update');
 Route::delete('clients/{id}', 'Api\ClientController@destroy');
 Route::post('clients', 'Api\ClientController@store');

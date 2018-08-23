@@ -8,7 +8,7 @@
                     | (61) 3532-6993
                 </v-flex>
                 <v-spacer></v-spacer>
-                    <a href="/admin">ÁREA RESTRITA</a>&nbsp;|&nbsp;<router-link to="/cadastro">CADASTRE-SE</router-link>
+                    <a href="/admin">ÁREA RESTRITA</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<router-link to="/cadastro">CADASTRE-SE</router-link>
                 
             </v-layout>
         </div>
@@ -21,7 +21,6 @@
         <div class="bg"></div>
         <div class="header-content">
             <img src="/img/LogoRadio.png">
-            
             <nav>
                 <ul>
                     <li>
@@ -39,9 +38,9 @@
                     <li>
                         <router-link to="/faleconosco">Fale Conosco</router-link>
                     </li>
-                    <li>
-                        <a href="http://tvestudiobrasil.com/" target="_blank">TV Estúdio Brasil</a>
-                    </li>
+                    <!-- <li>
+                        <a href="http://www.radioestudiobrasil.com.br/" target="_blank">Edelson Moura na TV</a>
+                    </li> -->
                 </ul>
             </nav>
         </div>
