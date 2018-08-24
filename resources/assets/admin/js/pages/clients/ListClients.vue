@@ -9,7 +9,7 @@
         v-model.lazy="search"
         box
         append-icon="search"
-        label="Buscar por nome da rádio, e-mail, cidade ou UF"
+        label="Buscar por nome da rádio, e-mail, anotações, cidade ou UF"
         single-line
         hide-details
         debounce="500"

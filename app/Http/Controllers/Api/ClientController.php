@@ -26,12 +26,14 @@ class ClientController extends Controller
             if (strlen($request->input('q')) > 2) {
                 $query->where('radio_name', 'LIKE', '%' . $request->input('q') . '%')
                 ->orWhere('address_city', 'LIKE', '%' . $request->input('q') . '%')
+                ->orWhere('annotations', 'LIKE', '%' . $request->input('q') . '%')
                 ->orWhereHas('user', function ($q) use($request) {
                     return $q->where('email', 'LIKE', '%' . $request->input('q') . '%');
                 });
                 
                 $count = Client::where('radio_name', 'LIKE', '%' . $request->input('q') . '%')
                 ->orWhere('address_city', 'LIKE', '%' . $request->input('q') . '%')
+                ->orWhere('annotations', 'LIKE', '%' . $request->input('q') . '%')
                 ->orWhereHas('user', function ($q) use($request){
                     return $q->where('email', 'LIKE', '%' . $request->input('q') . '%');
                 })
@@ -121,7 +123,7 @@ class ClientController extends Controller
             ->get();
         $count = Download::with('programFile')
             ->whereClientId($id)->count();
-            
+
         return [ 'items' => $data, 'total' => $count ];
     }
 

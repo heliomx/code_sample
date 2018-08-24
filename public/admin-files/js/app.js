@@ -4499,6 +4499,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
 
 
 
@@ -4605,6 +4606,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
 
     methods: {
+        formatFileName: function formatFileName(fname) {
+            var re = /(.+)\/(.+\.zip)/;
+            return re.exec(fname)[2];
+        },
         showConfirmDelete: function showConfirmDelete() {
             this.confirmDeletion = true;
         },
@@ -7061,7 +7066,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.input-group label {\n  overflow: visible !important;\n}\n.activation-board {\n  height: 50px;\n}\n.programs-area {\n  width: 100%;\n}\n.programs-area .input-group label {\n    font-size: 13px !important;\n}\n.programs-area .input-group__details {\n    display: none !important;\n}\n.programs-area .switch.input-group--dirty label {\n    color: #6f84fc !important;\n}\n.programs-area .switch label {\n    color: rgba(116, 116, 116, 0.54) !important;\n    font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.input-group label {\n  overflow: visible !important;\n}\n.activation-board {\n  height: 50px;\n}\n.xpanel {\n  margin-bottom: 40px;\n}\n.xpanel .card__text {\n    padding: 0 16px;\n}\n.xpanel .card__text .input-group {\n      padding: 0;\n}\n.xpanel .card__text .input-group .input-group__input {\n        padding: 0;\n}\n.programs-area {\n  width: 100%;\n}\n.programs-area .input-group label {\n    font-size: 13px !important;\n}\n.programs-area .input-group__details {\n    display: none !important;\n}\n.programs-area .switch.input-group--dirty label {\n    color: #6f84fc !important;\n}\n.programs-area .switch label {\n    color: rgba(116, 116, 116, 0.54) !important;\n    font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -31950,6 +31955,7 @@ var render = function() {
                                     _c(
                                       "v-expansion-panel",
                                       {
+                                        staticClass: "xpanel",
                                         attrs: { expand: "" },
                                         model: {
                                           value: _vm.panel,
@@ -32054,26 +32060,37 @@ var render = function() {
                                                           key: "items",
                                                           fn: function(props) {
                                                             return [
-                                                              _c("td", [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    _vm._f(
-                                                                      "dateformat "
-                                                                    )(
-                                                                      props.item
-                                                                        .download_date,
-                                                                      "DD/MM/YYYY - HH:mm:ss"
+                                                              _c(
+                                                                "td",
+                                                                {
+                                                                  attrs: {
+                                                                    width: "180"
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      _vm._f(
+                                                                        "dateformat"
+                                                                      )(
+                                                                        props
+                                                                          .item
+                                                                          .download_date,
+                                                                        "DD/MM/YYYY - HH:mm:ss"
+                                                                      )
                                                                     )
                                                                   )
-                                                                )
-                                                              ]),
+                                                                ]
+                                                              ),
                                                               _vm._v(" "),
                                                               _c("td", [
                                                                 _vm._v(
                                                                   _vm._s(
-                                                                    props.item
-                                                                      .program_file
-                                                                      .file_name
+                                                                    _vm.formatFileName(
+                                                                      props.item
+                                                                        .program_file
+                                                                        .file_name
+                                                                    )
                                                                   )
                                                                 )
                                                               ])
@@ -32814,7 +32831,8 @@ var render = function() {
                     attrs: {
                       box: "",
                       "append-icon": "search",
-                      label: "Buscar por nome da rádio, e-mail, cidade ou UF",
+                      label:
+                        "Buscar por nome da rádio, e-mail, anotações, cidade ou UF",
                       "single-line": "",
                       "hide-details": "",
                       debounce: "500"

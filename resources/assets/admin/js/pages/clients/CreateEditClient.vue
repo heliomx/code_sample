@@ -115,6 +115,7 @@
                     <v-flex xs12 v-if="$auth.check('A')">
                         <v-expansion-panel
                             expand
+                            class="xpanel"
                             v-model="panel"
                             >
                             <v-expansion-panel-content
@@ -147,8 +148,8 @@
                                     :rows-per-page-text='"Itens por página:"'
                                     :disable-initial-sort="true">
                                         <template slot="items" slot-scope="props">
-                                            <td>{{ props.item.download_date | dateformat ('DD/MM/YYYY - HH:mm:ss')}}</td>
-                                            <td>{{ props.item.program_file.file_name }}</td>
+                                            <td width="180">{{ props.item.download_date | dateformat('DD/MM/YYYY - HH:mm:ss')}}</td>
+                                            <td>{{ formatFileName(props.item.program_file.file_name) }}</td>
                                         </template>
                                     </v-data-table>
                                 </v-card-text>
@@ -305,6 +306,11 @@ export default {
         };
     },
     methods: {
+
+        formatFileName(fname){
+            let re = /(.+)\/(.+\.zip)/;
+            return re.exec(fname)[2];
+        },
         
         showConfirmDelete(){
             this.confirmDeletion = true;
@@ -480,6 +486,24 @@ export default {
 }
 .activation-board {
     height: 50px;
+}
+
+.xpanel {
+    margin-bottom: 40px;
+
+    .card__text {
+        padding: 0 16px;
+
+        .input-group {
+            padding: 0;
+            
+            .input-group__input {
+                padding: 0;
+            }
+        }
+    }
+
+
 }
 
 
