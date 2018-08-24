@@ -120,6 +120,7 @@ class ClientController extends Controller
             ->whereClientId($id)
             ->limit($request->input('rowsPerPage'))
             ->offset($request->input('rowsPerPage') * ($request->input('page') - 1))
+            ->orderBy('download_date', 'desc')
             ->get();
         $count = Download::with('programFile')
             ->whereClientId($id)->count();
