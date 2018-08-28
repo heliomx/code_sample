@@ -9,4 +9,8 @@ class Signature extends Pivot
     protected $table = 'signatures';
     protected $dates = ['created_at', 'updated_at'];
 
+    public function client(){
+        return $this->belongsTo('App\Client');
+    }
+
 }

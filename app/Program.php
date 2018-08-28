@@ -18,7 +18,7 @@ class Program extends Model
     }
 
     public function clients(){
-        return $this->belongsToMany('App\Client', 'App\Signature');
+        return $this->belongsToMany('App\Client', 'signatures');
     }
 
     public function getQtSignaturesAttribute() {

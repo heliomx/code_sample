@@ -164,6 +164,10 @@ return [
         OneOffTech\TusUpload\Providers\TusUploadServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
 
+        /* Excel */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        
+
     ],
 
     /*
@@ -214,6 +218,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Zipper' => Chumper\Zipper\Zipper::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 
