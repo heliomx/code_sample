@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Program;
-
+use App\Client;
 
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithTitle;
@@ -34,7 +34,7 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
             AfterSheet::class => function(AfterSheet $event)  use($helper)
             {
                 // Header Style
-                $event->sheet->getStyle('A1:N2')
+                $event->sheet->getStyle('A1:O2')
                     ->applyFromArray(
                         [
                             'alignment' => [
@@ -47,7 +47,7 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
                         ]
                     );
 
-                $event->sheet->getStyle('B2:M2')
+                $event->sheet->getStyle('C2:N2')
                     ->applyFromArray([
                             'alignment' => [
                                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
@@ -57,7 +57,7 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
                 
 
                 // Active Radios Style
-                $event->sheet->getStyle('B1:G2')
+                $event->sheet->getStyle('C1:H2')
                     ->applyFromArray(
                         [
                             'borders' => [
@@ -83,7 +83,7 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
                         ]
                     );
 
-                $event->sheet->getStyle('B3:G' . (2+ $helper->count))
+                $event->sheet->getStyle('C3:H' . (2+ $helper->count))
                     ->applyFromArray(
                         [
                             'borders' => [
@@ -110,7 +110,7 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
                     );
 
                  // Idle Radios Style
-                 $event->sheet->getStyle('H1:M2')
+                 $event->sheet->getStyle('I1:N2')
                  ->applyFromArray(
                      [
                          'borders' => [
@@ -136,7 +136,7 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
                      ]
                  );
 
-             $event->sheet->getStyle('H3:M' . (2+ $helper->count))
+             $event->sheet->getStyle('I3:N' . (2+ $helper->count))
                  ->applyFromArray(
                      [
                          'borders' => [
@@ -182,6 +182,7 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
         $radio_types = [ 'F', 'W', 'A', 'T', 'V' ];
         $helper = $this;
         $totalClients = [];
+        $total = 0;
         $activeClients = [];
         $idleClients = [];
         $activeSignatures = [];
@@ -190,16 +191,22 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
 
 
         foreach ($radio_types as $type) {
-            $totalClients[$type] = $p->clients()->whereRadioType($type)->count();
-            $activeClients[$type] = $p->clients()->whereRadioType($type)
-                ->whereHas('downloads', function ($q) use($helper)
-                { 
-                    return $q->whereMonth('download_date', $helper->month)
-                        ->whereYear('download_date', $helper->year); 
-                })
-                ->count();
+            $totalClients[$type] = $p->clients()->where('clients.status', '=', Client::STATUS_ACTIVE)->whereRadioType($type)->count();
+            $activeClients[$type] = $p->clients()->where('clients.status', '=', Client::STATUS_ACTIVE)->whereRadioType($type)
+                ->withCount(
+                    ['downloads' => function($q) use ($helper, $p)
+                    {
+                        return $q->where('programs.id',$p->id)
+                            ->whereMonth('download_date', $helper->month)
+                            ->whereYear('download_date', $helper->year)
+                            ->join('program_files', 'downloads.program_file_id', '=', 'program_files.id')
+                            ->join('programs', 'program_files.program_id', '=', 'programs.id') ;
+                    }]
+                )->havingRaw('downloads_count > 0')
+                ->get()->count();
+                
             $idleClients[$type] = $totalClients[$type] - $activeClients[$type];
-
+            $total += $totalClients[$type];
             // $activeSignatures[$type] = $p->signatures()
             //     ->whereStatus('A')
             //     ->whereHas('client', function($q) use($type){
@@ -217,6 +224,7 @@ class ExportProgramsOverview implements FromView, WithTitle, WithEvents
 
         $r = [
             'name' => $p->name,
+            'total' => $total,
             'active_radios' => $activeClients,
             'idle_radios'   => $idleClients,
             'active_signatures' => $activeSignatures,

@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <td style="vertical-align:middle" rowspan="2">Programa</td>
+        <td rowspan="2">Clientes</td>
         <td colspan="6">Clientes Ativos</td>
         <td colspan="6">Clientes Ociosos</td>
         <td valign="middle" rowspan="2">Downloads</td>
@@ -26,6 +27,7 @@
         <?php $p = $helper->map($program); ?>
         <tr>
             <td>{{ $p['name'] }}</td>
+            <td>{{ $p['total'] }}</td>
             <td>{{ $p['active_radios']['W'] }}</td>
             <td>{{ $p['active_radios']['F'] }}</td>
             <td>{{ $p['active_radios']['A'] }}</td>
