@@ -103,6 +103,12 @@ export default {
                 roles: [ 'A' ]
             },
             {
+                icon: "assessment",
+                text: "Relatório",
+                link: "/relatorio",
+                roles: [ 'A' ]
+            },
+            {
                 icon: "contacts",
                 text: "Alterar cadastro",
                 link: "/cadastro",

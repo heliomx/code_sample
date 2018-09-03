@@ -38,8 +38,42 @@ Route::group(['middleware' => 'jwt.auth'], function(){
   // Dashboard
   Route::get('dashboard', 'Api\DashboardController@general');
 
+  // Clients
+  Route::get('clients', 'Api\ClientController@index');
+  Route::get('clients/{id}', 'Api\ClientController@show');
+  Route::get('clients/{id}/download-history', 'Api\ClientController@downloadHistory');
+  Route::patch('clients/{id}', 'Api\ClientController@update');
+  Route::delete('clients/{id}', 'Api\ClientController@destroy');
+
+  // Programs
+  Route::delete('programs/{id}', 'Api\ProgramController@destroy');
+  Route::post('programs/{id}', 'Api\ProgramController@edit');
+  Route::post('programs', 'Api\ProgramController@store');
+  Route::get('programs/downloads/{id}', 'Api\ProgramController@download');
+
+  //Packages
+  Route::get('packages/{id}', 'Api\PackageController@show');
+
+  //TUS
+  Route::post('uploadjobs', '\OneOffTech\TusUpload\Http\Controllers\TusUploadQueueController@store');
+
+  // Contact
+  Route::get('contacts', 'Api\ContactController@index');
+  Route::get('contacts/{id}', 'Api\ContactController@show');
+  Route::post('contacts/{id}', 'Api\ContactController@update');
+
+  // Content
+  Route::post('contents/images/{docType}', 'Api\ContentController@storeImage');
+  Route::post('contents/{docType}', 'Api\ContentController@store');
+
+  // Report
+  Route::get('report', 'Api\ReportController@create');
+  Route::get('report/download', 'Api\ReportController@download');
+  Route::get('report/status', 'Api\ReportController@status');
+
 
 });
+
 Route::group(['middleware' => 'jwt.refresh'], function(){
   Route::get('auth/refresh', 'AuthController@refresh');
 });
@@ -51,35 +85,17 @@ Route::post('userByToken', 'AuthController@userByToken');
 
 
 // Clients
-Route::get('clients', 'Api\ClientController@index');
-Route::get('clients/{id}', 'Api\ClientController@show');
-Route::get('clients/{id}/download-history', 'Api\ClientController@downloadHistory');
-Route::patch('clients/{id}', 'Api\ClientController@update');
-Route::delete('clients/{id}', 'Api\ClientController@destroy');
 Route::post('clients', 'Api\ClientController@store');
 
 // Programs
 Route::get('programs', 'Api\ProgramController@index');
 Route::get('programs/{id}', 'Api\ProgramController@show');
-Route::delete('programs/{id}', 'Api\ProgramController@destroy');
-Route::post('programs/{id}', 'Api\ProgramController@edit');
-Route::post('programs', 'Api\ProgramController@store');
-Route::get('programs/downloads/{id}', 'Api\ProgramController@download');
 
-//Packages
-Route::get('packages/{id}', 'Api\PackageController@show');
-
-//TUS
-Route::post('uploadjobs', '\OneOffTech\TusUpload\Http\Controllers\TusUploadQueueController@store');
 
 // Content
-Route::post('contents/images/{docType}', 'Api\ContentController@storeImage');
-Route::post('contents/{docType}', 'Api\ContentController@store');
 Route::get('contents/{docType}', 'Api\ContentController@show');
 
 // Contact
-Route::get('contacts', 'Api\ContactController@index');
-Route::get('contacts/{id}', 'Api\ContactController@show');
 Route::post('contacts', 'Api\ContactController@store');
-Route::post('contacts/{id}', 'Api\ContactController@update');
+
 

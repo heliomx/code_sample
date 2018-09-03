@@ -20,8 +20,12 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'meta'
     ];
+
+    protected $casts = [
+        'meta' => 'array'
+   ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -29,7 +33,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'role'
+        'password', 'remember_token', 'role', 'meta'
     ];
 
     protected $appends = ['roles', 'client_id'];
@@ -72,4 +76,42 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function updateReport($statusCode, $msg, $step, $totalSteps)
+    {
+        $this['meta->report->status'] = $statusCode;
+        $this['meta->report->msg'] = $msg;
+        $this['meta->report->step'] = $step;
+        $this['meta->report->totalSteps'] = $totalSteps;
+        $this->save();
+    }
+
+    public function initReport($id){
+        $blankData = [
+            'id' => $id,
+            'status' => null,
+            'msg' => null,
+            'step' => 0,
+            'totalSteps' => 0,
+            'file' => null,
+        ];
+
+        if ($this['meta'] == null)
+        {
+            $this['meta'] = [
+                'report' => $blankData
+            ];
+        } else {
+            $this['meta->report'] = $blankData;
+        }
+
+        $this->save();
+    }
+
+    public function updateReportFile($fname)
+    {
+        $this['meta->report->file'] = $fname;
+        $this->save();
+    }
+
 }

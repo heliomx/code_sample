@@ -44,6 +44,9 @@ import NewPassword from './pages/NewPassword.vue';
     import CreateEditUser from './pages/users/CreateEditUser';
     import ListUsers from './pages/users/ListUsers';
 
+// Report
+    import Report from './pages/Report';
+
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -209,6 +212,13 @@ const router = new VueRouter({
                     name: 'editUser',
                     component: CreateEditUser
                 },
+
+                // Report
+                {
+                    path: '/relatorio',
+                    name: 'report',
+                    component: Report
+                }
             ]
         }
     ]
