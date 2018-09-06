@@ -2929,7 +2929,7 @@ module.exports = {
 
             this.loading = true;
 
-            this.$http.post('contact', this.form).then(function (r) {
+            this.$http.post('contacts', this.form).then(function (r) {
                 _this.$refs.messageDialog.show('Fale conosco', 'Sua mensagem foi enviada. Em breve entraremos em contato.', function () {
                     return _this.$router.push('/');
                 });

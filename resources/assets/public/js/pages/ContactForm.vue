@@ -89,7 +89,7 @@ export default {
         submit() {
             this.loading = true;
             
-            this.$http.post(`contact`, this.form)
+            this.$http.post(`contacts`, this.form)
                 .then( r => {
                     this.$refs.messageDialog.show(
                         'Fale conosco',
