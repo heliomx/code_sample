@@ -5617,7 +5617,8 @@ var render = function() {
                                     _c("v-text-field", {
                                       attrs: {
                                         required: "",
-                                        rules: _vm.validationRules.required
+                                        rules: _vm.validationRules.required,
+                                        id: "name"
                                       },
                                       model: {
                                         value: _vm.form.name,
@@ -5645,7 +5646,8 @@ var render = function() {
                                     _c("v-text-field", {
                                       attrs: {
                                         required: "",
-                                        rules: _vm.validationRules.email
+                                        rules: _vm.validationRules.email,
+                                        id: "email"
                                       },
                                       model: {
                                         value: _vm.form.email,
@@ -5673,7 +5675,8 @@ var render = function() {
                                     _c("v-text-field", {
                                       attrs: {
                                         required: "",
-                                        rules: _vm.validationRules.required
+                                        rules: _vm.validationRules.required,
+                                        id: "subject-clean"
                                       },
                                       model: {
                                         value: _vm.form.subject,

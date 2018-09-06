@@ -11,21 +11,21 @@
                                     <v-subheader>* Seu nome</v-subheader>
                                 </v-flex>
                                 <v-flex xs8>
-                                    <v-text-field required :rules="validationRules.required" v-model="form.name">
+                                    <v-text-field required :rules="validationRules.required" id="name" v-model="form.name">
                                     </v-text-field>
                                 </v-flex>
                                 <v-flex xs3>
                                     <v-subheader>* Seu e-mail</v-subheader>
                                 </v-flex>
                                 <v-flex xs8>
-                                    <v-text-field required :rules="validationRules.email" v-model="form.email">
+                                    <v-text-field required :rules="validationRules.email" id="email" v-model="form.email">
                                     </v-text-field>
                                 </v-flex>
                                 <v-flex xs3>
                                     <v-subheader>* Assunto</v-subheader>
                                 </v-flex>
                                 <v-flex xs8>
-                                    <v-text-field required :rules="validationRules.required" v-model="form.subject">
+                                    <v-text-field required :rules="validationRules.required" id="subject-clean" v-model="form.subject">
                                     </v-text-field>
                                 </v-flex>
                                 <v-flex xs3>
