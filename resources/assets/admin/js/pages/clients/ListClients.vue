@@ -46,6 +46,11 @@
           <div class="nowrap">{{ props.item.tel_mobile | telephone }}</div>
         </td>
         <td class="small">{{ props.item.status | dict('ClientStatus')}}</td>
+        <td class="small">
+          {{ props.item.created_at.date | dateformat }}<br>
+          {{ props.item.created_at.date | dateformat('HH::mm') }}
+        </td>
+        
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="warning">
         Sua busca "{{ search }}" não teve nenhum resultado.
@@ -117,6 +122,10 @@ export default {
         {
           text: "Status",
           value: "status"
+        },
+        {
+          text: "Cadastro",
+          value: "created_at"
         }
       ],
       search: "",

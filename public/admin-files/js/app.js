@@ -4954,6 +4954,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5003,6 +5008,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       }, {
         text: "Status",
         value: "status"
+      }, {
+        text: "Cadastro",
+        value: "created_at"
       }],
       search: "",
       pagination: { rowsPerPage: 50 },
@@ -33190,6 +33198,28 @@ var render = function() {
                                   "ClientStatus"
                                 )
                               )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "small" }, [
+                            _vm._v(
+                              "\n          " +
+                                _vm._s(
+                                  _vm._f("dateformat")(
+                                    props.item.created_at.date
+                                  )
+                                )
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n          " +
+                                _vm._s(
+                                  _vm._f("dateformat")(
+                                    props.item.created_at.date,
+                                    "HH::mm"
+                                  )
+                                ) +
+                                "\n        "
                             )
                           ])
                         ]
