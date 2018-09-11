@@ -22,7 +22,7 @@ class ContentController extends Controller
 
     public function store(Request $request, $docType)
     {
-        $content = Content::whereDocType($docType)->first();
+        $content = Content::firstOrNew(['doc_type' => $docType]);
         $content->doc = $request->doc;
         $content->save();
 
@@ -31,8 +31,7 @@ class ContentController extends Controller
 
     public function show(Request $request, $docType)
     {
-        $content = Content::whereDocType($docType)->first();
-
+        $content = Content::firstOrNew(['doc_type' => $docType]);
         return response()->json( ['data' => $content]);
     }
 }

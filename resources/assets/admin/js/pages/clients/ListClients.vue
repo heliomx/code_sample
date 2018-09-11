@@ -129,7 +129,7 @@ export default {
         }
       ],
       search: "",
-      pagination: { rowsPerPage: 50 },
+      pagination: { rowsPerPage: 10 },
       items: [],
       totalItems: 0,
       loading: true,

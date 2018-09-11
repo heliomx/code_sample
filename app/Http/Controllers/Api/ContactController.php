@@ -54,4 +54,11 @@ class ContactController extends Controller
 
         return response()->json( [ 'data' => $contacts ] );
     }
+
+    public function countNew(Request $request)
+    {
+        $ct = Contact::whereStatus(Contact::STATUS_NEW)->count();
+
+        return response()->json(['data'=> $ct]);
+    }
 }

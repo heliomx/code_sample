@@ -3,9 +3,10 @@
     <div class="header-info">
         <div class="header-content">
             <v-layout row fluid>
-                <v-flex xs12 sm4>
+                <v-flex xs12 sm8>
                     <a href="mailto:contato@radioestudiobrasil.com.br">contato@radioestudiobrasil.com.br</a> 
-                    | (61) 3532-6993
+                    | <strong>(61) 3532-6993</strong> | 
+                    <img src="/img/wpp-icon.png" width="19"> <strong>(61) 9 9966-9557</strong>
                 </v-flex>
                 <v-spacer></v-spacer>
                     <a href="/admin">ÁREA RESTRITA</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<router-link to="/cadastro">CADASTRE-SE</router-link>
@@ -58,7 +59,7 @@
         
         <div>
             Radio Estúdio Brasil - <a href="mailto:contato@radioestudiobrasil.com.br">contato@radioestudiobrasil.com.br</a> 
-                    | (61) 3532-6993
+                    | <strong>(61) 3532-6993</strong>
         </div>
     </v-footer>
 </v-app>
@@ -84,7 +85,7 @@ footer {
     position: fixed;
     z-index: 9;
     width: 285px;
-    top: 38px;
+    top: 30px;
     right: -15px;
     border-radius: 0px 0px 10px 10px;
     background: #048d01;
@@ -103,12 +104,17 @@ footer {
     background-color: $primary-light;
     top: 0px;
     color: #fff;
-    font-size: 12px;
+    font-size: 16px;
     -webkit-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
     -moz-box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
     box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
     width:100%;
     position:fixed;
+
+    img {
+        position:relative;
+        top: 5px;
+    }
 
     a {
         color: #fff;
@@ -148,7 +154,9 @@ footer {
         display: inline-block;
         padding: 10px;
         text-decoration: none;
-        transition: 0.5s;   
+        transition: 0.5s;  
+        
+
 
         &:hover {
             background-color: $primary-light;
@@ -160,6 +168,7 @@ footer {
         display: flex;
         flex-basis: 100%;
         flex-direction: row-reverse;
+        text-transform: uppercase;
 
         ul {
             list-style-type: none;
@@ -181,7 +190,7 @@ footer {
     max-width: $content-width;
     display: flex;
     flex-wrap: wrap;
-    padding: 10px 0;
+    padding: 3px 0;
     margin: 0 auto;
 }
 
@@ -189,7 +198,7 @@ footer div{
     width: $content-width;
     margin: 0 auto;
     padding: 0 10px;
-    font-size: 12px;
+    font-size: 19px;
 
 }
 

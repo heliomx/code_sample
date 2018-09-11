@@ -180,7 +180,12 @@ export default {
                     {
                         text: "Quem somos",
                         link: "/conteudo/quemsomos",
+                    },
+                    {
+                        text: "Alertas para Usuário",
+                        link: "/conteudo/alertaUsuario",
                     }
+                    
                 ]
             },
             {

@@ -59,8 +59,10 @@ Route::group(['middleware' => 'jwt.auth'], function(){
 
   // Contact
   Route::get('contacts', 'Api\ContactController@index');
+  Route::get('contacts/countNew', 'Api\ContactController@countNew');
   Route::get('contacts/{id}', 'Api\ContactController@show');
   Route::post('contacts/{id}', 'Api\ContactController@update');
+  
 
   // Content
   Route::post('contents/images/{docType}', 'Api\ContentController@storeImage');

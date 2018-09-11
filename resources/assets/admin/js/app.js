@@ -35,6 +35,7 @@ import NewPassword from './pages/NewPassword.vue';
 // Content
     import HomeContent from './pages/content/HomeContent';
     import WhoWeAreContent from './pages/content/WhoWeAreContent';
+    import UserAlert from './pages/content/UserAlert';
 
 // Contacts
     import EditContact from './pages/contacts/EditContact';
@@ -174,6 +175,11 @@ const router = new VueRouter({
                     component: WhoWeAreContent
                 },
 
+                {
+                    path: 'conteudo/alertaUsuario',
+                    name: 'userAlert',
+                    component: UserAlert
+                },
 
                 {
                     path: '/registro',

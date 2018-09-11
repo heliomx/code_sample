@@ -34,6 +34,7 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-btn flat small @click="recoverUI = true">Esqueci a senha</v-btn>
+                    <v-btn flat small @click="showRegister">Faça seu cadastro</v-btn>
                     <v-spacer></v-spacer>
                     <v-btn 
                       type="submit" 
@@ -80,7 +81,8 @@
     </v-content>
     <v-footer app color="secondary">
         <div>
-            Em caso de dúvidas com o seu acesso ligue <strong>(61) 3532-6993</strong>
+            Em caso de dúvidas com o seu acesso ligue <strong>(61) 3532-6993</strong> | 
+                    <img class="ico-wpp" src="/img/wpp-icon.png" width="19"> <strong>(61) 9 9966-9557</strong>
         </div>
     </v-footer>
     <message-dialog ref="messageDialog"></message-dialog>
@@ -152,6 +154,9 @@
         }   
         return false;   
       },
+      showRegister(){
+        window.open('/#cadastro');
+      },
       login(){
         this.loading = true;
         var app = this;
@@ -193,5 +198,11 @@
     width: 100%;
     color: #fff;
     text-align: center;
+    font-size: 19px;
+  }
+
+  .ico-wpp {
+    position: relative;
+    top:3px;
   }
 </style>
