@@ -11,16 +11,19 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td>
+        <td :class="{newItem: props.item.status == 'N'}">
           <router-link 
           :to="{ name: 'editContact', params: { id: props.item.id }}">
             {{ props.item.name }}
           </router-link>
         </td>
-        <td>{{ props.item.email }}</td>
-        <td>{{ props.item.subject }}</td>
-        <td>{{ props.item.status | dict('ContactStatus') }}</td>
-        <td>{{ props.item.created_at | dateFormat }}</td>
+        <td :class="{newItem: props.item.status == 'N'}">{{ props.item.email }}</td>
+        <td :class="{newItem: props.item.status == 'N'}">{{ props.item.subject }}</td>
+        <td :class="{newItem: props.item.status == 'N'}">{{ props.item.status | dict('ContactStatus') }}</td>
+        <td :class="{newItem: props.item.status == 'N'}">
+          {{ props.item.created_at | dateFormat }}<br>
+          {{ props.item.created_at | dateFormat('HH:mm') }}
+          </td>
       </template>
     </v-data-table>
   </v-container>
@@ -41,23 +44,28 @@ export default {
             headers: [
                 {
                   text: 'Nome',
+                  sortable: false,
                   align: 'left',
                   value: 'name'
                 },
                 {
+                  sortable: false,
                   text: 'E-mail',
                   value: 'email'
                 },
                 {
+                  sortable: false,
                   text: 'Assunto',
                   value: 'subject'
                 }
                 ,
                 {
+                  sortable: false,
                   text: 'Status',
                   value: 'status'
                 },
                 {
+                  sortable: false,
                   text: 'Data',
                   value: 'created_at'
                 },
@@ -83,3 +91,9 @@ export default {
     }
 };
 </script>
+<style lang="scss" scoped>
+.newItem {
+  font-weight: bold;
+}
+</style>
+

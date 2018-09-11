@@ -50,7 +50,7 @@ class ContactController extends Controller
 
     public function index(Request $request)
     {
-        $contacts = Contact::all();
+        $contacts = Contact::orderBy('status')->get();
 
         return response()->json( [ 'data' => $contacts ] );
     }

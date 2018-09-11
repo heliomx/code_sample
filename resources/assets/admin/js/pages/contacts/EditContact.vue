@@ -7,6 +7,7 @@
         <v-select class="status" :items="statusList" :rules="validationRules.required" label="Status" required v-model="form.status" >
         </v-select>
         <p>Data: <strong>{{ form.created_at | dateformat}}</strong></p>
+        <p>E-mail: <strong> {{ form.email }}</strong></p>
         <p>Assunto: <strong> {{ form.subject }}</strong></p>
         <p>{{ form.message }}</p>
         <v-text-field 

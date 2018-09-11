@@ -7,9 +7,9 @@
         >
             <div v-if="userAlert.active" class="msg-content" v-html="userAlert.msg"></div>
             <div v-if="$auth.check('A') && contacts > 0" class="msg-content">
-                <span v-if ="contacts > 1">Existem {{ contacts }} mensagens novas no 
+                <span v-if ="contacts > 1">Existem <strong>{{ contacts }}</strong> mensagens novas no 
                 <router-link to="/faleconosco">Fale Conosco</router-link></span>
-                <span v-if ="contacts == 1">Existe {{ contacts }} mensagem nova no 
+                <span v-if ="contacts == 1">Existe <strong>{{ contacts }}</strong> mensagem nova no 
                 <router-link to="/faleconosco">Fale Conosco</router-link></span>
             </div>
         </v-alert>
