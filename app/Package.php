@@ -43,30 +43,35 @@ class Package extends Model
             'folders_processed' => 0,
         ];
         
+        try {
+            Log::info('metadata', ['data' => $upload->metadata['publish_on']]);
+            preg_match('/(\d+)\/(\d+)\/(\d+)/', $upload->metadata['publish_on'], $date);
+            $publish_start = Carbon::createFromDate($date[3], $date[2], $date[1]);
 
-        Log::info('metadata', ['data' => $upload->metadata['publish_on']]);
-        preg_match('/(\d+)\/(\d+)\/(\d+)/', $upload->metadata['publish_on'], $date);
-        $publish_start = Carbon::createFromDate($date[3], $date[2], $date[1]);
+            $package->upload()->associate($upload);
+            $package->status = self::STATUS_UNPACKING;
+            $package->save();
 
-        $package->upload()->associate($upload);
-        $package->status = self::STATUS_UNPACKING;
-        $package->save();
+            Storage::disk('packages')->makeDirectory($package->id);
+            $path = storage_path("app/packages/$package->id");
+            Zipper::make($upload->path())->extractTo($path);
+            $directories = Storage::disk('packages')->directories($package->id);
+            Log::info($directories);
+            
+            $dir_pattern = '/(.+?)_(\d+)$/';
+            $file_pattern = '/(.+?)_(\d+(?:-\d+)?)_(\d+)_(\d+)_(\d+)\.(.+)$/';
+            
+            $errors = [];
 
-        Storage::disk('packages')->makeDirectory($package->id);
-        $path = storage_path("app/packages/$package->id");
-        Zipper::make($upload->path())->extractTo($path);
-        $directories = Storage::disk('packages')->directories($package->id);
-        Log::info($directories);
-        
-        $dir_pattern = '/(.+?)_(\d+)$/';
-        $file_pattern = '/(.+?)_(\d+(?:-\d+)?)_(\d+)_(\d+)_(\d+)\.(.+)$/';
-        
-        $errors = [];
+            $package->status = self::STATUS_PROCESSING_PROGRAM_FILES;
+            $meta['folders'] = count($directories);
+            $package->meta = $meta;
+            $package->save();
+        } catch (Exception $e) {
+            
+        } finally {
 
-        $package->status = self::STATUS_PROCESSING_PROGRAM_FILES;
-        $meta['folders'] = count($directories);
-        $package->meta = $meta;
-        $package->save();
+        }
 
         for ($k = 0; $k < count($directories); $k++)
         {

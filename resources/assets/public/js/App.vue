@@ -15,8 +15,10 @@
         </div>
     </div>
     <div id="player-container">
-        <iframe id="player" src="http://centova2.euroti.com.br:2199/player/topo-2.php?sv=23.235.255.26&pt=8101&bg=048d01&txt=FFFFFF&tit=Radio Estudio Brasil Stream&user=radioest&logo=http://www.radioestudiobrasil.com.br/img/logo-sm.png&tp=Rádio Estúdio Brasil - Sempre com você" frameborder="0" width="100%" height="69" scrolling="no"></iframe>
-        <div class="text-xs-center">Rádio Estúdio Brasil<br>Não existe distância, nós chegamos lá.</div>
+        <img src="/img/logo-sm.png">
+        <iframe id="player" src="/player.html" frameborder="0" width="60%" height="69" scrolling="no"></iframe>
+        <div class="adpter"></div>
+        <div class="subtitle text-xs-center">Rádio Estúdio Brasil<br>Não existe distância, nós chegamos lá.</div>
     </div>
     <div class="header">
         <div class="bg"></div>
@@ -65,6 +67,23 @@
 </v-app>
 </template>
 
+<script>
+  import AudioPlayer from './components/AudioPlayer'
+ 
+  export default {
+    components: {
+      AudioPlayer
+    },
+ 
+    data () {
+      return {
+        audioSources: [
+          "http://23.235.255.26:8101/stream",
+        ]
+      }
+    }
+  }
+</script>
 <style lang="scss">
 // Global CSS and Variables
 @import '../sass/app.scss';
@@ -84,7 +103,7 @@ footer {
 #player-container{
     position: fixed;
     z-index: 9;
-    width: 285px;
+    width: 268px;
     top: 30px;
     right: -15px;
     border-radius: 0px 0px 10px 10px;
@@ -93,7 +112,25 @@ footer {
     box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.18);
     height:124px;
 
-    div {
+    iframe {
+        position: relative;
+        top: -5px;
+    }
+
+    img {
+        float: left;
+    }
+
+    .adpter {
+        background: #048d01;
+        position: absolute;
+        width: 158px;
+        height: 40px;
+        top: -7px;
+        left: 68px;
+    }
+
+    .subtitle {
         color: #b0e4af;
         font-size: 12px;
         text-align: center;
