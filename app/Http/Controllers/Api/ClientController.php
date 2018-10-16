@@ -64,6 +64,12 @@ class ClientController extends Controller
         return response()->json( [ 'items' => $data, 'total' => $count  ] );
     }
 
+    public function checkEmail(Request $request)
+    {
+        $email = $request->input('email');
+        return response()->json(['used' => User::whereEmail($email)->count() >= 1]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

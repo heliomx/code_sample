@@ -3423,13 +3423,6 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3454,6 +3447,7 @@ module.exports = {
             clientEdit: false,
             valid: true,
             loading: false,
+            emailErrors: [],
             confirmDeletion: false,
             editing: false,
             ufs: Object(__WEBPACK_IMPORTED_MODULE_2__admin_js_lib_UfList__["a" /* ufList */])(),
@@ -3521,6 +3515,17 @@ module.exports = {
 
 
     methods: {
+        checkEmail: function checkEmail() {
+            var _this2 = this;
+
+            this.$http.post('clients/checkEmail', { email: this.form.user.email }).then(function (r) {
+                if (r.data.used) {
+                    _this2.emailErrors = ['Este email já está cadastrado no sistema. Utilize outro.'];
+                } else {
+                    _this2.emailErrors = [];
+                }
+            });
+        },
         showConfirmDelete: function showConfirmDelete() {
             this.confirmDeletion = true;
         },
@@ -3531,7 +3536,8 @@ module.exports = {
             return {
                 user: {
                     name: "",
-                    password: ""
+                    password: "",
+                    email: ""
                 },
                 radio_type: "",
                 radio_name: "",
@@ -3552,46 +3558,52 @@ module.exports = {
             };
         },
         submit: function submit() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.loading = true;
             var programs = this.programsList.filter(function (elm, i, arr) {
-                return elm.checked && (elm.id == 22 && ['T', 'V'].indexOf(_this2.form.radio_type) >= 0 || elm.id != 22 && ['F', 'A', 'W'].indexOf(_this2.form.radio_type) >= 0);
+                return elm.checked && (elm.id == 22 && ['T', 'V'].indexOf(_this3.form.radio_type) >= 0 || elm.id != 22 && ['F', 'A', 'W'].indexOf(_this3.form.radio_type) >= 0);
             }).map(function (elm, i, arr) {
 
-                return { program_id: elm.id, status: elm.pivot.status };
+                return {
+                    program_id: elm.id,
+                    status: elm.pivot.status
+                };
             });
 
             this.form.programs = programs;
 
             this.$http.post("clients", this.form).then(function (r) {
 
-                _this2.$refs.messageDialog.show('Cadastro', 'O seu cadastro foi enviado com sucesso. Entre na nossa p\xE1gina www.radioestudiobrasil.com.br/admin e acesse a \xC1rea Restrita com os dados cadastrados.', function () {
-                    return _this2.$router.push('/');
+                _this3.$refs.messageDialog.show('Cadastro', 'O seu cadastro foi enviado com sucesso. Entre na nossa p\xE1gina www.radioestudiobrasil.com.br/admin e acesse a \xC1rea Restrita com os dados cadastrados.', function () {
+                    return _this3.$router.push('/');
                 });
             }).catch(function (err) {
-                _this2.$refs.messageDialog.show('Erro', 'Ocorreu um erro tentando registrar o seu cadastro. Tente novamente mais tarde. Caso o problema persista, entre em contato com a nossa equipe.');
+                _this3.$refs.messageDialog.show('Erro', 'Ocorreu um erro tentando registrar o seu cadastro. Tente novamente mais tarde. Caso o problema persista, entre em contato com a nossa equipe.');
             }).then(function () {
-                _this2.loading = false;
+                _this3.loading = false;
             });
         },
         updateProgram: function updateProgram(program) {
             if (program.checked) {
-                __WEBPACK_IMPORTED_MODULE_3_vue___default.a.set(program, 'pivot', { active: true, status: 'A' });
+                __WEBPACK_IMPORTED_MODULE_3_vue___default.a.set(program, 'pivot', {
+                    active: true,
+                    status: 'A'
+                });
             } else {
                 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.delete(program, 'pivot');
             }
         },
         fetchData: function fetchData() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.$global.loading = true;
 
             this.$http.get("programs").then(function (response) {
-                _this3.programsList = response.data.data;
+                _this4.programsList = response.data.data;
 
-                _this3.$global.loading = false;
-                _this3.form = _this3.blankForm();
+                _this4.$global.loading = false;
+                _this4.form = _this4.blankForm();
             });
         }
     }
@@ -8770,10 +8782,12 @@ var render = function() {
                                     _c("v-text-field", {
                                       attrs: {
                                         rules: _vm.validationRules.email,
+                                        "error-messages": _vm.emailErrors,
                                         required: "",
                                         label:
                                           "E-mail (usado para login no sistema)"
                                       },
+                                      on: { change: _vm.checkEmail },
                                       model: {
                                         value: _vm.form.user.email,
                                         callback: function($$v) {
