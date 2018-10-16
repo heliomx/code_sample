@@ -4683,6 +4683,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4723,6 +4727,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 callback: function callback() {}
             },
             clientEdit: false,
+            emailErrors: [],
             valid: true,
             confirmDeletion: false,
             editing: false,
@@ -4781,6 +4786,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["b" /* required */])(v);
                 }, function (v) {
                     return Object(__WEBPACK_IMPORTED_MODULE_3__lib_ValidationFunctions__["a" /* email */])(v);
+                }, function (v) {
+                    return _this.emailErrors.length == 0 || _this.emailErrors[0];
                 }]
             },
             form: this.blankForm(),
@@ -4793,6 +4800,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var re = /(.+)\/(.+\.zip)/;
             return re.exec(fname)[2];
         },
+        checkEmail: function checkEmail() {
+            var _this2 = this;
+
+            this.$http.post('clients/checkEmail', { email: this.form.user.email }).then(function (r) {
+                if (r.data.used) {
+                    _this2.emailErrors = ['Este email já está cadastrado no sistema. Utilize outro.'];
+                    _this2.$refs.form.validate();
+                } else {
+                    _this2.emailErrors = [];
+                    _this2.$refs.form.validate();
+                }
+            });
+        },
         showConfirmDelete: function showConfirmDelete() {
             this.confirmDeletion = true;
         },
@@ -4800,15 +4820,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.$refs.form.validate();
         },
         deleteClient: function deleteClient() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.confirmDeletion = false;
             this.$http.delete('clients/' + this.form.id).then(function (r) {
-                _this2.message.visible = true;
-                _this2.message.title = 'Apagado';
-                _this2.message.info = 'O cliente ' + _this2.form.radio_name + ' foi apagado com sucesso';
-                _this2.message.callback = function () {
-                    _this2.$router.push('/clientes');
+                _this3.message.visible = true;
+                _this3.message.title = 'Apagado';
+                _this3.message.info = 'O cliente ' + _this3.form.radio_name + ' foi apagado com sucesso';
+                _this3.message.callback = function () {
+                    _this3.$router.push('/clientes');
                 };
             });
         },
@@ -4838,10 +4858,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             };
         },
         submit: function submit() {
-            var _this3 = this;
+            var _this4 = this;
 
             var programs = this.programsList.filter(function (elm, i, arr) {
-                return elm.checked && (elm.id == 22 && ['T', 'V'].indexOf(_this3.form.radio_type) >= 0 || elm.id != 22 && ['F', 'A', 'W'].indexOf(_this3.form.radio_type) >= 0);
+                return elm.checked && (elm.id == 22 && ['T', 'V'].indexOf(_this4.form.radio_type) >= 0 || elm.id != 22 && ['F', 'A', 'W'].indexOf(_this4.form.radio_type) >= 0);
             }).map(function (elm, i, arr) {
                 return { program_id: elm.id, status: elm.pivot.status };
             });
@@ -4851,27 +4871,27 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             if (this.editing) {
                 this.$http.patch('clients/' + this.form.id, this.form).then(function (r) {
 
-                    _this3.message.visible = true;
-                    _this3.message.title = 'Alteração';
-                    _this3.message.info = 'O cliente ' + _this3.form.radio_name + ' foi alterado com sucesso';
-                    _this3.message.callback = function () {
-                        if (_this3.clientEdit) {
-                            _this3.$router.push('/dashboard');
+                    _this4.message.visible = true;
+                    _this4.message.title = 'Alteração';
+                    _this4.message.info = 'O cliente ' + _this4.form.radio_name + ' foi alterado com sucesso';
+                    _this4.message.callback = function () {
+                        if (_this4.clientEdit) {
+                            _this4.$router.push('/dashboard');
                         } else {
-                            _this3.$router.push('/clientes');
+                            _this4.$router.push('/clientes');
                         }
                     };
                 });
             } else {
                 this.$http.post("clients", this.form).then(function (r) {
-                    _this3.message.visible = true;
-                    _this3.message.title = 'Criado';
-                    _this3.message.info = 'O cliente ' + _this3.form.radio_name + ' foi criado com sucesso';
-                    _this3.message.callback = function () {
-                        if (_this3.clientEdit) {
-                            _this3.$router.push('/dashboard');
+                    _this4.message.visible = true;
+                    _this4.message.title = 'Criado';
+                    _this4.message.info = 'O cliente ' + _this4.form.radio_name + ' foi criado com sucesso';
+                    _this4.message.callback = function () {
+                        if (_this4.clientEdit) {
+                            _this4.$router.push('/dashboard');
                         } else {
-                            _this3.$router.push('/clientes');
+                            _this4.$router.push('/clientes');
                         }
                     };
                 });
@@ -4888,7 +4908,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
         },
         fetchData: function fetchData() {
-            var _this4 = this;
+            var _this5 = this;
 
             this.$global.loading = true;
             var clientId = void 0;
@@ -4901,40 +4921,40 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 this.editing = false;
             }
             this.$http.get("programs").then(function (response) {
-                _this4.programsList = response.data.data;
+                _this5.programsList = response.data.data;
 
-                if (_this4.editing) {
+                if (_this5.editing) {
 
                     console.log("editing");
-                    _this4.$http.get('clients/' + clientId).then(function (r) {
-                        _this4.form = r.data.data;
-                        for (var k = 0; k < _this4.form.programs.length; k++) {
-                            for (var i = 0; i < _this4.programsList.length; i++) {
-                                if (_this4.programsList[i].id == _this4.form.programs[k].id) {
-                                    __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(_this4.programsList[i], "checked", true);
-                                    __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(_this4.programsList[i], "pivot", _this4.form.programs[k].pivot);
-                                    __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(_this4.programsList[i].pivot, "active", _this4.form.programs[k].pivot.status == 'A');
+                    _this5.$http.get('clients/' + clientId).then(function (r) {
+                        _this5.form = r.data.data;
+                        for (var k = 0; k < _this5.form.programs.length; k++) {
+                            for (var i = 0; i < _this5.programsList.length; i++) {
+                                if (_this5.programsList[i].id == _this5.form.programs[k].id) {
+                                    __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(_this5.programsList[i], "checked", true);
+                                    __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(_this5.programsList[i], "pivot", _this5.form.programs[k].pivot);
+                                    __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(_this5.programsList[i].pivot, "active", _this5.form.programs[k].pivot.status == 'A');
                                     break;
                                 }
                             }
                         }
-                        _this4.$global.loading = false;
+                        _this5.$global.loading = false;
                     });
                 } else {
-                    _this4.$global.loading = false;
-                    _this4.form = _this4.blankForm();
+                    _this5.$global.loading = false;
+                    _this5.form = _this5.blankForm();
                 }
             });
         },
         loadDownloadHistory: function loadDownloadHistory() {
-            var _this5 = this;
+            var _this6 = this;
 
             this.loadingHistory = true;
             this.$http.get('clients/' + this.$route.params.id + '/download-history', { params: this.paginationHistory
             }).then(function (r) {
-                _this5.downloadHistory = r.data.items;
-                _this5.totalHistoryItems = r.data.total;
-                _this5.loadingHistory = false;
+                _this6.downloadHistory = r.data.items;
+                _this6.totalHistoryItems = r.data.total;
+                _this6.loadingHistory = false;
             });
         }
     },
@@ -31844,28 +31864,57 @@ var render = function() {
                               1
                             ),
                             _vm._v(" "),
-                            _c(
-                              "v-flex",
-                              { attrs: { xs8: "" } },
-                              [
-                                _c("v-text-field", {
-                                  attrs: {
-                                    rules: _vm.validationRules.email,
-                                    required: "",
-                                    label:
-                                      "E-mail (usado para login no sistema)"
-                                  },
-                                  model: {
-                                    value: _vm.form.user.email,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.form.user, "email", $$v)
-                                    },
-                                    expression: "form.user.email"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
+                            _vm.editing
+                              ? _c(
+                                  "v-flex",
+                                  { attrs: { xs8: "" } },
+                                  [
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.validationRules.email,
+                                        required: "",
+                                        label:
+                                          "E-mail (usado para login no sistema)"
+                                      },
+                                      model: {
+                                        value: _vm.form.user.email,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form.user, "email", $$v)
+                                        },
+                                        expression: "form.user.email"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !_vm.editing
+                              ? _c(
+                                  "v-flex",
+                                  { attrs: { xs8: "" } },
+                                  [
+                                    _c("v-text-field", {
+                                      attrs: {
+                                        rules: _vm.validationRules.email,
+                                        required: "",
+                                        "error-messages": _vm.emailErrors,
+                                        label:
+                                          "E-mail (usado para login no sistema)"
+                                      },
+                                      on: { change: _vm.checkEmail },
+                                      model: {
+                                        value: _vm.form.user.email,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.form.user, "email", $$v)
+                                        },
+                                        expression: "form.user.email"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
                             _c(
                               "v-flex",

@@ -25,8 +25,12 @@
                         <v-text-field v-model="form.user.name" :rules="validationRules.required" required label="Nome completo do responsável">
                         </v-text-field>
                     </v-flex>
-                    <v-flex xs8>
+                    <v-flex xs8 v-if="editing">
                         <v-text-field :rules="validationRules.email" required v-model="form.user.email" label="E-mail (usado para login no sistema)">
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex xs8 v-if="!editing">
+                        <v-text-field :rules="validationRules.email" required v-model="form.user.email" :error-messages="emailErrors" @change="checkEmail" label="E-mail (usado para login no sistema)">
                         </v-text-field>
                     </v-flex>
                     <v-flex xs4>
@@ -237,6 +241,7 @@ export default {
                 callback: ()=>{}
             },
             clientEdit: false,
+            emailErrors: [],
             valid: true,
             confirmDeletion: false,
             editing: false,
@@ -298,7 +303,8 @@ export default {
                 ],
                 email: [
                     v => required(v),
-                    v => email(v)
+                    v => email(v),
+                    v => this.emailErrors.length == 0 || this.emailErrors[0] 
                 ]
             },
             form: this.blankForm(),
@@ -310,6 +316,24 @@ export default {
         formatFileName(fname){
             let re = /(.+)\/(.+\.zip)/;
             return re.exec(fname)[2];
+        },
+
+        checkEmail()
+        {
+            this.$http.post('clients/checkEmail', {email: this.form.user.email})
+                .then( r => {
+                    if (r.data.used)
+                    {
+                        this.emailErrors = [
+                            'Este email já está cadastrado no sistema. Utilize outro.'
+                        ]
+                        this.$refs.form.validate();
+                    } else {
+                        this.emailErrors = [];
+                        this.$refs.form.validate();
+                    }
+                    
+                })
         },
         
         showConfirmDelete(){
