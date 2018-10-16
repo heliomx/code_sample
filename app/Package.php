@@ -128,8 +128,6 @@ class Package extends Model
                                     $pfile->program()->associate($program);
                                     $pfile->package()->associate($package);
 
-                                    if ($k == 1) throw new Exception('Teste de erro');
-
                                     $pfile->file_name = "$dir_match[0]/$fname";
                                     $pfile->publish_start = $publish_start;
                                     $pfile->publish_end = (new Carbon($publish_start))->addDays($program->publication_days);
