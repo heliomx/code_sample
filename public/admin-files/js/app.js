@@ -6687,6 +6687,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
 
 
 
@@ -6711,7 +6712,9 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             bytesTotal: 0,
             bytesUploaded: 0,
             uploadId: null,
-            uploadPackage: null,
+            uploadPackage: {
+                status: null
+            },
             validationRules: {
                 required: [function (v) {
                     return Object(__WEBPACK_IMPORTED_MODULE_1__lib_ValidationFunctions__["b" /* required */])(v);
@@ -6757,7 +6760,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             this.$http.get('/packages/' + this.uploadId).then(function (r) {
                 console.log(r.data);
                 _this.uploadPackage = r.data.data;
-                if (_this.uploadPackage == null || _this.uploadPackage.status != 'D') {
+                if (!_this.uploadPackage || !_this.uploadPackage['status'] || _this.uploadPackage.status != 'D' && _this.uploadPackage.status != 'E') {
                     setTimeout(function () {
                         return _this.updatePackageStatus();
                     }, 3000);
@@ -29940,7 +29943,15 @@ var render = function() {
                     "v-flex",
                     { attrs: { xs12: "" } },
                     [
-                      _c("h3", [_vm._v("Seu pacote foi enviado com sucesso")]),
+                      _vm.uploadPackage.status == "D"
+                        ? _c("h3", [
+                            _vm._v("Seu pacote foi enviado com sucesso")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.uploadPackage.status == "E"
+                        ? _c("h3", [_vm._v("O envio falhou")])
+                        : _vm._e(),
                       _vm._v(" "),
                       !_vm.uploadPackage
                         ? _c("p", [
@@ -29978,7 +29989,9 @@ var render = function() {
                           ])
                         : _vm._e(),
                       _vm._v(" "),
-                      !_vm.uploadPackage || _vm.uploadPackage.status != "D"
+                      !_vm.uploadPackage ||
+                      (_vm.uploadPackage.status != "D" &&
+                        !_vm.uploadPackage.status != "E")
                         ? _c("v-progress-circular", {
                             attrs: { indeterminate: "", color: "teal" }
                           })
@@ -29986,7 +29999,8 @@ var render = function() {
                       _vm._v(" "),
                       _vm.uploadPackage
                         ? _c("span", [
-                            _vm.uploadPackage.status == "D"
+                            _vm.uploadPackage.status == "D" ||
+                            _vm.uploadPackage.status == "E"
                               ? _c("div", { staticClass: "result" }, [
                                   _vm._v(
                                     "\n                        Arquivo enviado: "

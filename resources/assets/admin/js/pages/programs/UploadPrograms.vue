@@ -63,7 +63,8 @@
                     </v-flex>
                     
                     <v-flex xs12 v-if="sent">
-                        <h3>Seu pacote foi enviado com sucesso</h3>
+                        <h3 v-if="uploadPackage.status == 'D'">Seu pacote foi enviado com sucesso</h3>
+                        <h3 v-if="uploadPackage.status == 'E'">O envio falhou</h3>
                         <p v-if="!uploadPackage">O pacote já está sendo processado...</p>
                         <div v-if="uploadPackage">
                             <p v-if="uploadPackage.status == 'U'">Descompactando arquivos. Essa operação pode levar alguns minutos...</p>
@@ -74,13 +75,13 @@
                             </p>
                             <p v-if="uploadPackage.status == 'D'">Processamento concluído.</p>
                         </div>
-                        <v-progress-circular v-if="!uploadPackage || uploadPackage.status != 'D'" 
+                        <v-progress-circular v-if="!uploadPackage || (uploadPackage.status != 'D' && !uploadPackage.status != 'E')" 
                             indeterminate 
                             color="teal">
                         </v-progress-circular>
 
                         <span v-if="uploadPackage">
-                            <div class="result" v-if="uploadPackage.status == 'D'">
+                            <div class="result" v-if="uploadPackage.status == 'D' || uploadPackage.status == 'E'">
                                 Arquivo enviado: <strong>{{ uploadPackage.upload.filename }}</strong><br>
                                 Tamanho do pacote: <strong>{{ uploadPackage.upload.size | filesize(2) }}</strong><br>
                                 Data de publicação: <strong>{{ uploadPackage.upload.metadata.publish_on }}</strong><br>
@@ -132,7 +133,9 @@ export default {
             bytesTotal: 0,
             bytesUploaded: 0,
             uploadId: null,
-            uploadPackage: null,
+            uploadPackage: {
+                status: null
+            },
             validationRules: {
                 required: [
                     v => required(v),
@@ -172,7 +175,7 @@ export default {
                 .then( r => {
                     console.log(r.data)
                     this.uploadPackage = r.data.data;
-                    if (this.uploadPackage == null || this.uploadPackage.status != 'D')
+                    if (!this.uploadPackage || !this.uploadPackage['status'] || (this.uploadPackage.status != 'D' && this.uploadPackage.status != 'E'))
                     {
                         setTimeout( () => this.updatePackageStatus(), 3000 );
                     }
