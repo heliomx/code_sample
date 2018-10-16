@@ -29,7 +29,12 @@
 							</v-flex>
 							<v-flex xs4>
 								<v-subheader>Imagem</v-subheader>
+								<div>
+								<small v-if="!isSeeAlso">1000 x 670 pixels (72dpi)</small>
+								<small v-if="isSeeAlso">800 x 500 pixels (72dpi)</small>
+								</div>
 							</v-flex>
+							
 							<v-flex xs8>
 								 <picture-input
 									ref="slidePictureInput"

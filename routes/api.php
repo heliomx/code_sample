@@ -44,7 +44,6 @@ Route::group(['middleware' => 'jwt.auth'], function(){
   Route::get('clients/{id}/download-history', 'Api\ClientController@downloadHistory');
   Route::patch('clients/{id}', 'Api\ClientController@update');
   Route::delete('clients/{id}', 'Api\ClientController@destroy');
-  Route::post('clients/checkEmail', 'Api\ClientController@checkEmail');
 
   // Programs
   Route::delete('programs/{id}', 'Api\ProgramController@destroy');
@@ -89,6 +88,7 @@ Route::post('userByToken', 'AuthController@userByToken');
 
 // Clients
 Route::post('clients', 'Api\ClientController@store');
+Route::post('clients/checkEmail', 'Api\ClientController@checkEmail');
 
 // Programs
 Route::get('programs', 'Api\ProgramController@index');

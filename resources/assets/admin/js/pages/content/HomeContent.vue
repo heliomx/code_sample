@@ -169,8 +169,6 @@
 				</v-btn>
 			</div>
 
-			<slide-editor ref='slideEditor'></slide-editor>
-
 		</section>
 
 		<div class="page-actions">
@@ -306,7 +304,9 @@ export default {
 		{
 			this.$refs.slideEditor.edit(slide, newSeeAlso => {
 				this.$set(this.content.seeAlso, this.content.seeAlso.indexOf(slide), newSeeAlso);
-			});
+			},
+			null,
+			true);
 		},
 		addNewSeeAlso()
 		{

@@ -3162,6 +3162,9 @@ module.exports = {
 //
 //
 //
+//
+//
+//
 
 
 
@@ -9719,6 +9722,9 @@ var render = function() {
                             perPage: 1,
                             paginationEnabled: false,
                             navigationEnabled: true,
+                            autoplay: true,
+                            autoplayHoverPause: true,
+                            autoplayTimeout: 4000,
                             navigationNextLabel: "&#10217;",
                             navigationPrevLabel: "&#10216;"
                           }

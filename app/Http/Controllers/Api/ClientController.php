@@ -108,7 +108,7 @@ class ClientController extends Controller
             ]);
 
             $programs = $request->input('programs');
-           
+            throw new Exception('Test');
             $client->programs()->attach($request->input('programs'));
             DB::commit();
             $r = new ClientResource(Client::with('user', 'programs')->find($client->id));

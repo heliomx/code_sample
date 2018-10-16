@@ -5570,8 +5570,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-//
-//
 
 
 
@@ -5693,7 +5691,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 			this.$refs.slideEditor.edit(slide, function (newSeeAlso) {
 				_this7.$set(_this7.content.seeAlso, _this7.content.seeAlso.indexOf(slide), newSeeAlso);
-			});
+			}, null, true);
 		},
 		addNewSeeAlso: function addNewSeeAlso() {
 			var _this8 = this;
@@ -5810,6 +5808,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_picture_input__ = __webpack_require__("./node_modules/vue-picture-input/PictureInput.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_ValidationFunctions__ = __webpack_require__("./resources/assets/admin/js/lib/ValidationFunctions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_FormData__ = __webpack_require__("./resources/assets/admin/js/lib/FormData.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7531,7 +7534,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -28724,7 +28727,23 @@ var render = function() {
                               _c(
                                 "v-flex",
                                 { attrs: { xs4: "" } },
-                                [_c("v-subheader", [_vm._v("Imagem")])],
+                                [
+                                  _c("v-subheader", [_vm._v("Imagem")]),
+                                  _vm._v(" "),
+                                  _c("div", [
+                                    !_vm.isSeeAlso
+                                      ? _c("small", [
+                                          _vm._v("1000 x 670 pixels (72dpi)")
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.isSeeAlso
+                                      ? _c("small", [
+                                          _vm._v("800 x 500 pixels (72dpi)")
+                                        ])
+                                      : _vm._e()
+                                  ])
+                                ],
                                 1
                               ),
                               _vm._v(" "),
@@ -31690,9 +31709,7 @@ var render = function() {
                         )
                       ],
                       1
-                    ),
-                    _vm._v(" "),
-                    _c("slide-editor", { ref: "slideEditor" })
+                    )
                   ],
                   1
                 ),
