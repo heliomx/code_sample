@@ -193,7 +193,8 @@ export default {
                 ],
                 email: [
                     v => required(v),
-                    v => email(v)
+                    v => email(v),
+                    v => this.emailErrors.length == 0 || this.emailErrors[0] 
                 ]
             },
             form: this.blankForm(),
@@ -217,8 +218,10 @@ export default {
                         this.emailErrors = [
                             'Este email já está cadastrado no sistema. Utilize outro.'
                         ]
+                        this.$refs.form.validate();
                     } else {
                         this.emailErrors = [];
+                        this.$refs.form.validate();
                     }
                     
                 })

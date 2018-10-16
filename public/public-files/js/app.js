@@ -3502,6 +3502,8 @@ module.exports = {
                     return Object(__WEBPACK_IMPORTED_MODULE_0__admin_js_lib_ValidationFunctions__["b" /* required */])(v);
                 }, function (v) {
                     return Object(__WEBPACK_IMPORTED_MODULE_0__admin_js_lib_ValidationFunctions__["a" /* email */])(v);
+                }, function (v) {
+                    return _this.emailErrors.length == 0 || _this.emailErrors[0];
                 }]
             },
             form: this.blankForm(),
@@ -3521,8 +3523,10 @@ module.exports = {
             this.$http.post('clients/checkEmail', { email: this.form.user.email }).then(function (r) {
                 if (r.data.used) {
                     _this2.emailErrors = ['Este email já está cadastrado no sistema. Utilize outro.'];
+                    _this2.$refs.form.validate();
                 } else {
                     _this2.emailErrors = [];
+                    _this2.$refs.form.validate();
                 }
             });
         },
