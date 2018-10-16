@@ -17,7 +17,7 @@ class ProgramPublication {
 
     private static function unpublish()
     {
-        $now = $self->now();
+        $now = self::now();
         
         $programFiles = ProgramFile::whereStatus( ProgramFile::STATUS_PUBLISHED )
             ->where('publish_end', '<', $now )
@@ -37,7 +37,7 @@ class ProgramPublication {
 
     private static function publish()
     {
-        $now = $self->now();
+        $now = self::now();
         
         ProgramFile::whereStatus( ProgramFile::STATUS_WAITING )
             ->where('publish_start', '<=', $now )
