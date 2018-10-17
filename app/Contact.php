@@ -8,6 +8,7 @@ class Contact extends Model
 {
     const STATUS_NEW = 'N';
     const STATUS_RESOLVED = 'R';
+    const STATUS_WAITING = 'W';
 
     protected $fillable = [
         'updated_at', 'created_at', 'name', 'subject',  'message', 'email', 'status', 'annotations'

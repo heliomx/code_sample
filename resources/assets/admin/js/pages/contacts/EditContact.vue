@@ -66,6 +66,10 @@ export default {
                     value: 'N'
                 },
                 {
+                    text: 'Aguardando',
+                    value: 'W'
+                },
+                {
                     text: 'Resolvido',
                     value: 'R'
                 }

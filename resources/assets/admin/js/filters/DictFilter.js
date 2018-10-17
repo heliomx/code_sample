@@ -26,6 +26,7 @@ function dictionary(lang) {
 
         ContactStatus: {
             N: 'Novo',
+            W: 'Aguardando',
             R: 'Resolvido'
         }
     }

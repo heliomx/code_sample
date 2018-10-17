@@ -61,4 +61,17 @@ class ContactController extends Controller
 
         return response()->json(['data'=> $ct]);
     }
+
+    public function destroy(Request $request    )
+    {
+        $selection = $request->input('selection');
+        $r = [ 'success' => false ];
+        if ($selection == Contact::STATUS_RESOLVED)
+        {
+            Contact::whereStatus(Contact::STATUS_RESOLVED)->delete();
+            $r['success'] = true;
+        }
+
+        return response()->json($r);
+    }
 }

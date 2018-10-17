@@ -1,33 +1,45 @@
 <template>
-<transition name="fade" mode="out-in">
-  <v-container v-if="!$global.loading" fluid >
-    
-    <h1 class="headline">Lista de solicitações</h1>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :rows-per-page-text="'Itens por página:'"
-      hide-actions
-      class="elevation-1"
+<div class="layout">
+  <v-snackbar
+      v-model="snackbar"
+      :top="true"
+      :timeout="5000"
     >
-      <template slot="items" slot-scope="props">
-        <td :class="{newItem: props.item.status == 'N'}">
-          <router-link 
-          :to="{ name: 'editContact', params: { id: props.item.id }}">
-            {{ props.item.name }}
-          </router-link>
-        </td>
-        <td :class="{newItem: props.item.status == 'N'}">{{ props.item.email }}</td>
-        <td :class="{newItem: props.item.status == 'N'}">{{ props.item.subject }}</td>
-        <td :class="{newItem: props.item.status == 'N'}">{{ props.item.status | dict('ContactStatus') }}</td>
-        <td :class="{newItem: props.item.status == 'N'}">
-          {{ props.item.created_at | dateFormat }}<br>
-          {{ props.item.created_at | dateFormat('HH:mm') }}
+      {{ opMsg }}
+    </v-snackbar>
+
+  <transition name="fade" mode="out-in">
+    <v-container v-if="!$global.loading" fluid >
+      
+      <h1 class="headline">Lista de solicitações</h1>
+      
+      <div style="text-align: right"><v-btn @click="removeResolved" flat>Apagar todos os itens resolvidos <v-icon>delete</v-icon></v-btn></div>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :rows-per-page-text="'Itens por página:'"
+        hide-actions
+        class="elevation-1"
+      >
+        <template slot="items" slot-scope="props">
+          <td :class="{newItem: props.item.status == 'N'}">
+            <router-link 
+            :to="{ name: 'editContact', params: { id: props.item.id }}">
+              {{ props.item.name }}
+            </router-link>
           </td>
-      </template>
-    </v-data-table>
-  </v-container>
-</transition>
+          <td :class="{newItem: props.item.status == 'N'}">{{ props.item.email }}</td>
+          <td :class="{newItem: props.item.status == 'N'}">{{ props.item.subject }}</td>
+          <td :class="{newItem: props.item.status == 'N'}">{{ props.item.status | dict('ContactStatus') }}</td>
+          <td :class="{newItem: props.item.status == 'N'}">
+            {{ props.item.created_at | dateFormat }}<br>
+            {{ props.item.created_at | dateFormat('HH:mm') }}
+            </td>
+        </template>
+      </v-data-table>
+    </v-container>
+  </transition>
+</div>
 </template>
 
 <script>
@@ -41,6 +53,8 @@ export default {
     },
     data() {
         return {
+            snackbar: false,
+            opMsg: '',
             headers: [
                 {
                   text: 'Nome',
@@ -87,6 +101,25 @@ export default {
           this.$global.loading = false;
           this.items = r.data.data;
         });
+      },
+
+      removeResolved()
+      {
+        this.$global.loading = true;
+        this.$http.post('contacts/remove', { selection: 'R'})
+          .then( r => {
+            if (r.data.success)
+            {
+              this.$global.loading = false;
+              this.opMsg = 'Itens apagados com sucesso'
+              this.snackbar = true;
+              this.fetchData();
+            } else {
+              this.$global.loading = false;
+              this.opMsg = 'Ocorreu um erro. Tente novamente.'
+              this.snackbar = true;
+            }
+          })
       }
     }
 };

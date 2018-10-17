@@ -5229,6 +5229,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 text: 'Novo',
                 value: 'N'
             }, {
+                text: 'Aguardando',
+                value: 'W'
+            }, {
                 text: 'Resolvido',
                 value: 'R'
             }],
@@ -5320,6 +5323,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5331,6 +5346,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   },
   data: function data() {
     return {
+      snackbar: false,
+      opMsg: '',
       headers: [{
         text: 'Nome',
         sortable: false,
@@ -5368,6 +5385,23 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       this.$http.get('contacts').then(function (r) {
         _this.$global.loading = false;
         _this.items = r.data.data;
+      });
+    },
+    removeResolved: function removeResolved() {
+      var _this2 = this;
+
+      this.$global.loading = true;
+      this.$http.post('contacts/remove', { selection: 'R' }).then(function (r) {
+        if (r.data.success) {
+          _this2.$global.loading = false;
+          _this2.opMsg = 'Itens apagados com sucesso';
+          _this2.snackbar = true;
+          _this2.fetchData();
+        } else {
+          _this2.$global.loading = false;
+          _this2.opMsg = 'Ocorreu um erro. Tente novamente.';
+          _this2.snackbar = true;
+        }
       });
     }
   }
@@ -30346,116 +30380,160 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "transition",
-    { attrs: { name: "fade", mode: "out-in" } },
+    "div",
+    { staticClass: "layout" },
     [
-      !_vm.$global.loading
-        ? _c(
-            "v-container",
-            { attrs: { fluid: "" } },
-            [
-              _c("h1", { staticClass: "headline" }, [
-                _vm._v("Lista de solicitações")
-              ]),
-              _vm._v(" "),
-              _c("v-data-table", {
-                staticClass: "elevation-1",
-                attrs: {
-                  headers: _vm.headers,
-                  items: _vm.items,
-                  "rows-per-page-text": "Itens por página:",
-                  "hide-actions": ""
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "items",
-                    fn: function(props) {
-                      return [
-                        _c(
-                          "td",
-                          { class: { newItem: props.item.status == "N" } },
-                          [
+      _c(
+        "v-snackbar",
+        {
+          attrs: { top: true, timeout: 5000 },
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
+        },
+        [_vm._v("\n      " + _vm._s(_vm.opMsg) + "\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "fade", mode: "out-in" } },
+        [
+          !_vm.$global.loading
+            ? _c(
+                "v-container",
+                { attrs: { fluid: "" } },
+                [
+                  _c("h1", { staticClass: "headline" }, [
+                    _vm._v("Lista de solicitações")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticStyle: { "text-align": "right" } },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { flat: "" },
+                          on: { click: _vm.removeResolved }
+                        },
+                        [
+                          _vm._v("Apagar todos os itens resolvidos "),
+                          _c("v-icon", [_vm._v("delete")])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-data-table", {
+                    staticClass: "elevation-1",
+                    attrs: {
+                      headers: _vm.headers,
+                      items: _vm.items,
+                      "rows-per-page-text": "Itens por página:",
+                      "hide-actions": ""
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "items",
+                        fn: function(props) {
+                          return [
                             _c(
-                              "router-link",
-                              {
-                                attrs: {
-                                  to: {
-                                    name: "editContact",
-                                    params: { id: props.item.id }
-                                  }
-                                }
-                              },
+                              "td",
+                              { class: { newItem: props.item.status == "N" } },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    attrs: {
+                                      to: {
+                                        name: "editContact",
+                                        params: { id: props.item.id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n              " +
+                                        _vm._s(props.item.name) +
+                                        "\n            "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { class: { newItem: props.item.status == "N" } },
+                              [_vm._v(_vm._s(props.item.email))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { class: { newItem: props.item.status == "N" } },
+                              [_vm._v(_vm._s(props.item.subject))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { class: { newItem: props.item.status == "N" } },
+                              [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("dict")(
+                                      props.item.status,
+                                      "ContactStatus"
+                                    )
+                                  )
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { class: { newItem: props.item.status == "N" } },
                               [
                                 _vm._v(
                                   "\n            " +
-                                    _vm._s(props.item.name) +
-                                    "\n          "
+                                    _vm._s(
+                                      _vm._f("dateFormat")(
+                                        props.item.created_at
+                                      )
+                                    )
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n            " +
+                                    _vm._s(
+                                      _vm._f("dateFormat")(
+                                        props.item.created_at,
+                                        "HH:mm"
+                                      )
+                                    ) +
+                                    "\n            "
                                 )
                               ]
                             )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { class: { newItem: props.item.status == "N" } },
-                          [_vm._v(_vm._s(props.item.email))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { class: { newItem: props.item.status == "N" } },
-                          [_vm._v(_vm._s(props.item.subject))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { class: { newItem: props.item.status == "N" } },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                _vm._f("dict")(
-                                  props.item.status,
-                                  "ContactStatus"
-                                )
-                              )
-                            )
                           ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { class: { newItem: props.item.status == "N" } },
-                          [
-                            _vm._v(
-                              "\n          " +
-                                _vm._s(
-                                  _vm._f("dateFormat")(props.item.created_at)
-                                )
-                            ),
-                            _c("br"),
-                            _vm._v(
-                              "\n          " +
-                                _vm._s(
-                                  _vm._f("dateFormat")(
-                                    props.item.created_at,
-                                    "HH:mm"
-                                  )
-                                ) +
-                                "\n          "
-                            )
-                          ]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          )
-        : _vm._e()
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
     ],
     1
   )
@@ -68974,6 +69052,7 @@ function dictionary(lang) {
 
         ContactStatus: {
             N: 'Novo',
+            W: 'Aguardando',
             R: 'Resolvido'
         }
     };
