@@ -11,6 +11,7 @@ use App\Http\Resources\Client as ClientResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class ClientController extends Controller
 {
@@ -108,7 +109,7 @@ class ClientController extends Controller
             ]);
 
             $programs = $request->input('programs');
-            throw new Exception('Test');
+            
             $client->programs()->attach($request->input('programs'));
             DB::commit();
             $r = new ClientResource(Client::with('user', 'programs')->find($client->id));
