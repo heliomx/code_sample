@@ -5697,7 +5697,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 			this.$refs.slideEditor.edit(newSlide, function (slide) {
 				_this4.content.slides.push(slide);
-			}, null, true);
+			}, null, false);
 		},
 		deleteSlide: function deleteSlide(slide) {
 			this.content.slides.splice(this.content.slides.indexOf(slide), 1);
@@ -5724,7 +5724,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			var _this7 = this;
 
 			this.$refs.slideEditor.edit(slide, function (newSeeAlso) {
-				_this7.$set(_this7.content.seeAlso, _this7.content.seeAlso.indexOf(slide), newSeeAlso);
+				_this7.$set(_this7.content.seeAlso.slides, _this7.content.seeAlso.slides.indexOf(slide), newSeeAlso);
 			}, null, true);
 		},
 		addNewSeeAlso: function addNewSeeAlso() {
@@ -5738,11 +5738,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			};
 
 			this.$refs.slideEditor.edit(newSeeAlso, function (slide) {
-				_this8.content.seeAlso.push(slide);
+				_this8.content.seeAlso.slides.push(slide);
 			}, null, true);
 		},
 		deleteSeeAlso: function deleteSeeAlso(slide) {
-			this.content.seeAlso.splice(this.content.seeAlso.indexOf(slide), 1);
+			this.content.seeAlso.slides.splice(this.content.seeAlso.slides.indexOf(slide), 1);
 		}
 	}
 });
@@ -5842,6 +5842,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_picture_input__ = __webpack_require__("./node_modules/vue-picture-input/PictureInput.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_ValidationFunctions__ = __webpack_require__("./resources/assets/admin/js/lib/ValidationFunctions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_FormData__ = __webpack_require__("./resources/assets/admin/js/lib/FormData.js");
+//
+//
+//
 //
 //
 //
@@ -7571,7 +7574,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -28654,7 +28657,14 @@ var render = function() {
                 "v-card",
                 [
                   _c("v-card-title", { staticClass: "headline" }, [
-                    _vm._v("Editar Destaque")
+                    _vm._v("Editar \n\t\t\t\t\t"),
+                    !_vm.isSeeAlso
+                      ? _c("span", [_vm._v("Destaque")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.isSeeAlso
+                      ? _c("span", [_vm._v("Conheça também")])
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
                   _c(

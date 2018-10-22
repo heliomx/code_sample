@@ -277,7 +277,7 @@ export default {
 					this.content.slides.push(slide)
 				},
 				null,
-				true
+				false
 			);
 		},
 		deleteSlide(slide){
@@ -303,7 +303,7 @@ export default {
 		editSeeAlso( slide )
 		{
 			this.$refs.slideEditor.edit(slide, newSeeAlso => {
-				this.$set(this.content.seeAlso, this.content.seeAlso.indexOf(slide), newSeeAlso);
+				this.$set(this.content.seeAlso.slides, this.content.seeAlso.slides.indexOf(slide), newSeeAlso);
 			},
 			null,
 			true);
@@ -320,14 +320,14 @@ export default {
 			
 			this.$refs.slideEditor.edit(newSeeAlso, 
 				(slide) => {
-					this.content.seeAlso.push(slide)
+					this.content.seeAlso.slides.push(slide)
 				},
 				null,
 				true
 			);
 		},
 		deleteSeeAlso(slide){
-			this.content.seeAlso.splice(this.content.seeAlso.indexOf(slide), 1);
+			this.content.seeAlso.slides.splice(this.content.seeAlso.slides.indexOf(slide), 1);
 		},
 	}
 };

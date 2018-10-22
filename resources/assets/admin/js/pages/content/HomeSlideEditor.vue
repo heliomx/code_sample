@@ -2,7 +2,10 @@
     <v-layout row justify-center>
         <v-dialog v-if="editedSlide" v-model="visible" persistent max-width="60%">
             <v-card>
-                <v-card-title class="headline">Editar Destaque</v-card-title>
+                <v-card-title class="headline">Editar&nbsp;
+					<span v-if="!isSeeAlso">Destaque</span>
+					<span v-if="isSeeAlso">Conheça também</span>
+					</v-card-title>
                 <v-card-text>
 					<v-container fluid grid-list-lg="true">
 						<v-layout row wrap>
