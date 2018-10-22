@@ -28780,7 +28780,7 @@ var render = function() {
                                   _c("div", [
                                     !_vm.isSeeAlso
                                       ? _c("small", [
-                                          _vm._v("1000 x 670 pixels (72dpi)")
+                                          _vm._v("1000 x 400 pixels (72dpi)")
                                         ])
                                       : _vm._e(),
                                     _vm._v(" "),
