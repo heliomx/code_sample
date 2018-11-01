@@ -11,6 +11,6 @@
     <div>
         <div id="app"></div>
     </div>
-    <script src="/public-files/js/app.js"></script>
+    <script src="/public-files/js/app.js?v=1"></script>
 </body>
 </html>
