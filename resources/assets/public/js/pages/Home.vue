@@ -83,6 +83,8 @@
                         :paginationEnabled="false" 
                         :autoplay="true"
                         :loop="true"
+                        :autoplayHoverPause="true"
+                        :autoplayTimeout="4000"
                         :navigationEnabled="true" 
                         navigationNextLabel="&#10217;" 
                         navigationPrevLabel="&#10216;"
